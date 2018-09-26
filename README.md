@@ -1,11 +1,11 @@
 
 
-![Logo of the project](https://kit8.net/images/thumbnails/700/525/detailed/1/Graph.png)
+![Logo of the project](https://kit8.net/images/thumbnails/700/525/detailed/1/Graph.png =280x210)
 
-# Delivery &middot; [![Build Status](https://img.shields.io/travis/npm/npm/latest.svg?style=flat-square)](https://travis-ci.org/npm/npm) [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/npm) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
-> Delivery service for restaurant project
+# Statistics &middot; [![Build Status](https://img.shields.io/travis/npm/npm/latest.svg?style=flat-square)](https://travis-ci.org/npm/npm) [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/npm) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
+> Statistics service for restaurant project
 
-Delivery service that will provide APIs for obtaining info regarding available delivery options and ETAs.
+Statistics service that will store and serve statisitcs for the restaurant business.
 
 ## Installing / Getting started ##TODO
 
@@ -22,6 +22,7 @@ Here you should say what actually happens when you execute the code above.
 
 ### Built With
 Python/Flask
+MySQL
 
 ### Prerequisites
 [Docker](https://www.docker.com/get-started)
