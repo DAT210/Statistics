@@ -351,8 +351,6 @@ CREATE TABLE orders(
     delivery VARCHAR(32) DEFAULT NULL,
     price INT(9), DEFAULT NULL,
     PRIMARY KEY(order_id),
-    KEY `order_id` (`order_id`),
-    KEY `customer_id` (`customer_id`),
-    CONSTRAINT `Orders_Cust_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-    CONSTRAINT `Orders_Cust_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
+    FOREIGN KEY (`dish_id`) REFERENCES `dish` (`dish_id`),
+    FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
     )ENGINE=InnoDB;     
