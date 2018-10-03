@@ -1,0 +1,72 @@
+<!--
+ * CoreUI - Open Source Bootstrap Admin Template
+ * @version v1.0.1
+ * @link http://coreui.io
+ * Copyright (c) 2017 creativeLabs Łukasz Holeczek
+ * @license MIT
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Pato restaurant - Statistics">
+  <meta name="keyword" content="Bootstrap,Statistics,Open,Source,jQuery,CSS,HTML">
+  <link rel="shortcut icon" href="static/img/favicon.png">
+  <title>Statistics - {% block title %}{% endblock %}</title>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+  <!-- Main styles for this application -->
+  <link href="static/css/style.css" rel="stylesheet">
+  
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+</head>
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+    <header class="app-header navbar">
+        <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">☰</button>
+        <a class="navbar-brand" href="#"></a>
+        <h4 class="px-3 nav-item">Statistics</h4> <!-- Padding left and right sides 1em (i.e. 16px for most browsers) -->
+        <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">☰</button>
+    </header>
+    <div class="app-body">
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for("dashboard") }}"><i class="fas fa-tachometer-alt"></i> Dashboard </a>
+                        <a class="nav-link" href={{ url_for("charts") }}><i class="fas fa-chart-bar"></i> Charts </a>
+                        <a class="nav-link" href={{ url_for("tables") }}><i class="fas fa-table"></i> Tables </a>
+                    </li>
+                </ul>
+            </nav>
+            <!--<button class="sidebar-minimizer brand-minimizer" type="button"></button>-->
+        </div>
+        
+        <!-- Main content -->
+        <main class="main">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+        
+    <footer class="app-footer">
+        <span class="ml-auto"><a href="#">Pato restaurant</a> © 2018</span>
+    </footer>
+        
+    <!-- Bootstrap and necessary plugins -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+        
+    <!-- Main scripts -->
+    <script src="static/js/app.js"></script>  
+    
+    <!-- Custom scripts-->
+    {% block customscripts %}{% endblock %}
+        
+</body>
+</html>
