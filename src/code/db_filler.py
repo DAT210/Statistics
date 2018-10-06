@@ -1,5 +1,6 @@
 import random
 import mysql.connector
+import subprocess
 
 import faker.providers
 from faker import Factory
@@ -36,7 +37,7 @@ TABLES['dish'] = (
 TABLES['orders'] = (
     "CREATE TABLE IF NOT EXISTS `orders`("
         "`order_id` INT(9) AUTO_INCREMENT,"
-        "`time_stamp` DATETIME,"
+        "`time_stamp` TIME,"
         "`order_type` VARCHAR(20),"
         "`customer_id` INT(9),"
         "`dish_id` INT(9),"
@@ -105,6 +106,33 @@ def create_tables():
         cur.execute(table_description)
     cur.close()
 
+def insert_customers(customer_list):
+    for c in customer_list:
+        cur = db_conn.cursor()        
+        sql = ("INSERT INTO customer(f_name, s_name, phone, birthdate, c_address) VALUES(%s, %s, %s, %s, %s)")
+        cur.execute(sql, (c['first_name'], c['last_name'], c['phone'], c['date'], c['address']))
+        db_conn.commit()
+        cur.close()
+    print("Customers inserted into database")
+
+def insert_dishes(dishes_list):
+    for d in dishes_list:
+        cur = db_conn.cursor()        
+        sql = ("INSERT INTO dish(dish_name, price) VALUES(%s, %s)")
+        cur.execute(sql, (d['dish_name'], d['price']))
+        db_conn.commit()
+        cur.close()
+    print("Dishes inserted into database")
+
+def insert_orders(orders_list):
+    for o in orders_list:
+        cur = db_conn.cursor()
+        sql = ("INSERT INTO orders(time_stamp, order_type, customer_id, dish_id, delivery, price) VALUES(%s, %s, %s, %s, %s, %s)")
+        cur.execute(sql, (o['time_stamp'], o['order_type'], o['customer_id'], o['dish_id'], o['delivery'], o['price']))
+        db_conn.commit()
+        cur.close()
+    print("Orders inserted into database")
+
 def main():
     fake = Factory.create()
     customer_list = customer(50, fake)
@@ -112,11 +140,12 @@ def main():
     orders_list = orders(250, fake, len(customer_list), len(dishes_list))
 
     create_tables()
-
+    insert_customers(customer_list)
+    insert_dishes(dishes_list)
+    insert_orders(orders_list)
     
+    subprocess.Popen('mysqldump --host=localhost --port=3306 --user=root --password=root statistics > dumb.sql', shell=True)
    
-
-    
 
 if __name__ == '__main__':
     main()
