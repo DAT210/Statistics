@@ -27,7 +27,7 @@ TABLES['customer'] = (
 )
 TABLES['dish'] = (
     "CREATE TABLE IF NOT EXISTS `dish` ("
-        "`dish_id` int(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,"
+        "`dish_id` int(9) NOT NULL AUTO_INCREMENT,"
         "`dish_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,"
         "`price` int(9) DEFAULT NULL,"
         "PRIMARY KEY (`dish_id`)"
@@ -41,10 +41,10 @@ TABLES['orders'] = (
         "`customer_id` INT(9),"
         "`dish_id` INT(9),"
         "`delivery` VARCHAR(32) DEFAULT NULL,"
-        "`price` INT(9), DEFAULT NULL,"
-        "PRIMARY KEY(`order_id`),"
-        "FOREIGN KEY (`dish_id`) REFERENCES `dish` (`dish_id`),"
-        "FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)"
+        "`price` INT(9) DEFAULT NULL,"
+        "PRIMARY KEY (`order_id`),"
+        "CONSTRAINT `dish_id_ibfk1` FOREIGN KEY (`dish_id`) REFERENCES `dish` (`dish_id`),"
+        "CONSTRAINT `customer_id_ibfk2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)"
         ") ENGINE=InnoDB"
 )
 
@@ -101,10 +101,9 @@ def create_tables():
     cur = db_conn.cursor()
     for table_name in TABLES:
         table_description = TABLES[table_name]
-        print("Creating table {}: ".format(table_name), end='')
+        print("Creating table {}\n ".format(table_name), end='')
         cur.execute(table_description)
     cur.close()
-    db_conn.close()
 
 def main():
     fake = Factory.create()
