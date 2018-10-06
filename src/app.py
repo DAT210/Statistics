@@ -1,6 +1,6 @@
 """
 DAT210
-Statistikk API med python/flask
+Statistics: Python/flask app
 
 """
 
@@ -8,6 +8,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, g
 import mysql.connector
 
 app = Flask(__name__)
+app.debug = True  # only for development!
 
 # Application config
 app.config["DATABASE_USER"] = "root"
@@ -18,8 +19,7 @@ app.config["DATABASE_HOST"] = "localhost"
 app.secret_key = "secret_key"
 
 
-
-# Henter statistikk-databasen
+# Get connection to db
 def get_db():
     if not hasattr(g, "_database"):
         g._database = mysql.connector.connect(host=app.config["DATABASE_HOST"], user=app.config["DATABASE_USER"],
@@ -27,7 +27,7 @@ def get_db():
                                               database=app.config["DATABASE_DB"])
     return g._database
 
-# Lukker databasen
+# Close db connection
 @app.teardown_appcontext
 def teardown_db(error):
     db = getattr(g, "_database", None)
@@ -35,38 +35,29 @@ def teardown_db(error):
         db.close()
 
 
+# Routes for front end client
+@app.route("/statistics/")
+def index():
+    return render_template("index.html")
 
-
-# Rute til dashboard
-@app.route("/statistics/dashboard/")
-def dashboard():
-    return render_template("dashboard.html")
-
-# Rute til charts
 @app.route("/statistics/charts/")
 def charts():
    return render_template("charts.html")
 
-# Rute til tables
 @app.route("/statistics/tables/")
 def tables():
     return render_template("tables.html")
 
-
-
-
-# Rute til bestillingsordrene
+# API routes
 @app.route("/statistics/orders/")
 def orders():
     return "/statistics/orders/"
 
-# Rute til spesifikk bestillingsorder med order_id
 @app.route("/statistics/orders/<int:order_id>/")
 def show_order(order_id):
     order = get_order(order_id)
     return str(order)
 
-# Funksjon for å hente spesifikk ordre fra databasen og returnere detaljer
 def get_order(order_id):
 
     db = get_db()
@@ -95,22 +86,17 @@ def get_order(order_id):
         cur.close()
     return order_info
 
-
-
-
-# Rute til kunder/customers
 @app.route("/statistics/customers/")
 def customers():
     return "/statistics/customers/"
 
-# Rute til spesifikk kunde med customer id
+
 @app.route("/statistics/customers/<int:customer_id>/")
 def show_customer(customer_id):
     customer = get_customer(customer_id)
     return render_template("show_customer.html", customer=customer)
     #return str(customer)
 
-# Funksjon for å hente spesifikk kunde fra databasen og returnere detaljer
 def get_customer(customer_id):
     db = get_db()
     cur = db.cursor()
@@ -138,23 +124,16 @@ def get_customer(customer_id):
         cur.close()
     return customer_info
 
-
-
-
-# Rute til retter/dishes
 @app.route("/statistics/dish/")
 def dishes():
     return "/statistics/dish/"
 
-# Rute til spesifikk rett med dish id
 @app.route("/statistics/dish/<int:dish_id>/")
 def show_dishes(dish_id):
     dish = get_dish(dish_id)
     return str(dish)
 
-# Funksjon for å hente spesifikk rett fra databasen og returnere detaljer
 def get_dish(dish_id):
-
     db = get_db()
     cur = db.cursor()
     try:
@@ -177,16 +156,14 @@ def get_dish(dish_id):
         cur.close()
     return dish_info
 
-
-
-
-# Error handler
+# Error handlers 
 @app.errorhandler(404)
-def bad_request404(error):
+def page_not_found(error):
     return render_template("404.html"), 404
 
+@app.errorhandler(500)
+def bad_request505(error):
+    return render_template("500.html"), 500
 
-
-# Kjører app.py
 if __name__ == "__main__":
-    app.run(debug=True) # Fjern debug=True senere
+    app.run()

@@ -110,5 +110,5 @@
 {% block customscripts %}
 <!-- Chart.js -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
-<script src="static/js/charts.js"></script>  
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>  
 {% endblock %}
