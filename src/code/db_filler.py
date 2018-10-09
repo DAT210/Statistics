@@ -5,6 +5,7 @@ import subprocess
 import faker.providers
 from faker import Factory
 
+#Script currently requires a precreated DB to exist.
 DB_NAME = "statistics"
 db_conn = mysql.connector.connect(
         host="localhost",
@@ -56,15 +57,16 @@ def create_fake_customer(id, fake):
         "last_name": fake.last_name(),
         "phone": fake.numerify("########"),
         "date": fake.date(),
+        "email": fake.email(),
         "address": fake.address()
     }]
 
-def customer(int, fake):
-    customers = []
-    for i in range(int):
+def customer(count, fake):
+    customer_list = []
+    for i in range(count):
         customer = create_fake_customer(i, fake)
-        customers += customer
-    return customers
+        customer_list += customer
+    return customer_list
 
 
 def create_dishes(fake):
@@ -91,9 +93,9 @@ def create_fake_order(id, fake, customer_count, dish_count):
         "price": random.randint(50, 999)
     }]
 
-def orders(int, fake, customer_count, dish_count):
+def orders(count, fake, customer_count, dish_count):
     orders =  []
-    for i in range(int):
+    for i in range(count):
         order = create_fake_order(i, fake, customer_count, dish_count)
         orders += order
     return orders
@@ -107,28 +109,28 @@ def create_tables():
     cur.close()
 
 def insert_customers(customer_list):
-    for c in customer_list:
+    for customer in customer_list:
         cur = db_conn.cursor()        
-        sql = ("INSERT INTO customer(f_name, s_name, phone, birthdate, c_address) VALUES(%s, %s, %s, %s, %s)")
-        cur.execute(sql, (c['first_name'], c['last_name'], c['phone'], c['date'], c['address']))
+        sql = ("INSERT INTO customer(f_name, s_name, phone, birthdate, email, c_address) VALUES(%s, %s, %s, %s, %s, %s)")
+        cur.execute(sql, (customer['first_name'], customer['last_name'], customer['phone'], customer['date'], customer['email'], customer['address']))
         db_conn.commit()
         cur.close()
     print("Customers inserted into database")
 
 def insert_dishes(dishes_list):
-    for d in dishes_list:
+    for dish in dishes_list:
         cur = db_conn.cursor()        
         sql = ("INSERT INTO dish(dish_name, price) VALUES(%s, %s)")
-        cur.execute(sql, (d['dish_name'], d['price']))
+        cur.execute(sql, (dish['dish_name'], dish['price']))
         db_conn.commit()
         cur.close()
     print("Dishes inserted into database")
 
 def insert_orders(orders_list):
-    for o in orders_list:
+    for order in orders_list:
         cur = db_conn.cursor()
         sql = ("INSERT INTO orders(time_stamp, order_type, customer_id, dish_id, delivery, price) VALUES(%s, %s, %s, %s, %s, %s)")
-        cur.execute(sql, (o['time_stamp'], o['order_type'], o['customer_id'], o['dish_id'], o['delivery'], o['price']))
+        cur.execute(sql, (order['time_stamp'], order['order_type'], order['customer_id'], order['dish_id'], order['delivery'], order['price']))
         db_conn.commit()
         cur.close()
     print("Orders inserted into database")
@@ -144,7 +146,8 @@ def main():
     insert_dishes(dishes_list)
     insert_orders(orders_list)
     
-    subprocess.Popen('mysqldump --host=localhost --port=3306 --user=root --password=root statistics > dumb.sql', shell=True)
+    #Dumps the statistics database to a sql-file. Outsources the subprocess to shellscript. File is dumped to the project root-folder
+    subprocess.Popen('mysqldump --host=localhost --port=3306 --user=root --password=root statistics > dump.sql', shell=True)
    
 
 if __name__ == '__main__':
