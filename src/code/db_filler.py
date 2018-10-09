@@ -39,6 +39,7 @@ TABLES['orders'] = (
     "CREATE TABLE IF NOT EXISTS `orders`("
         "`order_id` INT(9) AUTO_INCREMENT,"
         "`time_stamp` TIME,"
+        "`date` DATE,"
         "`order_type` VARCHAR(20),"
         "`customer_id` INT(9),"
         "`dish_id` INT(9),"
@@ -86,6 +87,7 @@ def create_fake_order(id, fake, customer_count, dish_count):
     return[{
         "id": id + 1,
         "time_stamp": fake.time(),
+        "date": fake.date(),
         "order_type": random.choice(["inhouse", "take-away"]),
         "customer_id": random.randint(1, customer_count),
         "dish_id": random.randint(1, dish_count),
@@ -129,8 +131,8 @@ def insert_dishes(dishes_list):
 def insert_orders(orders_list):
     for order in orders_list:
         cur = db_conn.cursor()
-        sql = ("INSERT INTO orders(time_stamp, order_type, customer_id, dish_id, delivery, price) VALUES(%s, %s, %s, %s, %s, %s)")
-        cur.execute(sql, (order['time_stamp'], order['order_type'], order['customer_id'], order['dish_id'], order['delivery'], order['price']))
+        sql = ("INSERT INTO orders(time_stamp, date, order_type, customer_id, dish_id, delivery, price) VALUES(%s, %s, %s, %s, %s, %s, %s)")
+        cur.execute(sql, (order['time_stamp'], order['date'], order['order_type'], order['customer_id'], order['dish_id'], order['delivery'], order['price']))
         db_conn.commit()
         cur.close()
     print("Orders inserted into database")
