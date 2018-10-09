@@ -162,7 +162,7 @@ def page_not_found(error):
     return render_template("404.html"), 404
 
 @app.errorhandler(500)
-def bad_request505(error):
+def bad_request500(error):
     return render_template("500.html"), 500
 
 if __name__ == "__main__":
