@@ -2,7 +2,7 @@ import random
 import mysql.connector
 import subprocess
 
-import faker.providers
+import faker.providers.date_time
 from faker import Factory
 
 #Script currently requires a precreated DB to exist.
@@ -87,7 +87,7 @@ def create_fake_order(id, fake, customer_count, dish_count):
     return[{
         "id": id + 1,
         "time_stamp": fake.time(),
-        "date": fake.date(),
+        "date": fake.date_between(start_date='-1y', end_date='today'),
         "order_type": random.choice(["inhouse", "take-away"]),
         "customer_id": random.randint(1, customer_count),
         "dish_id": random.randint(1, dish_count),
