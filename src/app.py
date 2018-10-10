@@ -4,15 +4,16 @@ Statistics: Python/flask app
 
 """
 
-from flask import Flask, render_template, request, redirect, url_for, session, g, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, session, g, send_from_directory, jsonify
 import mysql.connector
+
 
 app = Flask(__name__)
 app.debug = True  # only for development!
 
 # Application config
 app.config["DATABASE_USER"] = "root"
-app.config["DATABASE_PASSWORD"] = "V3lkommen"
+app.config["DATABASE_PASSWORD"] = "root"
 app.config["DATABASE_DB"] = "statistics"
 app.config["DATABASE_HOST"] = "localhost"
 
@@ -56,7 +57,7 @@ def orders():
 @app.route("/statistics/orders/<int:order_id>/")
 def show_order(order_id):
     order = get_order(order_id)
-    return str(order)
+    return jsonify(order)
 
 def get_order(order_id):
 
@@ -73,11 +74,12 @@ def get_order(order_id):
             order_info = {
                 "order_id": order[0],
                 "timestamp": order[1],
-                "order_type": order[2],
-                "customer_id": order[3],
-                "dish_id": order[4],
-                "delivery": order[5],
-                "price": order[6]
+                "timestamp": order[2],
+                "order_type": order[3],
+                "customer_id": order[4],
+                "dish_id": order[5],
+                "delivery": order[6],
+                "price": order[7]
             }
 
     except mysql.connector.Error as err:
@@ -94,8 +96,8 @@ def customers():
 @app.route("/statistics/customers/<int:customer_id>/")
 def show_customer(customer_id):
     customer = get_customer(customer_id)
-    return render_template("show_customer.html", customer=customer)
-    #return str(customer)
+    #return render_template("show_customer.html", customer=customer)
+    return jsonify(customer)
 
 def get_customer(customer_id):
     db = get_db()
@@ -131,7 +133,7 @@ def dishes():
 @app.route("/statistics/dish/<int:dish_id>/")
 def show_dishes(dish_id):
     dish = get_dish(dish_id)
-    return str(dish)
+    return jsonify(dish)
 
 def get_dish(dish_id):
     db = get_db()
