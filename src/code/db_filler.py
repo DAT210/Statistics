@@ -59,7 +59,7 @@ def create_fake_customer(id, fake):
         "phone": fake.numerify("########"),
         "date": fake.date(),
         "email": fake.email(),
-        "address": fake.address()
+        "address": fake.address().replace("\n", " ")
     }]
 
 def customer(count, fake):
