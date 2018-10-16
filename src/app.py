@@ -73,7 +73,7 @@ def get_order(order_id):
         else:
             order_info = {
                 "order_id": order[0],
-                "timestamp": order[1],
+                "timestamp": str(order[1]),
                 "date": order[2],
                 "order_type": order[3],
                 "customer_id": order[4],
