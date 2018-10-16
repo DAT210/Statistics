@@ -74,7 +74,7 @@ def get_order(order_id):
             order_info = {
                 "order_id": order[0],
                 "timestamp": order[1],
-                "timestamp": order[2],
+                "date": order[2],
                 "order_type": order[3],
                 "customer_id": order[4],
                 "dish_id": order[5],
