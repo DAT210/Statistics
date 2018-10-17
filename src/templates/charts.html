@@ -11,9 +11,10 @@
     <div class="container-fluid">
       <div class="animated fadeIn">
         <div class="card-columns cols-2">
+          <!-- Chart 1 -->
           <div class="card">
             <div class="card-header">
-              Line Chart
+              Number of orderes per month
               <div class="card-actions">
                 <a href="http://www.chartjs.org">
                   <small class="text-muted">docs</small>
@@ -26,9 +27,10 @@
               </div>
             </div>
           </div>
+          <!-- Chart 2 / End Chart 1 -->
           <div class="card">
             <div class="card-header">
-              Bar Chart
+              Doughnut Chart
               <div class="card-actions">
                 <a href="http://www.chartjs.org">
                   <small class="text-muted">docs</small>
@@ -41,9 +43,10 @@
               </div>
             </div>
           </div>
+          <!-- Chart 3 / End Chart 2 -->
           <div class="card">
             <div class="card-header">
-              Doughnut Chart
+              Number of orders per dish
               <div class="card-actions">
                 <a href="http://www.chartjs.org">
                   <small class="text-muted">docs</small>
@@ -56,6 +59,7 @@
               </div>
             </div>
           </div>
+          <!-- Chart 4 / End Chart 3 -->
           <div class="card">
             <div class="card-header">
               Radar Chart
@@ -71,6 +75,7 @@
               </div>
             </div>
           </div>
+          <!-- 
           <div class="card">
             <div class="card-header">
               Pie Chart
@@ -101,14 +106,18 @@
               </div>
             </div>
           </div>
+          -->
         </div>
       </div>
-
     </div>
-    <!-- /.conainer-fluid -->
+    <!-- /.container-fluid -->
 {% endblock %}
 {% block customscripts %}
 <!-- Chart.js -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
-<script src="{{ url_for('static', filename='js/charts.js') }}"></script>  
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<!-- Sending chart data to js file -->
+<script type="text/javascript">
+  sendData({{ orders_per_month|tojson }}, {{ orders_per_dish|tojson }})
+</script>
 {% endblock %}
