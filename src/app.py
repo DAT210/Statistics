@@ -102,7 +102,7 @@ def get_all_orders():
         for order in cur.fetchall():
             new = {
                 "order_id": order[0],
-                "timestamp": str(order[1]),
+                "time_stamp": str(order[1]),
                 "date": order[2],
                 "order_type": order[3],
                 "customer_id": order[4],
