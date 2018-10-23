@@ -8,10 +8,8 @@ from flask import Flask, render_template, request, redirect, url_for, session, g
 import mysql.connector
 import json
 import collections
-import order_functions
-import dish_functions
-import customer_functions
-import input_functions
+from statistics_functions import order_functions, dish_functions, customer_functions, input_functions
+
 
 app = Flask(__name__)
 app.debug = True  # only for development!
