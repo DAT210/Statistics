@@ -8,9 +8,8 @@ from flask import Flask, render_template, request, redirect, url_for, session, g
 import mysql.connector
 import json
 import collections
-import order_functions
-import dish_functions
-import customer_functions
+from statistics_functions import order_functions, dish_functions, customer_functions, input_functions
+
 
 app = Flask(__name__)
 app.debug = True  # only for development!
@@ -78,6 +77,16 @@ def dishes():
 @app.route("/statistics/dish/<int:dish_id>/")
 def show_dishes(dish_id):
     return jsonify(dish_functions.get_dish(dish_id))
+
+# Input routes
+
+@app.route("/statistics/input", methods=['POST'])
+def input():
+        json_content = request.get_json()
+        if json_content == None:
+                return False 
+        input_functions.input(json_content)
+
 
 # Error handlers 
 @app.errorhandler(404)
