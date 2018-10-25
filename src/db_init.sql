@@ -26,6 +26,14 @@ CREATE TABLE customer(
 	PRIMARY KEY (customer_id),
 	FOREIGN KEY (address_id) REFERENCES address(address_id)
 );
+CREATE TABLE restaurant(
+	restaurant_id integer,
+    restaurant_name varchar(128), 
+    phone integer, 
+    address_id integer, 
+	PRIMARY KEY (restaurant_id),
+	FOREIGN KEY (address_id) REFERENCES address(address_id)
+);
 CREATE TABLE booking(
 	booking_id integer,
     restaurant_id integer, 
@@ -35,15 +43,8 @@ CREATE TABLE booking(
     no_of_seats integer,
     customer_id integer,
 	PRIMARY KEY (booking_id),
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
-);
-CREATE TABLE restaurant(
-	restaurant_id integer,
-    restaurant_name varchar(128), 
-    phone integer, 
-    address_id integer, 
-	PRIMARY KEY (restaurant_id),
-	FOREIGN KEY (address_id) REFERENCES address(address_id)
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+	FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
 CREATE TABLE employee(
 	employee_id integer,
