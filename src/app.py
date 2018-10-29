@@ -17,7 +17,7 @@ app.debug = True  # only for development!
 # Application config
 app.config["DATABASE_USER"] = "root"
 app.config["DATABASE_PASSWORD"] = "root"
-app.config["DATABASE_DB"] = "statistics"
+app.config["DATABASE_DB"] = "dat210_statistics"
 app.config["DATABASE_HOST"] = "localhost"
 
 app.secret_key = "secret_key"
@@ -25,9 +25,11 @@ app.secret_key = "secret_key"
 # Get connection to db
 def get_db():
     if not hasattr(g, "_database"):
-        g._database = mysql.connector.connect(host=app.config["DATABASE_HOST"], user=app.config["DATABASE_USER"],
-                                              password=app.config["DATABASE_PASSWORD"],
-                                              database=app.config["DATABASE_DB"])
+        g._database = mysql.connector.connect(
+            host=app.config["DATABASE_HOST"],
+            user=app.config["DATABASE_USER"],
+            password=app.config["DATABASE_PASSWORD"],
+            database=app.config["DATABASE_DB"])
     return g._database
 
 # Close db connection
@@ -80,13 +82,13 @@ def show_dishes(dish_id):
 
 # Input routes
 
-@app.route("/statistics/input", methods=['POST'])
+@app.route("/statistics/input") #After testing, set with "methods='POST'"
 def input():
-        json_content = request.get_json()
-        if json_content == None:
-                return False 
-        input_functions.input(json_content)
-
+    #json_content = request.get_json()
+	json_content = json.dumps({"input_type": "new_course", "course_id": "2", "course_name": "navneksempel", "price": "123", "category": "food", "information":"sometext", "ingredient_ids":["5"]})
+	if json_content == None:
+		return "No json content detected"
+	return str(input_functions.input(json_content))
 
 # Error handlers 
 @app.errorhandler(404)

@@ -3,7 +3,7 @@ import mysql.connector
 import json
 import collections
 import app
-import dish_functions
+from . import dish_functions
 
 # Includes all order related functions
 
