@@ -117,9 +117,18 @@ CREATE TABLE allergene(
 	PRIMARY KEY (allergene_id)
 );
 CREATE TABLE allergene_in_ingredient(
-	course_id integer,
+	ingredient_id integer,
     allergene_id integer,
-	PRIMARY KEY (course_id,  allergene_id),
-    FOREIGN KEY (course_id) REFERENCES course(course_id),
+	PRIMARY KEY (ingredient_id,  allergene_id),
+    FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id),
 	FOREIGN KEY (allergene_id) REFERENCES allergene(allergene_id)
 );
+CREATE TABLE review(
+	review_id integer,
+    course_id integer,
+    review_text text,
+    score integer,
+	PRIMARY KEY (review_id),
+    FOREIGN KEY (course_id) REFERENCES course(course_id)
+);
+
