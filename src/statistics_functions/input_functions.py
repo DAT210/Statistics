@@ -44,7 +44,7 @@ def insert_new_customer(content):
     db = app.get_db()
     cur = db.cursor()
     try:
-         cur.execute("START TRANSACTION;")
+        cur.execute("START TRANSACTION;")
          
         sql = "SELECT address_id, apartment_number FROM address WHERE city=%s AND postcode=%s AND street_name=%s AND street_number=%s"
         cur.execute(sql, (
@@ -82,15 +82,15 @@ def insert_new_booking(content):
     required_fields = [
         "first_name",
         "last_name",
-        "restaurant_name"] #list
+        "restaurant_name",
         "table_id",
         "booking_date",
         "booking_length",
-        "no_of_seats",
+        "no_of_seats"]
     for field in required_fields:
         if field not in content:
             return "Insert failed, Missing field: "+ field
-    
+
     db = app.get_db()
     cur = db.cursor()
     
