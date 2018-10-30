@@ -61,28 +61,22 @@ CREATE TABLE employee(
     FOREIGN KEY (address_id) REFERENCES address(address_id),
     FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
-CREATE TABLE payment(
-	payment_id integer,
-    order_id integer,
-    amount double,
-    tips double,
-    paid_at datetime,
-    discount double,
-    PRIMARY KEY(payment_id)
-);
 CREATE TABLE purchase(
 	purchase_id integer,
     purchase_time datetime,
     price double,
 	order_ready datetime,
+	order_delivered datetime,
     delivery_method varchar(128),
 	address_id integer,
-    order_delivered datetime,
+	amount double,
+    tips double,
+	discount double,
     customer_id integer,
     payment_id integer,
     PRIMARY KEY (purchase_id),
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
-    FOREIGN KEY (payment_id) REFERENCES payment(payment_id)
+	FOREIGN KEY (address_id) REFERENCES address(address_id),
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
 );
 CREATE TABLE course(
 	course_id integer,
@@ -95,6 +89,7 @@ CREATE TABLE course(
 CREATE TABLE course_in_purchase(
 	course_id integer,
     purchase_id integer,
+    quantity integer,
 	PRIMARY KEY (course_id, purchase_id),
 	FOREIGN KEY (course_id) REFERENCES course(course_id),
 	FOREIGN KEY (purchase_id) REFERENCES purchase(purchase_id)
