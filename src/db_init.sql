@@ -132,5 +132,5 @@ CREATE TABLE s_event (
     event_date date,		# Event group does not store time on events
     event_name varchar(128),
     event_description text,
-    PRIMARY KEY (event_id)
+    PRIMARY KEY (s_event_id)
 );
