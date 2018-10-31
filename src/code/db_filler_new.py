@@ -17,7 +17,7 @@ MAX_PURCHASE_ID, MAX_PAYMENT_ID = 499, 499   # Needs to be equal
 MAX_BOOKING_ID = 99
 MAX_REVIEW_ID = 49
 
-
+# Db connection created
 db_conn = mysql.connector.connect(
         host="localhost",
         user="root",
@@ -25,6 +25,9 @@ db_conn = mysql.connector.connect(
         database="dat210_statistics"
 )
 
+"""
+    Creating fake data
+"""
 def create_fake_address(id, fake):
     return [{
         "address_id": id,
@@ -108,6 +111,23 @@ def courses(fake):
         course_list += course
     return course_list
 
+def create_fake_booking(id, fake):
+    return [{
+        "booking_id": id,
+        "restaurant_id": random.randint(0, MAX_RESTAURANT_ID),
+        "table_id": random.randint(0, 19),
+        "booking_date": fake.past_date(start_date="-1y", tzinfo=None),
+        "booking_length": random.randint(1, 6),
+        "no_of_seats": random.randint(1, 19),
+        "customer_id": random.randint(0, MAX_CUSTOMER_ID)
+        # Use instead: fake.past_date(start_date="2017-11-01") ??
+    }]
+def bookings(count, fake):
+    bookings =  []
+    for i in range(count):
+        booking = create_fake_booking(i, fake)
+        bookings += booking
+    return bookings
 
 def create_fake_purchase(id, fake):
     price, tips, discount = random.randint(99, 999), random.randint(0, 99), random.uniform(0, 0.25)
@@ -135,24 +155,10 @@ def purchases(count, fake):
         purchases += purchase
     return purchases
 
-def create_fake_booking(id, fake):
-    return [{
-        "booking_id": id,
-        "restaurant_id": random.randint(0, MAX_RESTAURANT_ID),
-        "table_id": random.randint(0, 19),
-        "booking_date": fake.past_date(start_date="-1y", tzinfo=None),
-        "booking_length": random.randint(1, 6),
-        "no_of_seats": random.randint(1, 19),
-        "customer_id": random.randint(0, MAX_CUSTOMER_ID)
-        # Use instead: fake.past_date(start_date="2017-11-01") ??
-    }]
-def bookings(count, fake):
-    bookings =  []
-    for i in range(count):
-        booking = create_fake_booking(i, fake)
-        bookings += booking
-    return bookings
 
+"""
+    Inserting to database
+"""
 def insert_addresses(address_list):
     success = True
     for address in address_list:
