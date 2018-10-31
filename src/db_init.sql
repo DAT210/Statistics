@@ -134,4 +134,3 @@ CREATE TABLE s_event (
     event_description text,
     PRIMARY KEY (event_id)
 );
-
