@@ -24,6 +24,7 @@ db_conn = mysql.connector.connect(
         password="root",
         database="dat210_statistics"
 )
+
 def create_fake_address(id, fake):
     return [{
         "address_id": id,
@@ -92,14 +93,17 @@ def employee(count, fake):
         employee_list += employee
     return employee_list
 
-def create_courses(fake):
-    courses = ["Pepperoni Pizza", "Pasta Bolognese", "Ribeye", "French Onion Soup", "Cesar Salad", "Fish and Chips", "Sushi", "Bibimbap", "Cheeseburger", "Yemista", "Roasted Lamb"]
+def courses(fake):
+    courses = ["Pizza Margherita", "Pizza Diavola", "Pizza Prosciutto", "Pasta Bolognese", "Pasta Carbonara", "Caesar Salad", "Chicken Salad", "Fish and Chips", "Sushi", "Prawn soup", "Cheeseburger", "Baconburger"]
+    categories =["Pizza", "Pizza", "Pizza", "Pasta", "Pasta", "Salad", "Salad", "Fish", "Fish", "Fish", "Burger", "Burger"]
     course_list = []
     for i in range(len(courses)):
         course = [{
-         "id": i + 1,
-         "dish_name": courses[i],
-         "price": random.randint(99, 199)
+         "course_id": i,
+         "course_name": courses[i],
+         "price": random.randint(99, 199),
+         "category": categories[i],
+         "information": fake.text(max_nb_chars=100, ext_word_list=None)
         }]
         course_list += course
     return course_list
@@ -149,7 +153,6 @@ def bookings(count, fake):
         bookings += booking
     return bookings
 
-# Insertions to database
 def insert_addresses(address_list):
     success = True
     for address in address_list:
@@ -214,29 +217,26 @@ def insert_employees(employee_list):
     if success == True:
         print("Customers: Successfully inserted into db.")
 
-"""
-def insert_dishes(dishes_list):
-    for dish in dishes_list:
-        cur = db_conn.cursor()        
-        sql = ("INSERT INTO dish(dish_name, price) VALUES(%s, %s)")
-        cur.execute(sql, (dish['dish_name'], dish['price']))
-        db_conn.commit()
-        cur.close()
-    print("Dishes inserted into database")
 
-def insert_orders(orders_list):
-    for order in orders_list:
-        cur = db_conn.cursor()
-        sql = ("INSERT INTO orders(time_stamp, date, order_type, customer_id, dish_id, delivery, price) VALUES(%s, %s, %s, %s, %s, %s, %s)")
-        cur.execute(sql, (order['time_stamp'], order['date'], order['order_type'], order['customer_id'], order['dish_id'], order['delivery'], order['price']))
-        db_conn.commit()
-        cur.close()
-    print("Orders inserted into database")
-"""
+def insert_courses(course_list):
+    success = True
+    for course in course_list:
+        cur = db_conn.cursor()        
+        sql = ("INSERT INTO course(course_id, course_name, price, category, information) VALUES(%s, %s, %s, %s, %s)")
+        try:
+            cur.execute(sql, (course["course_id"], course["course_name"],course["price"], course["category"], course["information"]))
+            db_conn.commit()
+        except mysql.connector.Error as err:
+            print("Oops, something went wrong with db insert:", err)
+            success = False
+        finally:
+            cur.close()
+    if success == True:
+        print("Courses: Successfully inserted to db.")
+
 
 def main():
-    # fake = faker.Factory.create()
-    fake = faker.Faker("no_NO")   # no_NO: Norwegian fake values
+    fake = faker.Faker("no_NO")   # no_NO: Norwegian language and units
     
     # Set seeds: Script can be run multiple times and produce equal data 
     fake.seed(4321)
@@ -247,18 +247,15 @@ def main():
     customer_list = customer(MAX_CUSTOMER_ID + 1, fake)
     restaurant_list = restaurant(MAX_RESTAURANT_ID + 1, fake)
     employee_list = employee(MAX_EMPLOYEE_ID + 1, fake)
-    # dishes_list = create_courses(fake)
-    # orders_list = purchases(MAX_PURCHASE_ID, fake, len(customer_list), len(dishes_list))
+    course_list = courses(fake)
 
     # Insert into db
     insert_addresses(address_list)
     insert_customers(customer_list)
     insert_restaurants(restaurant_list)
     insert_employees(employee_list)
-    # insert_dishes(dishes_list)
-    # insert_orders(orders_list)
+    insert_courses(course_list)
     
-    # Dump db to a sql file
     # Dumps the statistics database to a sql-file. Outsources the subprocess to shellscript. File is dumped to the project root-folder
     # subprocess.Popen('mysqldump --host=localhost --port=3306 --user=root --password=root statistics > dump.sql', shell=True)
    
