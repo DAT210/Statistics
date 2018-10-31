@@ -1,5 +1,5 @@
 # Statistics DB init 
-# Tables for events, discounts, logistics and internal systems not yet implemented!
+# Tables for discounts and internal systems not yet implemented!
 
 DROP DATABASE IF EXISTS dat210_statistics;
 CREATE DATABASE dat210_statistics CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;	#Setting db charset to UTF-8	
@@ -38,7 +38,7 @@ CREATE TABLE booking(
 	booking_id integer,
     restaurant_id integer, 
     table_id integer, 
-    booking_date date, 
+    booking_date datetime, 
     booking_length integer, 
     no_of_seats integer,
     customer_id integer,
@@ -97,6 +97,7 @@ CREATE TABLE course_in_purchase(
 CREATE TABLE ingredient(
 	ingredient_id integer,
     ingredient_name varchar(128),
+    quantity_in_stock integer,
 	PRIMARY KEY (ingredient_id)
 );
 CREATE TABLE ingredient_in_course(
@@ -126,4 +127,10 @@ CREATE TABLE review(
 	PRIMARY KEY (review_id),
     FOREIGN KEY (course_id) REFERENCES course(course_id)
 );
-
+CREATE TABLE s_event (
+	s_event_id integer,
+    event_date date,		# Event group does not store time on events
+    event_name varchar(128),
+    event_description text,
+    PRIMARY KEY (event_id)
+);
