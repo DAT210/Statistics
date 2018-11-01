@@ -20,7 +20,6 @@ def input(json_content):
 
     return input_type[content["input_type"]](content)
 
-
 def insert_new_customer(content):
     db = app.get_db()
     cur = db.cursor()
@@ -46,7 +45,6 @@ def insert_new_customer(content):
 
     return 0
 
-
 def insert_new_booking(content):
     db = app.get_db()
     cur = db.cursor()
@@ -68,7 +66,6 @@ def insert_new_booking(content):
         cur.close()
 
     return 0
-
 
 def insert_new_employee(content):
     db = app.get_db()
@@ -94,8 +91,6 @@ def insert_new_employee(content):
     finally:
         cur.close()
     return 0
-
-
 
 def insert_new_course(content):
     required_fields = [
@@ -172,7 +167,6 @@ def insert_new_ingredient(content):
     finally:
         cur.close()
     return 0
-
 
 def insert_completed_purchase(content): #Needs to be changed if purchase and payment gets combined
     required_fields = [
@@ -255,7 +249,7 @@ def insert_update_order_ready_time(content):
 def insert_update_delivery_finished_time(content):
     return 0
 
-def insert_new_address(content):
+def insert_new_address(content): #Stian
     return 0
 
 def insert_restaurant(content):
