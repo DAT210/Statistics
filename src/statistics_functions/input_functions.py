@@ -264,16 +264,19 @@ def insert_new_ingredient(content):
         cur.close()
     return 0
 
-def insert_completed_purchase(content): #Needs to be changed if purchase and payment gets combined
+def insert_completed_purchase(content): #Needs to be changed if purchase and payment gets combined TODO
     required_fields = [
         "purchase_id",
         "purchase_time",
-        "price",
+        "price", #price of product
         "delivery_method",
         "address_id",
+        "amount", #total amount payed(including tips and discounts)
+        "tips",
+        "discount",
         "customer_id",
         "payment_id"
-        "course_ids"] #list
+        "course_ids_with_quantity"] #list of tuples
     for field in required_fields:
         if field not in content:
             return "Insert failed, Missing field: "+ field
@@ -282,23 +285,25 @@ def insert_completed_purchase(content): #Needs to be changed if purchase and pay
     try:
         cur.execute("START TRANSACTION;")
 
-        sql_purchase = "INSERT INTO purchase(purchase_id, purchase_time, price, delivery_method, address_id, customer_id, payment_id) VALUES(%s, %s, %s, %s, %s, %s, %s, %s);"
+        sql_purchase = "INSERT INTO purchase(purchase_id, purchase_time, price, delivery_method, address_id, amount, tips, discount, customer_id, payment_id) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
         cur.execute(sql_purchase, (
             content["purchase_id"],
             content["purchase_time"],
             content["price"],
             content["delivery_method"],
             content["address_id"],
+            content["amount"],
+            content["tips"],
+            content["discount"],
             content["customer_id"],
             content["payment_id"]))
         
-        sql_courses_in_purchase = "INSERT INTO course_in_purchase VALUES(%s, %s);"
-        for course_id in content["course_ids"]:
+        sql_courses_in_purchase = "INSERT INTO course_in_purchase VALUES(%s, %s, %s);"
+        for course_id, quantity in content["course_ids_with_quantity"]:
             cur.execute(sql_courses_in_purchase, (
                 course_id,
-                content["purchase_id"]
-                #This should have an amount
-            ))
+                content["purchase_id"],
+                quantity))
 
         cur.execute("COMMIT;")
     except mysql.connector.Error as err:
@@ -339,15 +344,12 @@ def insert_review(content):
         cur.close()
     return 0
 
-def insert_update_order_ready_time(content):
+def insert_update_order_ready_time(content): #TODO
     return 0
 
-def insert_update_delivery_finished_time(content):
+def insert_update_delivery_finished_time(content): #TODO
     return 0
 
-<<<<<<< HEAD
-def insert_new_address(content): #Stian
-=======
 def insert_new_address(content):
     required_fields = [
         "city",
@@ -378,8 +380,7 @@ def insert_new_address(content):
         return err
     finally:
         cur.close()
->>>>>>> 657dfe6001e2cd834cacfc54589056f4d7ce6323
     return 0
 
-def insert_restaurant(content):
+def insert_restaurant(content): #TODO
     return 0
