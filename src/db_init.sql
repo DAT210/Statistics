@@ -15,24 +15,39 @@ CREATE TABLE address(
     apartment_number integer,
 	PRIMARY KEY (address_id)
 );
+CREATE TABLE restaurant(
+	restaurant_id integer,
+    restaurant_name varchar(128), 
+    phone varchar(32), 
+    address_id integer, 
+	PRIMARY KEY (restaurant_id),
+	FOREIGN KEY (address_id) REFERENCES address(address_id)
+);
 CREATE TABLE customer(
 	customer_id integer,
 	first_name varchar(128), 
     last_name varchar(128), 
     email varchar(128),
-    phone integer,
+    phone varchar(32),
     birthdate date,
     address_id integer,
 	PRIMARY KEY (customer_id),
 	FOREIGN KEY (address_id) REFERENCES address(address_id)
 );
-CREATE TABLE restaurant(
-	restaurant_id integer,
-    restaurant_name varchar(128), 
-    phone integer, 
-    address_id integer, 
-	PRIMARY KEY (restaurant_id),
-	FOREIGN KEY (address_id) REFERENCES address(address_id)
+CREATE TABLE employee(
+	employee_id integer,
+    first_name varchar(128), 
+    last_name varchar(128), 
+    email varchar(128),
+    phone varchar(32),
+    birthdate date,
+    address_id integer,
+    restaurant_id integer,
+    salary double,
+    start_date date,
+    PRIMARY KEY (employee_id),
+    FOREIGN KEY (address_id) REFERENCES address(address_id),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
 CREATE TABLE booking(
 	booking_id integer,
@@ -45,21 +60,6 @@ CREATE TABLE booking(
 	PRIMARY KEY (booking_id),
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
 	FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
-);
-CREATE TABLE employee(
-	employee_id integer,
-    first_name varchar(128), 
-    last_name varchar(128), 
-    email varchar(128),
-    phone integer,
-    birthdate date,
-    address_id integer,
-    restaurant_id integer,
-    salary double,
-    start_date date,
-    PRIMARY KEY (employee_id),
-    FOREIGN KEY (address_id) REFERENCES address(address_id),
-    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
 CREATE TABLE purchase(
 	purchase_id integer,
