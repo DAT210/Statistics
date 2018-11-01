@@ -21,14 +21,36 @@ def input(json_content):
     return input_type[content["input_type"]](content)
 
 def insert_new_customer(content):
+    required_fields = [
+        "city",
+        "postcode",
+        "street_name",
+        "street_number",
+        "apartment_number",
+
+        "first_name", 
+        "last_name", 
+        "email",
+        "phone", 
+        "birthdate", 
+        "address_id",]
+    for field in required_fields:
+        if field not in content:
+            return "Insert failed, Missing field: "+ field
+    
+    insert_new_address(content)
+    
     db = app.get_db()
     cur = db.cursor()
     try:
-        sql_address = "INSERT INTO address(city, postcode, street_name, street_number, apartment_number) VALUES(%s, %s, %s, %s, %s, %s)"
-        cur.execute(sql_address, (content["city"], content["postcode"], content["street_name"], content["street_number"], content["apartment_number"]))
-    
+        cur.execute("START TRANSACTION;")
+         
         sql = "SELECT address_id, apartment_number FROM address WHERE city=%s AND postcode=%s AND street_name=%s AND street_number=%s"
-        cur.execute(sql, (content["city"], content["postcode"], content["street_name"], content["street_number"]), )
+        cur.execute(sql, (
+            content["city"], 
+            content["postcode"], 
+            content["street_name"], 
+            content["street_number"]))
         address_list = cur.fetchall()
         if len(address_list) > 1:
             for address in address_list:
@@ -36,47 +58,108 @@ def insert_new_customer(content):
                     address_id = address[0]
         
         sql_customer = "INSERT INTO customer(first_name, last_name, email, phone, birthdate, address_id) VALUES(%s, %s, %s, %s, %s, %s, %s);"
-        cur.execute(sql_customer, (content["first_name"], content["last_name"], content["email"], content["phone"], content["birthdate"], address_id))
+        cur.execute(sql_customer, (
+            content["first_name"], 
+            content["last_name"], 
+            content["email"], 
+            content["phone"], 
+            content["birthdate"], 
+            address_id))
 
+        cur.execute("COMMIT;")
     except mysql.connector.Error as err:
+        cur.execute("ROLLBACK;")
         print("Oops, something went wrong:", err)
+        return err
     finally:
         cur.close()
 
     return 0
 
 def insert_new_booking(content):
+    required_fields = [
+        "first_name",
+        "last_name",
+        "restaurant_name",
+        "table_id",
+        "booking_date",
+        "booking_length",
+        "no_of_seats"]
+    for field in required_fields:
+        if field not in content:
+            return "Insert failed, Missing field: "+ field
+
     db = app.get_db()
     cur = db.cursor()
+    
     try:
+        cur.execute("START TRANSACTION;")
+    
         sql_restaurant = "SELECT restaurant_id FROM restaurant WHERE restaurant_name=%s"
-        cur.execute(sql_restaurant, content["restaurant_name"])
+        cur.execute(sql_restaurant, 
+            content["restaurant_name"])
         restaurant_id = cur.fetchone()
 
         sql_customer = "SELECT customer_id FROM customer WHERE first_name=%s AND last_name=%s"
-        cur.execute(sql_customer, (content["first_name"], content["last_name"]))
+        cur.execute(sql_customer, (
+            content["first_name"], 
+            content["last_name"]))
         customer_id = cur.fetchone()
 
         sql_booking = "INSERT INTO booking(restaurant_id, table_id, booking_date, booking_length, no_of_seats, customer_id) VALUES(%s, %s, %s, %s, %s, %s);"
-        cur.execute(sql_booking, (restaurant_id, content["table_id"], content["booking_date"], content["booking_length"], content["no_of_seats"], customer_id))
+        cur.execute(sql_booking, (
+            restaurant_id, 
+            content["table_id"], 
+            content["booking_date"], 
+            content["booking_length"], 
+            content["no_of_seats"], 
+            customer_id))
 
+        cur.execute("COMMIT;")
     except mysql.connector.Error as err:
+        cur.execute("ROLLBACK;")
         print("Oops, something went wrong:", err)
+        return err
     finally:
         cur.close()
-
     return 0
 
 def insert_new_employee(content):
+    required_fields = [
+        "restaurant_name",
+        "city",
+        "postcode",
+        "street_name",
+        "street_number",
+        "apartment_number",
+
+        "first_name", 
+        "last_name", 
+        "email",
+        "phone", 
+        "birthdate", 
+        "salary",
+        "start_date"]
+    for field in required_fields:
+        if field not in content:
+            return "Insert failed, Missing field: "+ field
+    
     db = app.get_db()
     cur = db.cursor()
     try:
+        cur.execute("START TRANSACTION;")
+
         sql_restaurant = "SELECT restaurant_id FROM restaurant WHERE restaurant_name=%s"
-        cur.execute(sql_restaurant, content["restaurant_name"])
+        cur.execute(sql_restaurant, 
+            content["restaurant_name"])
         restaurant_id = cur.fetchone()
 
         sql_address = "SELECT address_id, apartment_number FROM address WHERE city=%s AND postcode=%s AND street_name=%s AND street_number=%s"
-        cur.execute(sql_address, (content["city"], content["postcode"], content["street_name"], content["street_number"]), )
+        cur.execute(sql_address, (
+            content["city"], 
+            content["postcode"], 
+            content["street_name"], 
+            content["street_number"]))
         address_list = cur.fetchall()
         if len(address_list) > 1:
             for address in address_list:
@@ -84,10 +167,23 @@ def insert_new_employee(content):
                     address_id = address[0]
         
         sql_employee = "INSERT INTO employee(first_name, last_name, email, phone, birthdate, address_id, restaurant_id, salary, start_date) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);"
-        cur.execute(sql_employee, (content["first_name"], content["last_name"], content["email"], content["phone"], content["birthdate"], address_id, restaurant_id, content["salary"], content["start_date"]))
+        cur.execute(sql_employee, (
+            content["first_name"], 
+            content["last_name"], 
+            content["email"], 
+            content["phone"], 
+            content["birthdate"], 
+            address_id, 
+            restaurant_id, 
+            content["salary"], 
+            content["start_date"]))
 
+
+        cur.execute("COMMIT;")
     except mysql.connector.Error as err:
+        cur.execute("ROLLBACK;")
         print("Oops, something went wrong:", err)
+        return err
     finally:
         cur.close()
     return 0
@@ -249,7 +345,40 @@ def insert_update_order_ready_time(content):
 def insert_update_delivery_finished_time(content):
     return 0
 
+<<<<<<< HEAD
 def insert_new_address(content): #Stian
+=======
+def insert_new_address(content):
+    required_fields = [
+        "city",
+        "postcode",
+        "street_name",
+        "street_number",
+        "apartment_number"]
+    for field in required_fields:
+        if field not in content:
+            return "Insert failed, Missing field: "+ field
+    db = app.get_db()
+    cur = db.cursor()
+    try:
+        cur.execute("START TRANSACTION;") 
+
+        sql_address = "INSERT INTO address(city, postcode, street_name, street_number, apartment_number) VALUES(%s, %s, %s, %s, %s, %s)"
+        cur.execute(sql_address, (
+            content["city"], 
+            content["postcode"], 
+            content["street_name"], 
+            content["street_number"], 
+            content["apartment_number"]))
+    
+        cur.execute("COMMIT;")
+    except mysql.connector.Error as err:
+        cur.execute("ROLLBACK;")
+        print("Oops, something went wrong:", err)
+        return err
+    finally:
+        cur.close()
+>>>>>>> 657dfe6001e2cd834cacfc54589056f4d7ce6323
     return 0
 
 def insert_restaurant(content):
