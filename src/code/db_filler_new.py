@@ -240,11 +240,26 @@ def insert_courses(course_list):
     if success == True:
         print("Courses: Successfully inserted to db.")
 
+def insert_bookings(booking_list):
+    success = True
+    for booking in booking_list:
+        cur = db_conn.cursor()        
+        sql = ("INSERT INTO booking(booking_id, restaurant_id, table_id, booking_date, booking_length, no_of_seats, customer_id) VALUES(%s, %s, %s, %s, %s, %s, %s)")
+        try:
+            cur.execute(sql, (booking["booking_id"], booking["restaurant_id"], booking["table_id"], booking["booking_date"], booking["booking_length"], booking["no_of_seats"], booking["customer_id"]))
+            db_conn.commit()
+        except mysql.connector.Error as err:
+            print("Oops, something went wrong with db insert:", err)
+            success = False
+        finally:
+            cur.close()
+    if success == True:
+        print("Bookings: Successfully inserted to db.")
 
 def main():
     fake = faker.Faker("no_NO")   # no_NO: Norwegian language and units
     
-    # Set seeds: Script can be run multiple times and produce equal data 
+    # Set seeds: Script can be run multiple times and produce same data 
     fake.seed(4321)
     random.seed(1234)
 
@@ -254,6 +269,7 @@ def main():
     restaurant_list = restaurant(MAX_RESTAURANT_ID + 1, fake)
     employee_list = employee(MAX_EMPLOYEE_ID + 1, fake)
     course_list = courses(fake)
+    booking_list = bookings(MAX_BOOKING_ID + 1, fake)
 
     # Insert into db
     insert_addresses(address_list)
@@ -261,9 +277,10 @@ def main():
     insert_restaurants(restaurant_list)
     insert_employees(employee_list)
     insert_courses(course_list)
+    insert_bookings(booking_list)
     
     # Dumps the statistics database to a sql-file. Outsources the subprocess to shellscript. File is dumped to the project root-folder
-    # subprocess.Popen('mysqldump --host=localhost --port=3306 --user=root --password=root statistics > dump.sql', shell=True)
+    # subprocess.Popen("mysqldump --host=localhost --port=3306 --user=root --password=root dat210_statistics > dump.sql", shell=True)
    
 
 if __name__ == '__main__':
