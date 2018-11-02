@@ -256,6 +256,25 @@ def insert_bookings(booking_list):
     if success == True:
         print("Bookings: Successfully inserted to db.")
 
+def insert_purchases(purchase_list):
+    success = True
+    for purchase in purchase_list:
+        cur = db_conn.cursor()        
+        sql = ("INSERT INTO purchase(purchase_id, purchase_time, price, order_ready, order_delivered, delivery_method, \
+        amount, tips, discount, address_id, customer_id, payment_id) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+        try:
+            cur.execute(sql, (purchase["purchase_id"], purchase["purchase_time"], purchase["price"], purchase["order_ready"],\
+            purchase["order_delivered"], purchase["delivery_method"], purchase["amount"], purchase["tips"], purchase["discount"], \
+            purchase["address_id"], purchase["customer_id"], purchase["payment_id"]))
+            db_conn.commit()
+        except mysql.connector.Error as err:
+            print("Oops, something went wrong with db insert:", err)
+            success = False
+        finally:
+            cur.close()
+    if success == True:
+        print("Purchase: Successfully inserted to db.")
+
 def main():
     fake = faker.Faker("no_NO")   # no_NO: Norwegian language and units
     
@@ -270,6 +289,7 @@ def main():
     employee_list = employee(MAX_EMPLOYEE_ID + 1, fake)
     course_list = courses(fake)
     booking_list = bookings(MAX_BOOKING_ID + 1, fake)
+    purchase_list = purchases(MAX_PURCHASE_ID + 1, fake)
 
     # Insert into db
     insert_addresses(address_list)
@@ -278,6 +298,7 @@ def main():
     insert_employees(employee_list)
     insert_courses(course_list)
     insert_bookings(booking_list)
+    insert_purchases(purchase_list)
     
     # Dumps the statistics database to a sql-file. Outsources the subprocess to shellscript. File is dumped to the project root-folder
     # subprocess.Popen("mysqldump --host=localhost --port=3306 --user=root --password=root dat210_statistics > dump.sql", shell=True)
