@@ -1,9 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session, g, send_from_directory, jsonify
 import mysql.connector
 import json
 import collections
 import app
-from . import dish_functions
 
 # Includes all order related functions
 
@@ -11,20 +9,24 @@ def get_all_orders():
     db = app.get_db()
     cur = db.cursor()
     try:
-        sql = "SELECT * FROM orders"
+        sql = "SELECT * FROM purchase;"
         cur.execute(sql)
 
         orders = []
         for order in cur.fetchall():
             new = {
                 "order_id": order[0],
-                "time_stamp": str(order[1]),
-                "date": order[2],
-                "order_type": order[3],
-                "customer_id": order[4],
-                "dish_id": order[5],
-                "delivery": order[6],
-                "price": order[7]
+                "time_of_purchase": order[1],
+                "price": order[2],
+                "order_ready": order[3],
+                "order_delivered": order[4],
+                "delivery_method": order[5],
+                "address_id": order[6],
+                "total_amount_payed": order[7],
+                "tips": order[8],
+                "discount": order[9],
+                "customer_id": order[10],
+                "payment_id": order[11]
             }
             orders.append(new)
         if len(orders) <= 0:
@@ -35,12 +37,11 @@ def get_all_orders():
         cur.close()
     return orders
 
-
-def orders_per_month():
+def orders_per_month(): # Ikke fullstendig omskrevet enda, må testes
     orders = get_all_orders()
     res = {}
     for order in orders:
-        curr_month = order["date"].month
+        curr_month = order["time_of_purchase"].month
         if curr_month in res:
             res[curr_month] += 1
         else:
@@ -57,34 +58,38 @@ def orders_per_month():
         res_names[month] = count
     return json.dumps(res_names)
 
+def courses_sold():
+    db = app.get_db()
+    cur = db.cursor()
+    try:
+        sql_courses_sold = "SELECT course_id, count(*) as total_sold FROM course_in_purchase GROUP BY course_id;"
+        cur.execute(sql_courses_sold)
+        courses = cur.fetchall()
 
-def orders_per_dish():
-    orders = get_all_orders()
-    dish_lookup = dish_functions.get_dish_lookup_dict()
-    res = {}
-
-    for order in orders:
-        curr_dish_id = order["dish_id"]
-        if curr_dish_id in res:
-            res[curr_dish_id] += 1
-        else:
-            res[curr_dish_id] = 1
-   
-    res_names = {}  # New dict with dish name instead of dish id
-    for id, count in res.items():
-        dish_name = dish_lookup[id]
-        res_names[dish_name] = count
-
-    res_names = collections.OrderedDict(sorted(res_names.items()))  # Sort result based on dish name
-    return json.dumps(res_names)
-
+        sql_name_of_course = "SELECT course_name FROM course WHERE course_id =%s;"
+        total_sold = []
+        for course_id, count in courses:
+            cur.execute(sql_name_of_course, course_id)
+            name = cur.fetchone()
+            course = {
+                "course_id": course_id,
+                "course_name": name,
+                "amount_sold": count
+            }
+            total_sold.append(course)
+        
+    except mysql.connector.Error as err:
+        print("Oops, something went wrong:", err)
+    finally:
+        cur.close()
+    return json.dumps(total_sold)
 
 def get_order(order_id):
 
     db = app.get_db()
     cur = db.cursor()
     try:
-        sql = "SELECT * FROM orders WHERE order_id=%s"
+        sql = "SELECT * FROM purchase WHERE purchase_id=%s;"
         cur.execute(sql, (order_id, ))
 
         order = cur.fetchone()
@@ -93,13 +98,17 @@ def get_order(order_id):
         else:
             order_info = {
                 "order_id": order[0],
-                "timestamp": str(order[1]),
-                "date": order[2],
-                "order_type": order[3],
-                "customer_id": order[4],
-                "dish_id": order[5],
-                "delivery": order[6],
-                "price": order[7]
+                "time_of_purchase": order[1],
+                "price": order[2],
+                "order_ready": order[3],
+                "order_delivered": order[4],
+                "delivery_method": order[5],
+                "address_id": order[6],
+                "total_amount_payed": order[7],
+                "tips": order[8],
+                "discount": order[9],
+                "customer_id": order[10],
+                "payment_id": order[11]
             }
 
     except mysql.connector.Error as err:
@@ -108,4 +117,27 @@ def get_order(order_id):
         cur.close()
     return order_info
 
+def orders_per_day():
+    db = app.get_db()
+    cur = db.cursor()
+    try:
 
+        sql = "SELECT purchase_time FROM purchase;"
+        cur.execute(sql)
+        days = []
+        for purchase_time in cur.fetchall():
+            sql_how_many_per_day = "SELECT COUNT(*) as total_orders FROM purchase WHERE purchase_time >= DATE_SUB(%s, INTERVAL 0 DAY);"
+            cur.execute(sql_how_many_per_day, purchase_time.date)
+            total_orders = cur.fetchone()
+            new = {
+                "time_of_purchase": purchase_time,
+                "total_orders": total_orders,
+            }
+            days.append(new)
+        if len(days) <= 0:
+            print("No orders in our database")
+    except mysql.connector.Error as err:
+        print("Oops, something went wrong:", err)
+    finally:
+        cur.close()
+    return json.dumps(days)
