@@ -35,7 +35,7 @@ def get_all_orders():
         print("Oops, something went wrong:", err)
     finally:
         cur.close()
-    return orders
+    return json.dumps(orders)
 
 def orders_per_month(): # Ikke fullstendig omskrevet enda, må testes
     orders = get_all_orders()
@@ -90,7 +90,7 @@ def get_order(order_id):
     cur = db.cursor()
     try:
         sql = "SELECT * FROM purchase WHERE purchase_id=%s;"
-        cur.execute(sql, (order_id, ))
+        cur.execute(sql, (order_id))
 
         order = cur.fetchone()
         if order == None:
@@ -115,7 +115,7 @@ def get_order(order_id):
         print("Oops, something went wrong:", err)
     finally:
         cur.close()
-    return order_info
+    return json.dumps(order_info)
 
 def orders_per_day():
     db = app.get_db()
@@ -127,7 +127,7 @@ def orders_per_day():
         days = []
         for purchase_time in cur.fetchall():
             sql_how_many_per_day = "SELECT COUNT(*) as total_orders FROM purchase WHERE purchase_time >= DATE_SUB(%s, INTERVAL 0 DAY);"
-            cur.execute(sql_how_many_per_day, purchase_time.date)
+            cur.execute(sql_how_many_per_day, (purchase_time.date))
             total_orders = cur.fetchone()
             new = {
                 "time_of_purchase": purchase_time,

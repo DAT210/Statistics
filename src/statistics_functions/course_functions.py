@@ -36,7 +36,7 @@ def get_course(course_id):
     cur = db.cursor()
     try:
         sql = "SELECT course_name, price, category, information FROM course WHERE course_id=%s;"
-        cur.execute(sql, course_id)
+        cur.execute(sql, (course_id))
         course = cur.fetchone()
         if course == None:
             raise NameError("This dish_id doesn\'t exist in the database")
