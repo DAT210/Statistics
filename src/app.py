@@ -8,7 +8,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, g
 import mysql.connector
 import json
 import collections
-from statistics_functions import order_functions, dish_functions, customer_functions, input_functions
+from statistics_functions import order_functions, course_functions, customer_functions, input_functions
 
 
 app = Flask(__name__)
@@ -47,12 +47,12 @@ def index():
 @app.route("/statistics/charts/")
 def charts():
     return render_template("charts.html", orders_per_month=order_functions.orders_per_month(), 
-        orders_per_dish=order_functions.orders_per_dish())
+        orders_per_dish=order_functions.courses_sold())
 
 @app.route("/statistics/tables/")
 def tables(): 
     return render_template("tables.html", orders=order_functions.get_all_orders(), customers=customer_functions.get_all_customers(), 
-        dishes=dish_functions.get_all_dishes())
+        dishes=course_functions.get_all_courses())
 
 # API routes
 @app.route("/statistics/orders/")
@@ -76,9 +76,9 @@ def show_customer(customer_id):
 def dishes():
     return "/statistics/dish/"
 
-@app.route("/statistics/dish/<int:dish_id>/")
-def show_dishes(dish_id):
-    return jsonify(dish_functions.get_dish(dish_id))
+@app.route("/statistics/dish/<int:course_id>/")
+def show_dishes(course_id):
+    return jsonify(course_functions.get_course(course_id))
 
 # Input routes
 
