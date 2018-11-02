@@ -186,6 +186,43 @@ def s_events(count, fake):
         events += event
     return events
 
+def create_fake_course_in_purchase(id, fake):
+    return [{
+        "course_id": id,
+        "purchase_id": fake.date_between(start_date="-1y", end_date="+1y"),
+        "quantity": fake.first_name() + "'s event"
+    }]
+
+def course_in_purchase(count, fake):
+    course_in_purchases = []
+    for i in range(count):
+        course_in_purchase = create_fake_course_in_purchase(i, fake)
+        course_in_purchases += course_in_purchase
+    return course_in_purchases
+
+def ingredients(fake):
+    ingredients = ["Flour", "Yeast", "Olive oil", "Tomato sauce", "Mozzarella", "Salami", "Chili", "Ruccola", "Prosciutto", "Onion", "Garlic", "Minced beef", "Bolognese sauce", \
+    "Spaghetti", "Parmesan", "Bacon", "Egg", "Spaghetti", "Romaine salad", "Caesar dressing", "Chicken", "Brioche buns", "Cheddar", "Lettuce", "Burger dressing"]
+    ingredient_list = []
+    for i in range(len(ingredients)):
+        ingredient = [{
+         "ingredient_id": i,
+         "ingredient_name": ingredients[i],
+         "information": fake.text(max_nb_chars=100, ext_word_list=None)
+        }]
+        ingredient_list += ingredient
+    return ingredient_list
+
+def allergenes(fake):
+    allergenes = ["Gluten", "Egg", "Milk"]
+    allergene_list = []
+    for i in range(len(allergenes)):
+        allergene = [{
+         "allergene_id": i,
+         "allergene_name": allergenes[i]
+        }]
+        allergene_list += allergene
+    return allergene_list
 
 """
     Inserting to database
@@ -303,7 +340,7 @@ def insert_purchases(purchase_list):
         finally:
             cur.close()
     if success == True:
-        print("Purchase: Successfully inserted to db.")
+        print("Purchases: Successfully inserted to db.")
 
 def insert_reviews(review_list):
     success = True
@@ -319,9 +356,9 @@ def insert_reviews(review_list):
         finally:
             cur.close()
     if success == True:
-        print("Review: Successfully inserted to db.")
+        print("Reviews: Successfully inserted to db.")
 
-def insert_s_event(event_list):
+def insert_s_events(event_list):
     success = True
     for event in event_list:
         cur = db_conn.cursor()        
@@ -335,7 +372,39 @@ def insert_s_event(event_list):
         finally:
             cur.close()
     if success == True:
-        print("Event: Successfully inserted to db.")
+        print("Events: Successfully inserted to db.")
+
+def insert_ingredients(ingredient_list):
+    success = True
+    for ingredient in ingredient_list:
+        cur = db_conn.cursor()        
+        sql = ("INSERT INTO ingredient(ingredient_id, ingredient_name) VALUES(%s, %s)")
+        try:
+            cur.execute(sql, (ingredient["ingredient_id"], ingredient["ingredient_name"]))
+            db_conn.commit()
+        except mysql.connector.Error as err:
+            print("Oops, something went wrong with db insert:", err)
+            success = False
+        finally:
+            cur.close()
+    if success == True:
+        print("Ingredients: Successfully inserted to db.")
+
+def insert_allergenes(allergene_list):
+    success = True
+    for allergene in allergene_list:
+        cur = db_conn.cursor()        
+        sql = ("INSERT INTO allergene(allergene_id, allergene_name) VALUES(%s, %s)")
+        try:
+            cur.execute(sql, (allergene["allergene_id"], allergene["allergene_name"]))
+            db_conn.commit()
+        except mysql.connector.Error as err:
+            print("Oops, something went wrong with db insert:", err)
+            success = False
+        finally:
+            cur.close()
+    if success == True:
+        print("Allergenes: Successfully inserted to db.")
 
 def main():
     fake = faker.Faker("no_NO")   # no_NO: Norwegian language and units
@@ -354,6 +423,8 @@ def main():
     purchase_list = purchases(MAX_PURCHASE_ID + 1, fake)
     review_list = reviews(MAX_REVIEW_ID + 1, fake)
     s_event_list = s_events(MAX_EVENT_ID + 1, fake)
+    ingredient_list = ingredients(fake)
+    allergene_list = allergenes(fake)
 
     # Insert into db
     insert_addresses(address_list)
@@ -364,7 +435,9 @@ def main():
     insert_bookings(booking_list)
     insert_purchases(purchase_list)
     insert_reviews(review_list)
-    insert_s_event(s_event_list)
+    insert_s_events(s_event_list)
+    insert_ingredients(ingredient_list)
+    insert_allergenes(allergene_list)
     
     # Dumps the statistics database to a sql-file. Outsources the subprocess to shellscript. File is dumped to the project root-folder
     # subprocess.Popen("mysqldump --host=localhost --port=3306 --user=root --password=root dat210_statistics > dump.sql", shell=True)
