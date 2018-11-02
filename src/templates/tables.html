@@ -21,30 +21,24 @@
               <i class="fa fa-align-justify"></i> Orders <!-- Simple table -->
             </div>
             <div class="card-body">
-              <table id="orders" class="table">
+              <table id="courses" class="table">
                 <thead>
                   <tr>
-                    <th>Order ID</th>
-                    <th>Timestamp</th>
-                    <th>Date</th>
-                    <th>Order type</th>
-                    <th>Customer ID</th>
-                    <th>Dish ID</th>
-                    <th>Delivery</th>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
                     <th>Price</th>
+                    <th>Category</th>
+                    <th>Information</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for order in orders %}
+                  {% for course in courses %}
                     <tr>
-                        <td>{{ order["order_id"]|default("Order ID unknown") }}</td>
-                        <td>{{ order["time_stamp"]|default("Timestamp unknown") }}</td>
-                        <td>{{ order["date"]|default("Date unknown") }}</td>
-                        <td>{{ order["order_type"]|default("Order type unknown") }}</td>
-                        <td>{{ order["customer_id"]|default("Customer ID unknown") }}</td>
-                        <td>{{ order["dish_id"]|default("Dish ID unknown") }}</td>
-                        <td>{{ order["delivery"]|default("Delivery method unknown") }}</td>
-                        <td>{{ order["price"]|default("Price unknown") }}</td>
+                        <td>{{ course["course_id"]|default("Order ID unknown") }}</td>
+                        <td>{{ course["course_name"]|default("Course Name unknown") }}</td>
+                        <td>{{ course["price"]|default("Price unknown") }}</td>
+                        <td>{{ course["category"]|default("Category unknown") }}</td>
+                        <td>{{ course["Information"]|default("Information unknown") }}</td>
                     </tr>
                   {% endfor %}
                 </tbody>
@@ -246,7 +240,7 @@
 <script>
     // Enabling DataTable plug-in with no column sorting option
     $(document).ready(function() {
-      $("#orders").DataTable({
+      $("#courses").DataTable({
           "ordering": false,
           "dom": 'ftp'
       });
@@ -259,7 +253,7 @@
           "dom": 'ftp'
       });
       // In order to make the table extend the full width of the card
-      $("#orders").css("table-layout", "fixed");
+      $("#courses").css("table-layout", "fixed");
       $("#customers").css("table-layout","fixed");
       $("#dishes").css("table-layout","fixed");
     });
