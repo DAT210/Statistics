@@ -16,6 +16,7 @@ MAX_EMPLOYEE_ID = 29
 MAX_PURCHASE_ID, MAX_PAYMENT_ID = 499, 499   # Needs to be equal
 MAX_BOOKING_ID = 99
 MAX_REVIEW_ID = 49
+MAX_EVENT_ID = 49
 
 # Db connection created
 db_conn = mysql.connector.connect(
@@ -155,6 +156,36 @@ def purchases(count, fake):
         purchases += purchase
     return purchases
 
+def create_fake_review(id, fake):
+    return [{
+        "review_id": id,
+        "course_id": random.randint(1, 11), # 11 = MAX_COURSE_ID atm. May need update
+        "review_text": fake.text(max_nb_chars=100, ext_word_list=None),
+        "score": random.randint(1, 5)
+    }]
+
+def reviews(count, fake):
+    reviews = []
+    for i in range(count):
+        review = create_fake_review(i, fake)
+        reviews += review
+    return reviews
+
+def create_fake_s_event(id, fake):
+    return [{
+        "s_event_id": id,
+        "event_date": fake.date_between(start_date="-1y", end_date="+1y"),
+        "event_name": fake.first_name() + "'s event",
+        "event_description": fake.text(max_nb_chars=100, ext_word_list=None)
+    }]
+
+def s_events(count, fake):
+    events = []
+    for i in range(count):
+        event = create_fake_s_event(i, fake)
+        events += event
+    return events
+
 
 """
     Inserting to database
@@ -223,7 +254,6 @@ def insert_employees(employee_list):
     if success == True:
         print("Customers: Successfully inserted into db.")
 
-
 def insert_courses(course_list):
     success = True
     for course in course_list:
@@ -275,6 +305,38 @@ def insert_purchases(purchase_list):
     if success == True:
         print("Purchase: Successfully inserted to db.")
 
+def insert_reviews(review_list):
+    success = True
+    for review in review_list:
+        cur = db_conn.cursor()        
+        sql = ("INSERT INTO review(review_id, course_id, review_text, score) VALUES(%s, %s, %s,%s)")
+        try:
+            cur.execute(sql, (review["review_id"], review["course_id"], review["review_text"], review["score"]))
+            db_conn.commit()
+        except mysql.connector.Error as err:
+            print("Oops, something went wrong with db insert:", err)
+            success = False
+        finally:
+            cur.close()
+    if success == True:
+        print("Review: Successfully inserted to db.")
+
+def insert_s_event(event_list):
+    success = True
+    for event in event_list:
+        cur = db_conn.cursor()        
+        sql = ("INSERT INTO s_event(s_event_id, event_date, event_name, event_description) VALUES(%s, %s, %s, %s)")
+        try:
+            cur.execute(sql, (event["s_event_id"], event["event_date"], event["event_name"], event["event_description"]))
+            db_conn.commit()
+        except mysql.connector.Error as err:
+            print("Oops, something went wrong with db insert:", err)
+            success = False
+        finally:
+            cur.close()
+    if success == True:
+        print("Event: Successfully inserted to db.")
+
 def main():
     fake = faker.Faker("no_NO")   # no_NO: Norwegian language and units
     
@@ -290,6 +352,8 @@ def main():
     course_list = courses(fake)
     booking_list = bookings(MAX_BOOKING_ID + 1, fake)
     purchase_list = purchases(MAX_PURCHASE_ID + 1, fake)
+    review_list = reviews(MAX_REVIEW_ID + 1, fake)
+    s_event_list = s_events(MAX_EVENT_ID + 1, fake)
 
     # Insert into db
     insert_addresses(address_list)
@@ -299,6 +363,8 @@ def main():
     insert_courses(course_list)
     insert_bookings(booking_list)
     insert_purchases(purchase_list)
+    insert_reviews(review_list)
+    insert_s_event(s_event_list)
     
     # Dumps the statistics database to a sql-file. Outsources the subprocess to shellscript. File is dumped to the project root-folder
     # subprocess.Popen("mysqldump --host=localhost --port=3306 --user=root --password=root dat210_statistics > dump.sql", shell=True)
