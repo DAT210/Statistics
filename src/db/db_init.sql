@@ -107,6 +107,14 @@ CREATE TABLE ingredient_in_course(
     FOREIGN KEY (course_id) REFERENCES course(course_id),
 	FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id)
 );
+CREATE TABLE stock(
+    ingredient_id integer,
+    restaurant_id integer,
+    quantity integer,
+	PRIMARY KEY (ingredient_id, restaurant_id),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id),
+	FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id)
+);
 CREATE TABLE allergene(
 	allergene_id integer,
     allergene_name varchar(128),
