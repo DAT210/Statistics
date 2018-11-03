@@ -4,8 +4,12 @@ import subprocess
 
 import faker.providers.date_time
 import faker
+import datetime
 
-# Remark: Script currently requires a precreated DB with no values to exist. Run db_init.sql beforehand!
+"""
+    Script for creating dummy data to statistics database.
+    Remark: Run db_init.sql to create database and tables before running this script!
+"""
 
 # Globale varibales for max/min values. All ID's start at 0.
 MIN_SALARY, MAX_SALARY = 300000, 500000
@@ -13,12 +17,20 @@ MAX_ADDRESS_ID = 99
 MAX_RESTAURANT_ID = 2
 MAX_CUSTOMER_ID = 199
 MAX_EMPLOYEE_ID = 29
-MAX_PURCHASE_ID, MAX_PAYMENT_ID = 499, 499   # Needs to be equal
+MAX_PURCHASE_ID, MAX_PAYMENT_ID = 499, 499  # Needs to be equal
 MAX_BOOKING_ID = 99
 MAX_REVIEW_ID = 49
 MAX_EVENT_ID = 49
 
-# Db connection created
+INGREDIENTS = ["Flour", "Yeast", "Olive oil", "Tomato sauce", "Mozzarella", "Salami", "Chili", "Ruccola", "Prosciutto", "Onion", "Garlic", "Minced beef", "Bolognese sauce", \
+    "Spaghetti", "Parmesan", "Bacon", "Egg", "Spaghetti", "Romaine salad", "Caesar dressing", "Chicken", "Brioche buns", "Cheddar", "Lettuce", "Burger dressing"]
+MAX_INGREDIENT_ID = len(INGREDIENTS) - 1
+
+COURSES = ["Pizza Margherita", "Pizza Diavola", "Pizza Prosciutto", "Pasta Bolognese", "Pasta Carbonara", "Caesar Salad", "Chicken Salad", "Fish and Chips", "Sushi", "Prawn soup", "Cheeseburger", "Baconburger"]
+CATEGORIES =["Pizza", "Pizza", "Pizza", "Pasta", "Pasta", "Salad", "Salad", "Fish", "Fish", "Fish", "Burger", "Burger"]
+MAX_COURSE_ID = len(COURSES) - 1
+
+# Db connection
 db_conn = mysql.connector.connect(
         host="localhost",
         user="root",
@@ -66,7 +78,7 @@ def create_fake_customer(id, fake):
         "last_name": fake.last_name(),
         "email": fake.email(),
         "phone": fake.phone_number(),
-        "birthdate": fake.date_of_birth(tzinfo=None, minimum_age=18, maximum_age=100),
+        "birthdate": fake.date_of_birth(minimum_age=18, maximum_age=100, tzinfo=None),
         "address_id": random.randint(0, MAX_ADDRESS_ID)
     }]
 def customer(count, fake):
@@ -83,12 +95,11 @@ def create_fake_employee(id, fake):
         "last_name": fake.last_name(),
         "email": fake.email(),
         "phone": fake.phone_number(),
-        "birthdate": fake.date_of_birth(tzinfo=None, minimum_age=18, maximum_age=67),
+        "birthdate": fake.date_of_birth(minimum_age=18, maximum_age=67, tzinfo=None),
         "address_id": random.randint(0, MAX_ADDRESS_ID),
         "restaurant_id": random.randint(0, MAX_RESTAURANT_ID),
         "salary": random.randint(MIN_SALARY, MAX_SALARY),
-        "start_date": fake.past_date(start_date="-1y", tzinfo=None)
-        # Use instead: fake.past_datetime(start_date="2017-11-01", tzinfo=None) ??
+        "start_date": fake.date_between(start_date=datetime.datetime(2017, 11, 1), end_date=datetime.datetime(2018, 11, 1))
     }]
 def employee(count, fake):
     employee_list = []
@@ -98,15 +109,13 @@ def employee(count, fake):
     return employee_list
 
 def courses(fake):
-    courses = ["Pizza Margherita", "Pizza Diavola", "Pizza Prosciutto", "Pasta Bolognese", "Pasta Carbonara", "Caesar Salad", "Chicken Salad", "Fish and Chips", "Sushi", "Prawn soup", "Cheeseburger", "Baconburger"]
-    categories =["Pizza", "Pizza", "Pizza", "Pasta", "Pasta", "Salad", "Salad", "Fish", "Fish", "Fish", "Burger", "Burger"]
     course_list = []
-    for i in range(len(courses)):
+    for i in range(len(COURSES)):
         course = [{
          "course_id": i,
-         "course_name": courses[i],
+         "course_name": COURSES[i],
          "price": random.randint(99, 199),
-         "category": categories[i],
+         "category": CATEGORIES[i],
          "information": fake.text(max_nb_chars=100, ext_word_list=None)
         }]
         course_list += course
@@ -117,11 +126,10 @@ def create_fake_booking(id, fake):
         "booking_id": id,
         "restaurant_id": random.randint(0, MAX_RESTAURANT_ID),
         "table_id": random.randint(0, 19),
-        "booking_date": fake.past_date(start_date="-1y", tzinfo=None),
+        "booking_date": fake.date_between(start_date=datetime.datetime(2017, 11, 1), end_date=datetime.datetime(2018, 11, 1)),
         "booking_length": random.randint(1, 6),
         "no_of_seats": random.randint(1, 19),
         "customer_id": random.randint(0, MAX_CUSTOMER_ID)
-        # Use instead: fake.past_date(start_date="2017-11-01") ??
     }]
 def bookings(count, fake):
     bookings =  []
@@ -135,10 +143,10 @@ def create_fake_purchase(id, fake):
     amount = (price + tips)*(1-discount)
     return[{
         "purchase_id": id,
-        "purchase_time": fake.past_datetime(start_date="-1y", tzinfo=None), 
+        "purchase_time": fake.date_time_between(start_date=datetime.datetime(2017, 11, 1), end_date=datetime.datetime(2018, 11, 1), tzinfo=None), 
         "price": price,
-        "order_ready": fake.past_datetime(start_date="-1y", tzinfo=None),
-        "order_delivered": fake.past_datetime(start_date="-1y", tzinfo=None),
+        "order_ready": fake.date_time_between(start_date=datetime.datetime(2017, 11, 1), end_date=datetime.datetime(2018, 11, 1), tzinfo=None),
+        "order_delivered": fake.date_time_between(start_date=datetime.datetime(2017, 11, 1), end_date=datetime.datetime(2018, 11, 1), tzinfo=None),
         "delivery_method": random.choice(["Inhouse", "Pickup", "Cycle", "Drone", "Car"]),
         "amount": amount,
         "tips": tips,
@@ -146,7 +154,6 @@ def create_fake_purchase(id, fake):
         "address_id": random.randint(0, MAX_ADDRESS_ID),
         "customer_id": random.randint(0, MAX_CUSTOMER_ID),
         "payment_id": random.randint(0, MAX_PAYMENT_ID)
-        # Use instead: fake.past_datetime(start_date="2017-11-01", tzinfo=None) ??
     }]
 
 def purchases(count, fake):
@@ -159,7 +166,7 @@ def purchases(count, fake):
 def create_fake_review(id, fake):
     return [{
         "review_id": id,
-        "course_id": random.randint(1, 11), # 11 = MAX_COURSE_ID atm. May need update
+        "course_id": random.randint(1, MAX_COURSE_ID),
         "review_text": fake.text(max_nb_chars=100, ext_word_list=None),
         "score": random.randint(1, 5)
     }]
@@ -174,7 +181,7 @@ def reviews(count, fake):
 def create_fake_s_event(id, fake):
     return [{
         "s_event_id": id,
-        "event_date": fake.date_between(start_date="-1y", end_date="+1y"),
+        "event_date": fake.date_between(start_date=datetime.datetime(2017, 11, 1), end_date=datetime.datetime(2019, 11, 1)),
         "event_name": fake.first_name() + "'s event",
         "event_description": fake.text(max_nb_chars=100, ext_word_list=None)
     }]
@@ -186,43 +193,112 @@ def s_events(count, fake):
         events += event
     return events
 
-def create_fake_course_in_purchase(id, fake):
-    return [{
-        "course_id": id,
-        "purchase_id": fake.date_between(start_date="-1y", end_date="+1y"),
-        "quantity": fake.first_name() + "'s event"
-    }]
-
-def course_in_purchase(count, fake):
+def course_in_purchase(purchase_count, fake):
     course_in_purchases = []
-    for i in range(count):
-        course_in_purchase = create_fake_course_in_purchase(i, fake)
-        course_in_purchases += course_in_purchase
+    for purchase_id in range(purchase_count):
+        rand = random.randint(1,10) # Number of courses in this purchase
+        for _ in range(rand):
+            course_in_purchase = {
+                "purchase_id": purchase_id,
+                "course_id": random.randint(0, MAX_COURSE_ID),
+                "quantity": random.randint(0, 4)
+            }
+            course_in_purchases += course_in_purchase
     return course_in_purchases
 
 def ingredients(fake):
-    ingredients = ["Flour", "Yeast", "Olive oil", "Tomato sauce", "Mozzarella", "Salami", "Chili", "Ruccola", "Prosciutto", "Onion", "Garlic", "Minced beef", "Bolognese sauce", \
-    "Spaghetti", "Parmesan", "Bacon", "Egg", "Spaghetti", "Romaine salad", "Caesar dressing", "Chicken", "Brioche buns", "Cheddar", "Lettuce", "Burger dressing"]
     ingredient_list = []
-    for i in range(len(ingredients)):
-        ingredient = [{
+    for i in range(len(INGREDIENTS)):
+        ingredient = {
          "ingredient_id": i,
-         "ingredient_name": ingredients[i],
+         "ingredient_name": INGREDIENTS[i],
          "information": fake.text(max_nb_chars=100, ext_word_list=None)
-        }]
-        ingredient_list += ingredient
+        }
+        ingredient_list.append(ingredient)
     return ingredient_list
 
 def allergenes(fake):
     allergenes = ["Gluten", "Egg", "Milk"]
     allergene_list = []
     for i in range(len(allergenes)):
-        allergene = [{
+        allergene = {
          "allergene_id": i,
          "allergene_name": allergenes[i]
-        }]
-        allergene_list += allergene
+        }
+        allergene_list.append(allergene)
     return allergene_list
+
+def stock(restaurant_count, ingredient_count):
+    stocks = []
+    for r_id in range(restaurant_count):
+        for i_id in range(ingredient_count):
+            s = {
+                "restaurant_id": r_id, 
+                "ingredient_id": i_id,
+                "quantity": random.randint(0, 49)
+            }
+            stocks.append(s)
+    return stocks
+
+def ingredients_in_course(course_list, ingredient_list):
+    iic_list = []
+    for course in course_list:
+        # For convenience every course will have 4 ingredients, with all sorts of weird combos
+        bound = int(MAX_INGREDIENT_ID/4)
+        iic = {
+            "course_id": course["course_id"],
+            "ingredient_id": random.randint(0, bound)
+        }
+        iic_list.append(iic)
+        iic = {
+            "course_id": course["course_id"],
+            "ingredient_id": random.randint(bound + 1, bound*2)
+        }
+        iic_list.append(iic)
+        iic = {
+            "course_id": course["course_id"],
+            "ingredient_id": random.randint(bound*2 +1, bound*3)
+        }
+        iic_list.append(iic)
+        iic = {
+            "course_id": course["course_id"],
+            "ingredient_id": random.randint(bound*3 + 1, MAX_INGREDIENT_ID)
+        }
+        iic_list.append(iic)
+    return iic_list
+
+def allergene_in_ingredient():
+    aii_list = [
+        {
+            "ingredient_id": 0, # Flour
+            "allergene_id": 0 # Gluten
+        }, 
+        {
+            "ingredient_id": 16, # Egg
+            "allergene_id": 1 # Egg
+        }, 
+        {
+            "ingredient_id": 19, # Caesar dressing
+            "allergene_id": 1 # Egg
+        },
+        {
+            "ingredient_id": 19, # Caesar dressing
+            "allergene_id": 2 # Milk
+        },  
+        {
+            "ingredient_id": 21, # Brioche buns
+            "allergene_id": 0 # Gluten
+        }, 
+        {
+            "ingredient_id": 24, # Burger dressing
+            "allergene_id": 1 # Egg 
+        },
+        {
+            "ingredient_id": 24, # Burger dressing
+            "allergene_id": 2 # Milk 
+        }
+    ]
+    return aii_list
 
 """
     Inserting to database
@@ -406,6 +482,54 @@ def insert_allergenes(allergene_list):
     if success == True:
         print("Allergenes: Successfully inserted to db.")
 
+def insert_stock(stock_list):
+    success = True
+    for stock in stock_list:
+        cur = db_conn.cursor()      
+        sql = ("INSERT INTO stock(restaurant_id, ingredient_id, quantity) VALUES(%s, %s, %s)")
+        try:
+            cur.execute(sql, (stock["restaurant_id"], stock["ingredient_id"], stock["quantity"]))
+            db_conn.commit()
+        except mysql.connector.Error as err:
+            print("Oops, something went wrong with db insert:", err)
+            success = False
+        finally:
+            cur.close()
+    if success == True:
+        print("Stocks: Successfully inserted to db.")
+
+def insert_allergene_in_ingredient(ai_list):
+    success = True
+    for entry in ai_list:
+        cur = db_conn.cursor()        
+        sql = ("INSERT INTO allergene_in_ingredient(ingredient_id, allergene_id) VALUES(%s, %s)")
+        try:
+            cur.execute(sql, (entry["ingredient_id"], entry["allergene_id"]))
+            db_conn.commit()
+        except mysql.connector.Error as err:
+            print("Oops, something went wrong with db insert:", err)
+            success = False
+        finally:
+            cur.close()
+    if success == True:
+        print("Allergene in ingredients: Successfully inserted to db.")
+
+def insert_ingredient_in_course(ic_list):
+    success = True
+    for entry in ic_list:
+        cur = db_conn.cursor()        
+        sql = ("INSERT INTO ingredient_in_course(course_id, ingredient_id) VALUES(%s, %s)")
+        try:
+            cur.execute(sql, (entry["course_id"], entry["ingredient_id"]))
+            db_conn.commit()
+        except mysql.connector.Error as err:
+            print("Oops, something went wrong with db insert:", err)
+            success = False
+        finally:
+            cur.close()
+    if success == True:
+        print("Ingredients in courses: Successfully inserted to db.")
+
 def main():
     fake = faker.Faker("no_NO")   # no_NO: Norwegian language and units
     
@@ -413,7 +537,7 @@ def main():
     fake.seed(4321)
     random.seed(1234)
 
-    # Create list of fake values
+    # Create lists of fake values
     address_list = address(MAX_ADDRESS_ID + 1, fake)
     customer_list = customer(MAX_CUSTOMER_ID + 1, fake)
     restaurant_list = restaurant(MAX_RESTAURANT_ID + 1, fake)
@@ -425,6 +549,7 @@ def main():
     s_event_list = s_events(MAX_EVENT_ID + 1, fake)
     ingredient_list = ingredients(fake)
     allergene_list = allergenes(fake)
+    stock_list = stock(len(restaurant_list), len(ingredient_list))
 
     # Insert into db
     insert_addresses(address_list)
@@ -436,12 +561,14 @@ def main():
     insert_purchases(purchase_list)
     insert_reviews(review_list)
     insert_s_events(s_event_list)
-    insert_ingredients(ingredient_list)
+    insert_ingredients(ingredient_list) 
     insert_allergenes(allergene_list)
+    insert_stock(stock_list) 
+    insert_allergene_in_ingredient(allergene_in_ingredient())
+    insert_ingredient_in_course(ingredients_in_course(course_list, ingredient_list))
     
     # Dumps the statistics database to a sql-file. Outsources the subprocess to shellscript. File is dumped to the project root-folder
-    # subprocess.Popen("mysqldump --host=localhost --port=3306 --user=root --password=root dat210_statistics > dump.sql", shell=True)
-   
+    subprocess.Popen("mysqldump --host=localhost --port=3306 --user=root --password=root dat210_statistics > dump.sql", shell=True)
 
 if __name__ == '__main__':
     main()
