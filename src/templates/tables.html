@@ -41,7 +41,7 @@
                 <tbody>
                   {% for order in orders %}
                     <tr>
-                        <td>{{ order["Order_id"]|default("Order ID unknown") }}</td>
+                        <td>{{ order["order_id"]|default("Order ID unknown") }}</td>
                         <td>{{ order["time_of_purchase"]|default("Time of purchase unknown") }}</td>
                         <td>{{ order["price"]|default("Price unknown") }}</td>
                         <td>{{ order["order_ready"]|default("Order ready time unknown") }}</td>
