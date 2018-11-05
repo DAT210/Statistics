@@ -49,7 +49,7 @@ def get_all_customers():
                 "phone": customer[4],
                 "birthdate": customer[5],
                 "address_id": customer[6]
-            }
+            } 
             customers.append(new)
         if len(customers) <= 0:
             print("No customers in our database")
@@ -57,4 +57,4 @@ def get_all_customers():
         print("Oops, something went wrong:", err)
     finally:
         cur.close()
-    return json.dumps(customers)
+    return customers # Do not json.dumps() this. Need a python dict in Jinja

@@ -196,14 +196,27 @@ def s_events(count, fake):
 def course_in_purchase(purchase_count, fake):
     course_in_purchases = []
     for purchase_id in range(purchase_count):
-        rand = random.randint(1,10) # Number of courses in this purchase
-        for _ in range(rand):
-            course_in_purchase = {
-                "purchase_id": purchase_id,
-                "course_id": random.randint(0, MAX_COURSE_ID),
-                "quantity": random.randint(0, 4)
-            }
-            course_in_purchases += course_in_purchase
+        
+        # 3 courses in each purchase for convenience
+        bound = int(MAX_COURSE_ID/3)
+        course_in_purchase = {
+            "purchase_id": purchase_id,
+            "course_id": random.randint(0, bound),
+            "quantity": random.randint(0, 4)
+        }
+        course_in_purchases.append(course_in_purchase)
+        course_in_purchase = {
+            "purchase_id": purchase_id,
+            "course_id": random.randint(bound + 1, bound*2),
+            "quantity": random.randint(0, 4)
+        }
+        course_in_purchases.append(course_in_purchase)
+        course_in_purchase = {
+            "purchase_id": purchase_id,
+            "course_id": random.randint(bound*2 + 1, MAX_COURSE_ID),
+            "quantity": random.randint(0, 4)
+        }
+        course_in_purchases.append(course_in_purchase)
     return course_in_purchases
 
 def ingredients(fake):
@@ -450,6 +463,25 @@ def insert_s_events(event_list):
     if success == True:
         print("Events: Successfully inserted to db.")
 
+def insert_course_in_purchase(cip_list):
+    success = True
+    for cip in cip_list:
+        cur = db_conn.cursor()        
+        sql = ("INSERT INTO course_in_purchase(purchase_id, course_id, quantity) VALUES(%s, %s, %s)")
+        try:
+            cur.execute(sql, (cip["purchase_id"], cip["course_id"], cip["quantity"]))
+            db_conn.commit()
+        except mysql.connector.Error as err:
+            print("Oops, something went wrong with db insert:", err)
+            print(cip)
+            success = False
+        finally:
+            cur.close()
+    if success == True:
+        print("Course in purchase: Successfully inserted to db.")
+
+
+
 def insert_ingredients(ingredient_list):
     success = True
     for ingredient in ingredient_list:
@@ -547,6 +579,7 @@ def main():
     purchase_list = purchases(MAX_PURCHASE_ID + 1, fake)
     review_list = reviews(MAX_REVIEW_ID + 1, fake)
     s_event_list = s_events(MAX_EVENT_ID + 1, fake)
+    cip_list = course_in_purchase(MAX_PURCHASE_ID + 1, fake)
     ingredient_list = ingredients(fake)
     allergene_list = allergenes(fake)
     stock_list = stock(len(restaurant_list), len(ingredient_list))
@@ -561,6 +594,7 @@ def main():
     insert_purchases(purchase_list)
     insert_reviews(review_list)
     insert_s_events(s_event_list)
+    insert_course_in_purchase(cip_list)
     insert_ingredients(ingredient_list) 
     insert_allergenes(allergene_list)
     insert_stock(stock_list) 

@@ -52,7 +52,7 @@ def charts():
 @app.route("/statistics/tables/")
 def tables(): 
     return render_template("tables.html", orders=order_functions.get_all_orders(), customers=customer_functions.get_all_customers(), 
-        dishes=course_functions.get_all_courses())
+        courses=course_functions.get_all_courses())
 
 # API routes
 @app.route("/statistics/orders/")

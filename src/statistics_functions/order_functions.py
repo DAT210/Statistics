@@ -22,9 +22,9 @@ def get_all_orders():
                 "order_delivered": order[4],
                 "delivery_method": order[5],
                 "address_id": order[6],
-                "total_amount_payed": order[7],
+                "total_amount_payed": round(order[7], 2),
                 "tips": order[8],
-                "discount": order[9],
+                "discount": str(round(order[9]*100, 0)) + "%",
                 "customer_id": order[10],
                 "payment_id": order[11]
             }
@@ -35,7 +35,7 @@ def get_all_orders():
         print("Oops, something went wrong:", err)
     finally:
         cur.close()
-    return json.dumps(orders)
+    return orders # Do not json.dumps() this. Need a python dict in Jinja
 
 def orders_per_month(): # Ikke fullstendig omskrevet enda, må testes
     orders = get_all_orders()
@@ -66,18 +66,18 @@ def courses_sold():
         cur.execute(sql_courses_sold)
         courses = cur.fetchall()
 
-        sql_name_of_course = "SELECT course_name FROM course WHERE course_id =%s;"
+        sql_name_of_course = "SELECT course_name FROM course WHERE course_id=%s;"
         total_sold = []
         for course_id, count in courses:
-            cur.execute(sql_name_of_course, course_id)
+            cur.execute(sql_name_of_course, (course_id,))
             name = cur.fetchone()
             course = {
                 "course_id": course_id,
-                "course_name": name,
+                "course_name": name[0],
                 "amount_sold": count
             }
             total_sold.append(course)
-        
+        print(total_sold)
     except mysql.connector.Error as err:
         print("Oops, something went wrong:", err)
     finally:

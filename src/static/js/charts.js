@@ -20,10 +20,9 @@ function sendData(ordersMonth, ordersDish) {
     ordersPerDishData = [];
     ordersPerDishLabels = [];
     for (var key in ordersPerDish) {
-        ordersPerDishLabels.push(key);
-        ordersPerDishData.push(ordersPerDish[key]);
+        ordersPerDishLabels.push(ordersPerDish[key].course_name);
+        ordersPerDishData.push(ordersPerDish[key].amount_sold);
     }
-    console.log(ordersPerDishData);
 }
 
 var random = function random() {
