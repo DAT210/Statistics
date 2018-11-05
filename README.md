@@ -28,6 +28,31 @@ MySQL
 [Docker](https://www.docker.com/get-started)
 
 
+## How the server handles incoming input to be put in the database:
+All information we collect must be sent to the server via a POST request that includes a json object to the route "/statistics/input".
+In this json object, there must be a field with the name "input_type" that expresses what kind of input it is, as the server will
+execute a different set of queries based on this field. Depending on this field, other fields must also be specified.
+See the current list in the following table (subject to change)(fields are required, but empty values are allowed):
+
+| "input_type" |Required fields|Notes|
+|---|---|---|
+|"new_customer"|"city", "postcode", "street_name", "street_number", "apartment_number", "first_name", "last_name", "email", "phone", "birthdate", "address_id"||
+|"new_booking"|"first_name", "last_name", "restaurant_name", "table_id", "booking_date", "booking_length", "no_of_seats"|
+|"new_employee"|"restaurant_name", "city", "postcode", "street_name", "street_number", "apartment_number", "first_name", "last_name", "email", "phone", "birthdate", "salary", "start_date"|
+|"new_course"|"course_id", "course_name", "price", "category", "information", "ingredient_ids"|"ingredient_ids" expects a *list* of ids|
+|"new_completed_purchase"|"purchase_id", "purchase_time", "price", "delivery_method", "address_id", "amount", "tips", "discount", "customer_id", "payment_id" "course_ids_with_quantity"| "price" refers to stock price the customer would normally be expected to pay, while "amount" is the total amount payed after discounts and including tips. "course_ids_with_quantity" expects a *list* of *touples*|
+|"new_review"|"review_id", "course_id", "review_text", "score"
+|"new_ingredient"|"ingredient_id", "ingredient_name", "allergene_ids_and_names"| "allergene_ids_and_names" expects a *list* of *touples*|
+|"update_order_ready_time"|"purchase_id", "order_ready_time"|When was the preperation of the order finished|  
+|"update_delivery_finished_time"|"purchase_id", "order_delivered_time"|When was the delivery of the order finished|
+|"new_address"| "city", "postcode", "street_name", "street_number", "apartment_number"|
+|"new_restaurant"|"restaurant_id", "restaurant_name", "phone", "address_id"|
+
+
+
+
+
+
 ### Setting up Dev ##TODO
 
 Here's a brief intro about what a developer must do in order to start developing
