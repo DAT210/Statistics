@@ -29,7 +29,7 @@ def get_all_courses():
         print("Oops, something went wrong:", err)
     finally:
         cur.close()
-    return json.dumps(all_courses)
+    return all_courses # Do not json.dumps() this. Need a python dict in Jinja
 
 def get_course(course_id):
     db = app.get_db()
