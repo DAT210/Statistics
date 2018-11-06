@@ -24,7 +24,7 @@ def input(json_content):
 
     return input_type[content["input_type"]](content)
 
-def insert_new_customer(content):
+def insert_new_customer(content): #TODO separate address from customer, these should not be configured at the same time
     required_fields = [
         "city",
         "postcode",
@@ -80,7 +80,7 @@ def insert_new_customer(content):
 
     return 0
 
-def insert_new_booking(content):
+def insert_new_booking(content): #TODO missing booking id
     required_fields = [
         "first_name",
         "last_name",
@@ -128,7 +128,7 @@ def insert_new_booking(content):
         cur.close()
     return 0
 
-def insert_new_employee(content):
+def insert_new_employee(content): #TODO address_id local variabel called before assignment
     required_fields = [
         "restaurant_name",
         "city",
@@ -231,7 +231,7 @@ def insert_new_course(content):
         cur.close()  
     return 0
 
-def insert_new_ingredient(content):
+def insert_new_ingredient(content): #TODO add quantity field to readme
     required_fields = [
         "ingredient_id",
         "ingredient_name",
@@ -279,7 +279,7 @@ def insert_completed_purchase(content):
         "tips",
         "discount",
         "customer_id",
-        "payment_id"
+        "payment_id",
         "course_ids_with_quantity"] #list of tuples
     for field in required_fields:
         if field not in content:
