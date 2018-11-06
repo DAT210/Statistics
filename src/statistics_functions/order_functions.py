@@ -141,3 +141,25 @@ def orders_per_day():
     finally:
         cur.close()
     return json.dumps(days)
+
+def get_purchases_on_date(date):
+    db = app.get_db()
+    cur = db.cursor()
+
+    try:
+        sql = "SELECT COUNT(*) FROM purchase WHERE DATE(purchase_time)=\""+date+"\";"
+        cur.execute(sql, )
+
+        count = cur.fetchone()
+        if count[0] == 0:
+            raise NameError("No purchases on this date")
+        else:
+            purchases_on_date = {
+                "amount_of_purchases_on_"+date: count[0]
+            }
+
+    except mysql.connector.Error as err:
+        print("Oops, something went wrong:", err)
+    finally:
+        cur.close()
+    return purchases_on_date
