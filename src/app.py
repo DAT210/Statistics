@@ -82,10 +82,10 @@ def show_dishes(course_id):
 
 # Input routes
 
-@app.route("/statistics/input") #After testing, set with "methods='POST'"
+@app.route("/statistics/input") #After testing, set with "methods=["POST"]"
 def input():
-    #json_content = request.get_json()
-	json_content = json.dumps({"input_type": "new_course", "course_id": "3", "course_name": "navneksempel", "price": "123", "category": "food", "information":"sometext", "ingredient_ids":["5"]})
+	json_content = request.get_json()
+	json_content = json.dumps(json_content)
 	if json_content == None:
 		return "No json content detected"
 	return str(input_functions.input(json_content))
