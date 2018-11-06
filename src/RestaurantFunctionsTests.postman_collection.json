@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "ef787abd-e2fb-4855-abda-dc9883389954",
 		"name": "Restaurant Functions Tests",
+		"description": "Hello",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -380,10 +381,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "localhost:5000/statistics/customers/14/",
 							"host": [
@@ -478,10 +476,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "localhost:5000/statistics/customers/47/",
 							"host": [
@@ -576,10 +571,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "localhost:5000/statistics/customers/6/",
 							"host": [
@@ -800,10 +792,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "localhost:5000/statistics/dish/5/",
 							"host": [
@@ -873,10 +862,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "localhost:5000/statistics/dish/1/",
 							"host": [
@@ -1082,10 +1068,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "localhost:5000/statistics/orders/34/",
 							"host": [
@@ -1184,10 +1167,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "localhost:5000/statistics/orders/55/",
 							"host": [
@@ -1286,10 +1266,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "localhost:5000/statistics/orders/20/",
 							"host": [
@@ -1388,10 +1365,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "localhost:5000/statistics/orders/8/",
 							"host": [
@@ -1403,6 +1377,574 @@
 								"orders",
 								"8",
 								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "post_input",
+			"item": [
+				{
+					"name": "input new_review",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"input_type\": \"new_review\",\n\t\"review_id\": \"999\",\n\t\"course_id\": \"10\",\n\t\"review_text\": \"new_review 222\",\n\t\"score\": \"10\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_course",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_course\",\n    \"course_id\": \"999\",\n    \"course_name\": \"example_course_name\",\n    \"price\": \"123\",\n    \"category\": \"example_category\",\n    \"information\": \"example_info\",\n    \"ingredient_ids\": [\"1\", \"2\", \"3\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_customer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_customer\",\n    \"city\": \"example_city\",\n    \"postcode\": \"1234\",\n    \"street_name\": \"example_street\",\n    \"street_number\": \"10\",\n    \"apartment_number\": \"10\",\n    \"first_name\": \"f_name\",\n    \"last_name\": \"l_name\",\n    \"email\": \"example@mail.com\",\n    \"phone\": \"12345678\",\n    \"birthdate\": \"2000-01-01\",\n    \"address_id\": \"10\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_booking",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_booking\",\n    \"first_name\": \"first_name\",\n    \"last_name\": \"last_name\",\n    \"restaurant_name\": \"restaurant_name\",\n    \"table_id\": \"1\",\n    \"booking_date\": \"2019-01-01\",\n    \"booking_length\": \"2\",\n    \"no_of_seats\": \"2\",\n    \"customer_id\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_employee",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_employee\",\n    \"restaurant_name\": \"restaurant_name\",\n    \"city\": \"example_city\",\n    \"postcode\": \"1234\",\n    \"street_name\": \"example_street\",\n    \"street_number\": \"10\",\n    \"apartment_number\": \"10\",\n    \"first_name\": \"first_name\",\n    \"last_name\": \"last_name\",\n    \"email\": \"example@mail.com\",\n    \"phone\": \"12345678\",\n    \"birthdate\": \"2000-01-01\",\n    \"salary\": \"166.6\",\n    \"start_date\": \"2019-01-01\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_completed_purchase",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_completed_purchase\",\n    \"purchase_id\": \"999\",\n    \"purchase_time\": \"2019-01-01 00:00:00\",\n    \"price\": \"1234\",\n    \"delivery_method\": \"bicycle\",\n    \"address_id\": \"1\",\n    \"amount\": \"1324\",\n    \"tips\": \"50\",\n    \"discount\": \"90\",\n    \"customer_id\": \"1\",\n    \"payment_id\" : \"1\",\n    \"course_ids_with_quantity\": [[\"10\",\"50\"],[\"11\",\"50\"]]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_ingredient",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_ingredient\",\n    \"ingredient_id\": \"999\",\n    \"ingredient_name\": \"salt\",\n    \"quantity_in_stock\": \"50\",\n    \"allergene_ids_and_names\": [[\"998\",\"hello\"],[\"999\", \"world\"]]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input update_order_ready_time",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"update_order_ready_time\",\n    \"purchase_id\": \"999\",\n    \"order_ready_time\": \"5\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input update_delivery_finished_time",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"update_delivery_finished_time\",\n    \"purchase_id\": \"999\",\n    \"order_delivered_time\": \"5\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_address",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_address\",\n    \"address_id\": \"999\",\n    \"city\": \"example_city\",\n    \"postcode\": \"1234\",\n    \"street_name\": \"example_street\",\n    \"street_number\": \"10\",\n    \"apartment_number\": \"10\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_restaurant",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_restaurant\",\n    \"restaurant_id\": \"999\",\n    \"restaurant_name\": \"example_restaurant_name\",\n    \"postcode\": \"1234\",\n    \"phone\": \"12345678\",\n    \"address_id\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
 							]
 						}
 					},

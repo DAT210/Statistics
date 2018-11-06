@@ -42,13 +42,13 @@ def insert_new_customer(content): #TODO separate address from customer, these sh
         if field not in content:
             return "Insert failed, Missing field: "+ field
     
-    insert_new_address(content)
+    #insert_new_address(content)
     
     db = app.get_db()
     cur = db.cursor()
     try:
         cur.execute("START TRANSACTION;")
-         
+        """    
         sql = "SELECT address_id, apartment_number FROM address WHERE city=%s AND postcode=%s AND street_name=%s AND street_number=%s"
         cur.execute(sql, (
             content["city"], 
@@ -60,7 +60,7 @@ def insert_new_customer(content): #TODO separate address from customer, these sh
             for address in address_list:
                 if address[1] == content["apartment_number"]:
                     address_id = address[0]
-        
+        """    
         sql_customer = "INSERT INTO customer(first_name, last_name, email, phone, birthdate, address_id) VALUES(%s, %s, %s, %s, %s, %s, %s);"
         cur.execute(sql_customer, (
             content["first_name"], 
@@ -68,7 +68,7 @@ def insert_new_customer(content): #TODO separate address from customer, these sh
             content["email"], 
             content["phone"], 
             content["birthdate"], 
-            address_id))
+            content["address_id"]))
 
         cur.execute("COMMIT;")
     except mysql.connector.Error as err:
@@ -153,12 +153,12 @@ def insert_new_employee(content): #TODO address_id local variabel called before 
     try:
         cur.execute("START TRANSACTION;")
 
-        sql_restaurant = "SELECT restaurant_id FROM restaurant WHERE restaurant_name=%s"
+        sql_restaurant = "SELECT restaurant_id FROM restaurant WHERE restaurant_name=%s;"
         cur.execute(sql_restaurant, 
-            (content["restaurant_name"]))
+            (content["restaurant_name"],))
         restaurant_id = cur.fetchone()
 
-        sql_address = "SELECT address_id, apartment_number FROM address WHERE city=%s AND postcode=%s AND street_name=%s AND street_number=%s"
+        sql_address = "SELECT address_id, apartment_number FROM address WHERE city=%s AND postcode=%s AND street_name=%s AND street_number=%s;"
         cur.execute(sql_address, (
             content["city"], 
             content["postcode"], 
@@ -244,10 +244,11 @@ def insert_new_ingredient(content): #TODO add quantity field to readme
     try:
         cur.execute("START TRANSACTION;")
 
-        sql_ingredient = "INSERT INTO ingredient VALUES(%s, %s);"
+        sql_ingredient = "INSERT INTO ingredient VALUES(%s, %s, %s);"
         cur.execute(sql_ingredient, (
             content["ingredient_id"],
-            content["ingredient_name"]))
+            content["ingredient_name"],
+            content["quantity_in_stock"]))
 
         sql_allergene = "INSERT IGNORE INTO allergene VALUES(%s, %s);"
         sql_allergene_in_ingredient = "INSERT INTO allergene_in_ingredient VALUES(%s, %s);"
@@ -402,6 +403,7 @@ def update_delivery_finished_time(content):
 
 def insert_new_address(content):
     required_fields = [
+        "address_id",
         "city",
         "postcode",
         "street_name",
@@ -415,8 +417,9 @@ def insert_new_address(content):
     try:
         cur.execute("START TRANSACTION;") 
 
-        sql_address = "INSERT INTO address(city, postcode, street_name, street_number, apartment_number) VALUES(%s, %s, %s, %s, %s, %s)"
+        sql_address = "INSERT INTO address VALUES(%s, %s, %s, %s, %s, %s)"
         cur.execute(sql_address, (
+            content["address_id"],
             content["city"], 
             content["postcode"], 
             content["street_name"], 
