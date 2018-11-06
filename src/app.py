@@ -80,9 +80,13 @@ def dishes():
 def show_dishes(course_id):
     return jsonify(course_functions.get_course(course_id))
 
+@app.route("/statistics/purchase/<string:date>/")
+def show_purchases_on_date(date):
+    return jsonify(order_functions.get_purchases_on_date(date))
+
 # Input routes
 
-@app.route("/statistics/input") #After testing, set with "methods=["POST"]"
+@app.route("/statistics/input", methods=["POST"]) #After testing, set with "methods=["POST"]"
 def input():
 	json_content = request.get_json()
 	json_content = json.dumps(json_content)
