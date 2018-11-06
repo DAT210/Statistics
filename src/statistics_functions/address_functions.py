@@ -10,7 +10,7 @@ def get_address(address_id):
     cur = db.cursor()
     try:
         sql = "SELECT * FROM address WHERE address_id = %s;"
-        cur.execute(sql, (address_id))
+        cur.execute(sql, (address_id,))
         address = cur.fetchone()
 
         if address == None:

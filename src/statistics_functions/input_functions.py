@@ -101,7 +101,7 @@ def insert_new_booking(content):
     
         sql_restaurant = "SELECT restaurant_id FROM restaurant WHERE restaurant_name=%s"
         cur.execute(sql_restaurant, 
-            content["restaurant_name"])
+            (content["restaurant_name"],))
         restaurant_id = cur.fetchone()
 
         sql_customer = "SELECT customer_id FROM customer WHERE first_name=%s AND last_name=%s"
@@ -155,7 +155,7 @@ def insert_new_employee(content):
 
         sql_restaurant = "SELECT restaurant_id FROM restaurant WHERE restaurant_name=%s"
         cur.execute(sql_restaurant, 
-            content["restaurant_name"])
+            (content["restaurant_name"]))
         restaurant_id = cur.fetchone()
 
         sql_address = "SELECT address_id, apartment_number FROM address WHERE city=%s AND postcode=%s AND street_name=%s AND street_number=%s"
