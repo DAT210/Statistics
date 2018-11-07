@@ -2,7 +2,7 @@
 var ordersPerMonth, ordersPerMonthData, ordersPerMonthLabels;
 var ordersPerDish, ordersPerDishData, ordersPerDishLabels;
 var bookingsPerRestaurant, bookingsPerRestaurantData, bookingsPerRestaurantLabels;
-var stockPerRestaurant, stockPerRestaurantData, stockPerRestaurantLabels;
+var stockPerRestaurant, stockPerRestaurantData, stockPerRestaurantLabels, total_stock;
 
 // Init function. Labels and data processed in the same order as present in JSON object
 function sendData(ordersMonth, ordersDish, bookingRestaurant,stockRestaurant) { 
@@ -40,16 +40,18 @@ function sendData(ordersMonth, ordersDish, bookingRestaurant,stockRestaurant) {
     console.log(stockPerRestaurant)
 
     stockPerRestaurantLabels = [];
-    stockPerRestaurantData = [];
+    total_stock = []; 
     for (var restaurant_id in stockPerRestaurant){
+        stockPerRestaurantData = [];
         for (var key in stockPerRestaurant[restaurant_id]){
             if (restaurant_id == 0) {
                 stockPerRestaurantLabels.push(stockPerRestaurant[0][key].ingredient_name);
             }
-            //stockPerRestaurantData.push(stockPerRestaurant[restaurant_id][key].quantity);
-
+            stockPerRestaurantData.push(stockPerRestaurant[restaurant_id][key].quantity);
         }
+        total_stock.push(stockPerRestaurantData);
     }
+    console.log(total_stock);
 };
 
 
@@ -190,26 +192,26 @@ $(document).ready(function(){
     data: {
         labels: stockPerRestaurantLabels,
         datasets: [{
-            label:stockPerRestaurant[0],
-            backgroundColor: 'rgba(220, 220, 220, 0.2)',
+            label:'0',
+            backgroundColor: 'rgba(255, 0, 0, 0.2)',
             borderColor: 'rgba(220, 220, 220, 1)',
             pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(220, 220, 220, 1)',
-            data: stockPerRestaurantData[0]
+            pointHighlightStroke: 'rgba(255, 0, 0, 1)',
+            data: total_stock[0]
         }, {    
-            label: stockPerRestaurant[1],
-            backgroundColor: 'rgba(151, 187, 205, 0.2)',
-            borderColor: 'rgba(151, 187, 205, 1)',
+            label: '1',
+            backgroundColor: 'rgba(0, 255, 0, 0.2)',
+            borderColor: 'rgba(0, 255, 0, 1)',
             pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(151, 187, 205, 1)',
-            data: stockPerRestaurantData[1]
+            pointHighlightStroke: 'rgba(0, 255, 0, 1)',
+            data: total_stock[1]
         }, {    
-            label: stockPerRestaurant[2],
-            backgroundColor: 'rgba(151, 187, 205, 0.2)',
-            borderColor: 'rgba(151, 187, 205, 1)',
+            label: '2',
+            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+            borderColor: 'rgba(0, 0, 255,) 1)',
             pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(151, 187, 205, 1)',
-            data: stockPerRestaurantData[2]
+            pointHighlightStroke: 'rgba(0, 0, 255, 1)',
+            data: total_stock[2]
         }]
     },
     options: {
