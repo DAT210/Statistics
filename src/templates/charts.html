@@ -75,10 +75,10 @@
               </div>
             </div>
           </div>
-          <!-- 
+          <!-- Chart 5 / End Chart 4 -->
           <div class="card">
             <div class="card-header">
-              Pie Chart
+              Restaurant booking overview
               <div class="card-actions">
                 <a href="http://www.chartjs.org">
                   <small class="text-muted">docs</small>
@@ -118,6 +118,6 @@
 <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
 <!-- Sending chart data to js file -->
 <script type="text/javascript">
-  sendData({{ orders_per_month|tojson }}, {{ orders_per_dish|tojson }})
+  sendData({{ orders_per_month|tojson }}, {{ orders_per_dish|tojson }}, {{booking_per_restaurant|tojson}})
 </script>
 {% endblock %}
