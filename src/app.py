@@ -47,8 +47,8 @@ def index():
 @app.route("/statistics/charts/")
 def charts():
     return render_template("charts.html", orders_per_month=order_functions.orders_per_month(), 
-            orders_per_dish=order_functions.courses_sold(), booking_per_restaurant=booking_functions.booking_per_restaurant()) 
-        #,ingredients_in_stock=booking_functions.ingredients_per_restaurant_stock()
+            orders_per_dish=order_functions.courses_sold(), booking_per_restaurant=booking_functions.booking_per_restaurant()
+            ,ingredients_in_stock=booking_functions.ingredients_per_restaurant_stock())
 
 @app.route("/statistics/tables/")
 def tables(): 

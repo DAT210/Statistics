@@ -64,26 +64,26 @@ def ingredients_per_restaurant_stock():
     try:
         sql = "SELECT DISTINCT restaurant_id FROM booking ORDER BY restaurant_id;"
         cur.execute(sql)
-        stock = []
+        all_stocks = {}
         for restaurant_id in cur.fetchall():
-            sql_ingredient_list_per_restaurant = "SELECT ingredient_id, quantity FROM stock WHERE restaurant_id = %s;"
+            sql_ingredient_list_per_restaurant = "SELECT ingredient_id, quantity FROM stock WHERE restaurant_id = %s ORDER BY ingredient_id;"
             cur.execute(sql_ingredient_list_per_restaurant, (restaurant_id))
-            total_stock = cur.fetchone()
-            new = {}
+            stock = []
+            total_stock = cur.fetchall()
             for ingredient in total_stock:
-                sql_ingredient_name = "SELECT ingredient_name FROM ingredient WHERE ingredient_id = %s;"
-                ingredient_name = cur.execute(sql_ingredient_name, (ingredient[0]))
-
-                new [ingredient[0]] = {
-                    "ingredient_name": ingredient_name,
+                id = ingredient[0]
+                cur.execute("SELECT ingredient_name FROM ingredient WHERE ingredient_id = %s;" % (id) )
+                new = {
+                    "ingredient_id": id,
+                    "ingredient_name": cur.fetchone()[0],
                     "quantity": ingredient[1]
                 }
-            stock.append(new)
-        print(stock)
+                stock.append(new)
+            all_stocks[restaurant_id[0]] = stock
         if len(stock) <= 0:
             print("No stocks in our database")
     except mysql.connector.Error as err:
         print("Oops, something went wrong:", err)
     finally:
         cur.close()
-    return 0
+    return json.dumps(all_stocks)
