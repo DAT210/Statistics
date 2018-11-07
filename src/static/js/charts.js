@@ -1,27 +1,27 @@
 // Global variables to store chart data
-var ordersPerMonth, ordersPerMonthData, ordersPerMonthLabels;
-var ordersPerDish, ordersPerDishData, ordersPerDishLabels;
+var purchasesPerMonth, purchasesPerMonthData, purchasesPerMonthLabels;
+var purchasesPerDish, purchasesPerDishData, purchasesPerDishLabels;
 
 // Init function. Labels and data processed in the same order as present in JSON object
-function sendData(ordersMonth, ordersDish) {
-    ordersPerMonth = JSON.parse(ordersMonth);
-    console.log(ordersPerMonth)
+function sendData(purchasesMonth, purchasesDish) {
+    purchasesPerMonth = JSON.parse(purchasesMonth);
+    console.log(purchasesPerMonth)
     
-    ordersPerMonthData = [];
-    ordersPerMonthLabels = [];
-    for (var key in ordersPerMonth) {
-        ordersPerMonthLabels.push(key);
-        ordersPerMonthData.push(ordersPerMonth[key]);
+    purchasesPerMonthData = [];
+    purchasesPerMonthLabels = [];
+    for (var key in purchasesPerMonth) {
+        purchasesPerMonthLabels.push(key);
+        purchasesPerMonthData.push(purchasesPerMonth[key]);
     }
 
-    ordersPerDish = JSON.parse(ordersDish);
-    console.log(ordersPerDish)
+    purchasesPerDish = JSON.parse(purchasesDish);
+    console.log(purchasesPerDish)
 
-    ordersPerDishData = [];
-    ordersPerDishLabels = [];
-    for (var key in ordersPerDish) {
-        ordersPerDishLabels.push(ordersPerDish[key].course_name);
-        ordersPerDishData.push(ordersPerDish[key].amount_sold);
+    purchasesPerDishData = [];
+    purchasesPerDishLabels = [];
+    for (var key in purchasesPerDish) {
+        purchasesPerDishLabels.push(purchasesPerDish[key].course_name);
+        purchasesPerDishData.push(purchasesPerDish[key].amount_sold);
     }
 }
 
@@ -33,14 +33,14 @@ $(document).ready(function(){
     var lineChart = new Chart($('#canvas-1'), {
         type: 'line',
         data: {
-            labels: ordersPerMonthLabels,
+            labels: purchasesPerMonthLabels,
             datasets: [{
-                label: '# of orders',
+                label: '# of purchases',
                 backgroundColor: 'rgba(151, 187, 205, 0.2)',
                 borderColor: 'rgba(151, 187, 205, 1)',
                 pointBackgroundColor: 'rgba(151, 187, 205, 1)',
                 pointBorderColor: '#fff',
-                data: ordersPerMonthData
+                data: purchasesPerMonthData
             }]
         },
         options: {
@@ -64,14 +64,14 @@ $(document).ready(function(){
     var barChart = new Chart($('#canvas-3'), {
         type: 'bar',
         data: {
-            labels: ordersPerDishLabels,
+            labels: purchasesPerDishLabels,
             datasets: [{
-                label: "# of orders",
+                label: "# of purchases",
                 backgroundColor: 'rgba(220, 220, 220, 0.5)',
                 borderColor: 'rgba(220, 220, 220, 0.8)',
                 highlightFill: 'rgba(220, 220, 220, 0.75)',
                 highlightStroke: 'rgba(220, 220, 220, 1)',
-                data: ordersPerDishData
+                data: purchasesPerDishData
             }]
         },
         options: {

@@ -18,13 +18,13 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <i class="fa fa-align-justify"></i> Orders <!-- Simple table -->
+              <i class="fa fa-align-justify"></i> Purchases <!-- Simple table -->
             </div>
             <div class="card-body">
               <table id="courses" class="table">
                 <thead>
                   <tr>
-                    <th>Order ID</th>
+                    <th>Purchase ID</th>
                     <th>Time</th>
                     <th>Price</th>
                     <th>Order ready</th>
@@ -39,20 +39,20 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for order in orders %}
+                  {% for purchase in purchases %}
                     <tr>
-                        <td>{{ order["order_id"]|default("Order ID unknown") }}</td>
-                        <td>{{ order["time_of_purchase"]|default("Time of purchase unknown") }}</td>
-                        <td>{{ order["price"]|default("Price unknown") }}</td>
-                        <td>{{ order["order_ready"]|default("Order ready time unknown") }}</td>
-                        <td>{{ order["order_delivered"]|default("Order deliverd time unknown") }}</td>
-                        <td>{{ order["delivery_method"]|default("Delivery method unknown") }}</td>
-                        <td>{{ order["address_id"]|default("Address ID unknown") }}</td>
-                        <td>{{ order["tips"]|default("Tips unknown") }}</td>
-                        <td>{{ order["discount"]|default("Discount unknown") }}</td>
-                        <td>{{ order["total_amount_payed"]|default("Total amount payed unknown") }}</td>
-                        <td>{{ order["customer_id"]|default("Customer ID unknown") }}</td>
-                        <td>{{ order["payment_id"]|default("Payment ID unknown") }}</td>
+                        <td>{{ purchase["purchase_id"]|default("Purchase ID unknown") }}</td>
+                        <td>{{ purchase["time_of_purchase"]|default("Time of purchase unknown") }}</td>
+                        <td>{{ purchase["price"]|default("Price unknown") }}</td>
+                        <td>{{ purchase["order_ready"]|default("Order ready time unknown") }}</td>
+                        <td>{{ purchase["order_delivered"]|default("Order deliverd time unknown") }}</td>
+                        <td>{{ purchase["delivery_method"]|default("Delivery method unknown") }}</td>
+                        <td>{{ purchase["address_id"]|default("Address ID unknown") }}</td>
+                        <td>{{ purchase["tips"]|default("Tips unknown") }}</td>
+                        <td>{{ purchase["discount"]|default("Discount unknown") }}</td>
+                        <td>{{ purchase["total_amount_payed"]|default("Total amount payed unknown") }}</td>
+                        <td>{{ purchase["customer_id"]|default("Customer ID unknown") }}</td>
+                        <td>{{ purchase["payment_id"]|default("Payment ID unknown") }}</td>
                     </tr>
                   {% endfor %}
                 </tbody>
