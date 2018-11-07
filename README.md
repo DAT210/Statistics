@@ -17,8 +17,8 @@ python -m pip install mysql-connector-python
 python app.py
 ```
 
-Installs required packages and starts the web app local server on http://localhost:5000/
-Current routes starts on localhost:5000/statistics/
+Installs required packages and starts the web app local server on http://localhost:5000/  
+Current routes starts on http://localhost:5000/statistics/  
 You will need to have Python installed. In the app.py file you will also need to adjust the database configs according to your local database settings e.g. change the password and database name.
 
 ## Developing
@@ -28,9 +28,9 @@ Python/Flask
 MySQL
 
 ### Prerequisites
-[Docker](https://www.docker.com/get-started)
-[Python](https://www.python.org/)
-[Flask](http://flask.pocoo.org/)
+[Docker](https://www.docker.com/get-started)  
+[Python](https://www.python.org/)  
+[Flask](http://flask.pocoo.org/)  
 [MySQL](https://www.mysql.com/)
 
 
