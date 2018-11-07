@@ -137,7 +137,7 @@ $(document).ready(function(){
                 pointHighlightFill: '#fff',
                 pointHighlightStroke: 'rgba(220, 220, 220, 1)',
                 data: [65, 59, 90, 81, 56, 55, 40]
-            }, {
+            }, {    
                 label: 'My Second dataset',
                 backgroundColor: 'rgba(151, 187, 205, 0.2)',
                 borderColor: 'rgba(151, 187, 205, 1)',

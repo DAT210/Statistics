@@ -49,7 +49,6 @@ def booking_per_restaurant():
                 "total_bookings": total_bookings[0]
             }
             booking.append(new)
-        print(booking)
         if len(booking) <= 0:
             print("No bookings in our database")
     except mysql.connector.Error as err:
