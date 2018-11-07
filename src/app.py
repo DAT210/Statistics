@@ -8,7 +8,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, g
 import mysql.connector
 import json
 import collections
-from statistics_functions import order_functions, course_functions, customer_functions, input_functions
+from statistics_functions import order_functions, course_functions, customer_functions, input_functions, booking_functions
 
 
 app = Flask(__name__)
@@ -46,8 +46,8 @@ def index():
 
 @app.route("/statistics/charts/")
 def charts():
-    return render_template("charts.html", orders_per_month=order_functions.orders_per_month(), 
-        orders_per_dish=order_functions.courses_sold())
+    return render_template("charts.html", orders_per_month=order_functions.orders_per_month(), orders_per_dish=order_functions.courses_sold(), booking_per_restaurant=booking_functions.booking_per_restaurant()) 
+        #,ingredients_in_stock=booking_functions.ingredients_per_restaurant_stock()
 
 @app.route("/statistics/tables/")
 def tables(): 

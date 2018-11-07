@@ -1,9 +1,11 @@
 // Global variables to store chart data
 var ordersPerMonth, ordersPerMonthData, ordersPerMonthLabels;
 var ordersPerDish, ordersPerDishData, ordersPerDishLabels;
+var bookingsPerRestaurant, bookingsPerRestaurantData, bookingsPerRestaurantLabels;
 
 // Init function. Labels and data processed in the same order as present in JSON object
-function sendData(ordersMonth, ordersDish) {
+function sendData(ordersMonth, ordersDish, bookingRestaurant) { //stockRestaurant 
+
     ordersPerMonth = JSON.parse(ordersMonth);
     console.log(ordersPerMonth)
     
@@ -23,7 +25,30 @@ function sendData(ordersMonth, ordersDish) {
         ordersPerDishLabels.push(ordersPerDish[key].course_name);
         ordersPerDishData.push(ordersPerDish[key].amount_sold);
     }
-}
+
+    bookingsPerRestaurant = JSON.parse(bookingRestaurant);
+    console.log(bookingsPerRestaurant)
+
+    bookingsPerRestaurantData = [];
+    bookingsPerRestaurantLabels = [];
+    for (var key in bookingsPerRestaurant){
+        bookingsPerRestaurantLabels.push(bookingsPerRestaurant[key].restaurant_id);
+        bookingsPerRestaurantData.push(bookingsPerRestaurant[key].total_bookings);
+    }
+
+    /* 
+    stockPerRestaurant = JSON.parse(stockRestaurant);
+    console.log(stockPerRestaurant)
+
+    stockPerRestaurantData = [];
+    stockPerRestaurantLabels = [];
+    for (var key in stocksPerRestaurant){
+        stockPerRestaurantLabels.push(stockPerRestaurant[key].ingredient_name);
+        stockPerRestaurantData.push(stockPerRestaurant[key].quantity);
+    } 
+    */
+};
+
 
 var random = function random() {
     return Math.round(Math.random() * 100);
@@ -98,6 +123,7 @@ $(document).ready(function(){
         }
     });
     barChart.update();
+
     var radarChart = new Chart($('#canvas-4'), {
         type: 'radar',
         data: {
@@ -125,22 +151,22 @@ $(document).ready(function(){
         options: {
             responsive: true
         }
-    });
-    /*
+    });    
     var pieChart = new Chart($('#canvas-5'), {
         type: 'pie',
         data: {
-            labels: ['Red', 'Green', 'Yellow'],
+            labels: bookingsPerRestaurantLabels,
             datasets: [{
-                data: [300, 50, 100],
                 backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-                hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+                hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                data: bookingsPerRestaurantData
             }]
         },
         options: {
             responsive: true
         }
     });
+    /*
     var polarAreaChart = new Chart($('#canvas-6'), {
         type: 'polarArea',
         data: {
