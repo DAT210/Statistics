@@ -74,3 +74,29 @@ def get_course_lookup_dict():
     finally:
         cur.close()
     return json.dumps(courses)
+
+def courses_sold():
+    db = app.get_db()
+    cur = db.cursor()
+    try:
+        sql_courses_sold = "SELECT course_id, count(*) as total_sold FROM course_in_purchase GROUP BY course_id;"
+        cur.execute(sql_courses_sold)
+        courses = cur.fetchall()
+
+        sql_name_of_course = "SELECT course_name FROM course WHERE course_id=%s;"
+        total_sold = []
+        for course_id, count in courses:
+            cur.execute(sql_name_of_course, (course_id,))
+            name = cur.fetchone()
+            course = {
+                "course_id": course_id,
+                "course_name": name[0],
+                "amount_sold": count
+            }
+            total_sold.append(course)
+        print(total_sold)
+    except mysql.connector.Error as err:
+        print("Oops, something went wrong:", err)
+    finally:
+        cur.close()
+    return json.dumps(total_sold)
