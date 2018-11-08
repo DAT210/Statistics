@@ -14,7 +14,7 @@
           <!-- Chart 1 -->
           <div class="card">
             <div class="card-header">
-              Number of orderes per month
+              Number of orders per month
               <div class="card-actions">
                 <a href="http://www.chartjs.org">
                   <small class="text-muted">docs</small>
@@ -30,22 +30,6 @@
           <!-- Chart 2 / End Chart 1 -->
           <div class="card">
             <div class="card-header">
-              Doughnut Chart
-              <div class="card-actions">
-                <a href="http://www.chartjs.org">
-                  <small class="text-muted">docs</small>
-                </a>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="chart-wrapper">
-                <canvas id="canvas-2"></canvas>
-              </div>
-            </div>
-          </div>
-          <!-- Chart 3 / End Chart 2 -->
-          <div class="card">
-            <div class="card-header">
               Number of orders per dish
               <div class="card-actions">
                 <a href="http://www.chartjs.org">
@@ -59,8 +43,58 @@
               </div>
             </div>
           </div>
-          <!-- Chart 4 / End Chart 3 -->
+          <!-- Chart 3 / End Chart 2 -->
           <div class="card">
+            <div class="card-header">
+              Restaurant booking overview
+              <div class="card-actions">
+                <a href="http://www.chartjs.org">
+                  <small class="text-muted">docs</small>
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart-wrapper">
+                <canvas id="canvas-5"></canvas>
+              </div>
+            </div>
+          </div>
+          <!-- Chart 4 / End Chart 3-->
+          <div class="card">
+              <div class="card-header">
+                Ingredients in Stock
+                <div class="card-actions">
+                  <a href="http://www.chartjs.org">
+                    <small class="text-muted">docs</small>
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-wrapper">
+                  <canvas id="canvas-7"></canvas>
+                </div>
+              </div>
+            </div>
+          <!--
+            <div class="card">
+              <div class="card-header">
+                Doughnut Chart
+                <div class="card-actions">
+                <a href="http://www.chartjs.org">
+                  <small class="text-muted">docs</small>
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart-wrapper">
+                <canvas id="canvas-2"></canvas>
+              </div>
+            </div>
+          </div>
+        -->
+          <!-- Chart 5 / End Chart 4 -->
+          <!--
+            <div class="card">
             <div class="card-header">
               Radar Chart
               <div class="card-actions">
@@ -75,22 +109,9 @@
               </div>
             </div>
           </div>
-          <!-- 
-          <div class="card">
-            <div class="card-header">
-              Pie Chart
-              <div class="card-actions">
-                <a href="http://www.chartjs.org">
-                  <small class="text-muted">docs</small>
-                </a>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="chart-wrapper">
-                <canvas id="canvas-5"></canvas>
-              </div>
-            </div>
-          </div>
+        -->
+          <!-- Chart 6 / End Chart 5 -->
+        <!--
           <div class="card">
             <div class="card-header">
               Polar Area Chart
@@ -106,10 +127,11 @@
               </div>
             </div>
           </div>
-          -->
+        -->
         </div>
       </div>
     </div>
+  -->
     <!-- /.container-fluid -->
 {% endblock %}
 {% block customscripts %}
@@ -118,6 +140,6 @@
 <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
 <!-- Sending chart data to js file -->
 <script type="text/javascript">
-  sendData({{ orders_per_month|tojson }}, {{ orders_per_dish|tojson }})
+  sendData({{ orders_per_month|tojson }}, {{ orders_per_dish|tojson }}, {{booking_per_restaurant|tojson}}, {{ingredients_in_stock|tojson}})
 </script>
 {% endblock %}

@@ -9,14 +9,17 @@ Statistics service that will store and serve statisitcs for the restaurant busin
 
 ## Installing / Getting started ##TODO
 
-A quick introduction of the minimal setup you need to get a hello world up &
-running.
+A quick introduction of the minimal setup you need to get our web app running.
 
 ```shell
-commands here
+python -m pip install Flask
+python -m pip install mysql-connector-python
+python app.py
 ```
 
-Here you should say what actually happens when you execute the code above.
+Installs required packages and starts the web app local server on http://localhost:5000/  
+Current routes starts on http://localhost:5000/statistics/  
+You will need to have Python installed. In the app.py file you will also need to adjust the database configs according to your local database settings e.g. change the password and database name.
 
 ## Developing
 
@@ -25,7 +28,10 @@ Python/Flask
 MySQL
 
 ### Prerequisites
-[Docker](https://www.docker.com/get-started)
+[Docker](https://www.docker.com/get-started)  
+[Python](https://www.python.org/)  
+[Flask](http://flask.pocoo.org/)  
+[MySQL](https://www.mysql.com/)
 
 
 ## How the server handles incoming input to be put in the database:
@@ -59,9 +65,11 @@ Here's a brief intro about what a developer must do in order to start developing
 the project further:
 
 ```shell
-git clone https://github.com/your/your-project.git
-cd your-project/
-packagemanager install
+mkdir MyProjectFolder
+cd MyProjectFolder
+git clone https://github.com/DAT210/Statistics.git
+python -m pip install Flask
+python -m pip install mysql-connector-python
 ```
 
 And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
@@ -100,6 +108,8 @@ We can maybe use [SemVer](http://semver.org/) for versioning. For the versions a
 
 Here you should write what are all of the configurations a user can enter when
 using the project.
+
+In app.py file change database configs to your local database config.
 
 ## Tests ##TODO
 

@@ -1,9 +1,11 @@
 // Global variables to store chart data
 var ordersPerMonth, ordersPerMonthData, ordersPerMonthLabels;
 var ordersPerDish, ordersPerDishData, ordersPerDishLabels;
+var bookingsPerRestaurant, bookingsPerRestaurantData, bookingsPerRestaurantLabels;
+var stockPerRestaurant, stockPerRestaurantData, stockPerRestaurantLabels, total_stock;
 
 // Init function. Labels and data processed in the same order as present in JSON object
-function sendData(ordersMonth, ordersDish) {
+function sendData(ordersMonth, ordersDish, bookingRestaurant,stockRestaurant) { 
     ordersPerMonth = JSON.parse(ordersMonth);
     console.log(ordersPerMonth)
     
@@ -23,7 +25,35 @@ function sendData(ordersMonth, ordersDish) {
         ordersPerDishLabels.push(ordersPerDish[key].course_name);
         ordersPerDishData.push(ordersPerDish[key].amount_sold);
     }
-}
+
+    bookingsPerRestaurant = JSON.parse(bookingRestaurant);
+    console.log(bookingsPerRestaurant)
+
+    bookingsPerRestaurantData = [];
+    bookingsPerRestaurantLabels = [];
+    for (var key in bookingsPerRestaurant){
+        bookingsPerRestaurantLabels.push(bookingsPerRestaurant[key].restaurant_id);
+        bookingsPerRestaurantData.push(bookingsPerRestaurant[key].total_bookings);
+    }
+
+    stockPerRestaurant = JSON.parse(stockRestaurant);
+    console.log(stockPerRestaurant)
+
+    stockPerRestaurantLabels = [];
+    total_stock = []; 
+    for (var restaurant_id in stockPerRestaurant){
+        stockPerRestaurantData = [];
+        for (var key in stockPerRestaurant[restaurant_id]){
+            if (restaurant_id == 0) {
+                stockPerRestaurantLabels.push(stockPerRestaurant[0][key].ingredient_name);
+            }
+            stockPerRestaurantData.push(stockPerRestaurant[restaurant_id][key].quantity);
+        }
+        total_stock.push(stockPerRestaurantData);
+    }
+    console.log(total_stock);
+};
+
 
 var random = function random() {
     return Math.round(Math.random() * 100);
@@ -98,6 +128,7 @@ $(document).ready(function(){
         }
     });
     barChart.update();
+/*
     var radarChart = new Chart($('#canvas-4'), {
         type: 'radar',
         data: {
@@ -111,7 +142,7 @@ $(document).ready(function(){
                 pointHighlightFill: '#fff',
                 pointHighlightStroke: 'rgba(220, 220, 220, 1)',
                 data: [65, 59, 90, 81, 56, 55, 40]
-            }, {
+            }, {    
                 label: 'My Second dataset',
                 backgroundColor: 'rgba(151, 187, 205, 0.2)',
                 borderColor: 'rgba(151, 187, 205, 1)',
@@ -126,21 +157,22 @@ $(document).ready(function(){
             responsive: true
         }
     });
-    /*
+*/    
     var pieChart = new Chart($('#canvas-5'), {
         type: 'pie',
         data: {
-            labels: ['Red', 'Green', 'Yellow'],
+            labels: bookingsPerRestaurantLabels,
             datasets: [{
-                data: [300, 50, 100],
                 backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-                hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+                hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                data: bookingsPerRestaurantData
             }]
         },
         options: {
             responsive: true
         }
     });
+    /*
     var polarAreaChart = new Chart($('#canvas-6'), {
         type: 'polarArea',
         data: {
@@ -155,4 +187,55 @@ $(document).ready(function(){
         }
     });
     */
+   var barChart = new Chart($('#canvas-7'), {
+    type: 'bar',
+    data: {
+        labels: stockPerRestaurantLabels,
+        datasets: [{
+            label:'0',
+            backgroundColor: 'rgba(255, 0, 0, 0.2)',
+            borderColor: 'rgba(220, 220, 220, 1)',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(255, 0, 0, 1)',
+            data: total_stock[0]
+        }, {    
+            label: '1',
+            backgroundColor: 'rgba(0, 255, 0, 0.2)',
+            borderColor: 'rgba(0, 255, 0, 1)',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(0, 255, 0, 1)',
+            data: total_stock[1]
+        }, {    
+            label: '2',
+            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+            borderColor: 'rgba(0, 0, 255,) 1)',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(0, 0, 255, 1)',
+            data: total_stock[2]
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            xAxes: [{   // In order to show disable auto skip feature so all labels are visible
+                stacked: false,
+                beginAtZero: true,
+                scaleLabel: {
+                    labelString: 'Ingredient'
+                },
+                ticks: {
+                    stepSize: 1,
+                    min: 0,
+                    autoSkip: false
+                }
+            }],
+            yAxes: [{   // Set y-axis to begin at zero
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+barChart.update();
 })
