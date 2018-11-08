@@ -24,14 +24,9 @@ def input(json_content):
 
     return input_type[content["input_type"]](content)
 
-def insert_new_customer(content): #TODO separate address from customer, these should not be configured at the same time
+def insert_new_customer(content): #TODO fix readme
     required_fields = [
-        "city",
-        "postcode",
-        "street_name",
-        "street_number",
-        "apartment_number",
-
+        "customer_id",
         "first_name", 
         "last_name", 
         "email",
@@ -42,27 +37,14 @@ def insert_new_customer(content): #TODO separate address from customer, these sh
         if field not in content:
             return "Insert failed, Missing field: "+ field
     
-    #insert_new_address(content)
-    
     db = app.get_db()
     cur = db.cursor()
     try:
         cur.execute("START TRANSACTION;")
-        """    
-        sql = "SELECT address_id, apartment_number FROM address WHERE city=%s AND postcode=%s AND street_name=%s AND street_number=%s"
-        cur.execute(sql, (
-            content["city"], 
-            content["postcode"], 
-            content["street_name"], 
-            content["street_number"]))
-        address_list = cur.fetchall()
-        if len(address_list) > 1:
-            for address in address_list:
-                if address[1] == content["apartment_number"]:
-                    address_id = address[0]
-        """    
-        sql_customer = "INSERT INTO customer(first_name, last_name, email, phone, birthdate, address_id) VALUES(%s, %s, %s, %s, %s, %s, %s);"
+
+        sql_customer = "INSERT INTO customer VALUES(%s, %s, %s, %s, %s, %s, %s);"
         cur.execute(sql_customer, (
+            content["customer_id"],
             content["first_name"], 
             content["last_name"], 
             content["email"], 
@@ -80,15 +62,15 @@ def insert_new_customer(content): #TODO separate address from customer, these sh
 
     return 0
 
-def insert_new_booking(content): #TODO missing booking id
+def insert_new_booking(content): #TODO fix readme
     required_fields = [
-        "first_name",
-        "last_name",
-        "restaurant_name",
+        "booking_id",
+        "restaurant_id",
         "table_id",
         "booking_date",
         "booking_length",
-        "no_of_seats"]
+        "no_of_seats",
+        "customer_id"]
     for field in required_fields:
         if field not in content:
             return "Insert failed, Missing field: "+ field
@@ -98,26 +80,16 @@ def insert_new_booking(content): #TODO missing booking id
     
     try:
         cur.execute("START TRANSACTION;")
-    
-        sql_restaurant = "SELECT restaurant_id FROM restaurant WHERE restaurant_name=%s"
-        cur.execute(sql_restaurant, 
-            (content["restaurant_name"],))
-        restaurant_id = cur.fetchone()
 
-        sql_customer = "SELECT customer_id FROM customer WHERE first_name=%s AND last_name=%s"
-        cur.execute(sql_customer, (
-            content["first_name"], 
-            content["last_name"]))
-        customer_id = cur.fetchone()
-
-        sql_booking = "INSERT INTO booking(restaurant_id, table_id, booking_date, booking_length, no_of_seats, customer_id) VALUES(%s, %s, %s, %s, %s, %s);"
+        sql_booking = "INSERT INTO booking VALUES(%s, %s, %s, %s, %s, %s, %s);"
         cur.execute(sql_booking, (
-            restaurant_id, 
+            content["booking_id"],
+            content["restaurant_id"], 
             content["table_id"], 
             content["booking_date"], 
             content["booking_length"], 
             content["no_of_seats"], 
-            customer_id))
+            content["customer_id"]))
 
         cur.execute("COMMIT;")
     except mysql.connector.Error as err:
@@ -128,20 +100,16 @@ def insert_new_booking(content): #TODO missing booking id
         cur.close()
     return 0
 
-def insert_new_employee(content): #TODO address_id local variabel called before assignment
+def insert_new_employee(content): #TODO fix readme
     required_fields = [
-        "restaurant_name",
-        "city",
-        "postcode",
-        "street_name",
-        "street_number",
-        "apartment_number",
-
+        "employee_id",
         "first_name", 
         "last_name", 
         "email",
         "phone", 
-        "birthdate", 
+        "birthdate",
+        "address_id",
+        "restaurant_id",
         "salary",
         "start_date"]
     for field in required_fields:
@@ -152,33 +120,17 @@ def insert_new_employee(content): #TODO address_id local variabel called before 
     cur = db.cursor()
     try:
         cur.execute("START TRANSACTION;")
-
-        sql_restaurant = "SELECT restaurant_id FROM restaurant WHERE restaurant_name=%s;"
-        cur.execute(sql_restaurant, 
-            (content["restaurant_name"],))
-        restaurant_id = cur.fetchone()
-
-        sql_address = "SELECT address_id, apartment_number FROM address WHERE city=%s AND postcode=%s AND street_name=%s AND street_number=%s;"
-        cur.execute(sql_address, (
-            content["city"], 
-            content["postcode"], 
-            content["street_name"], 
-            content["street_number"]))
-        address_list = cur.fetchall()
-        if len(address_list) > 1:
-            for address in address_list:
-                if address[1] == content["apartment_number"]:
-                    address_id = address[0]
         
-        sql_employee = "INSERT INTO employee(first_name, last_name, email, phone, birthdate, address_id, restaurant_id, salary, start_date) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);"
+        sql_employee = "INSERT INTO employee VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
         cur.execute(sql_employee, (
+            content["employee_id"],
             content["first_name"], 
             content["last_name"], 
             content["email"], 
             content["phone"], 
             content["birthdate"], 
-            address_id, 
-            restaurant_id, 
+            content["address_id"], 
+            content["restaurant_id"], 
             content["salary"], 
             content["start_date"]))
 
