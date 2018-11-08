@@ -8,7 +8,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, g
 import mysql.connector
 import json
 import collections
-from statistics_functions import purchase_functions, course_functions, customer_functions, input_functions
+from statistics_functions import order_functions, course_functions, customer_functions, input_functions, booking_functions
 
 
 app = Flask(__name__)
@@ -46,27 +46,24 @@ def index():
 
 @app.route("/statistics/charts/")
 def charts():
-    return render_template("charts.html", purchases_per_month=purchase_functions.purchases_per_month(), 
-        purchases_per_dish=course_functions.courses_sold())
+    return render_template("charts.html", orders_per_month=order_functions.orders_per_month(), 
+            orders_per_dish=order_functions.courses_sold(), booking_per_restaurant=booking_functions.booking_per_restaurant()
+            ,ingredients_in_stock=booking_functions.ingredients_per_restaurant_stock())
 
 @app.route("/statistics/tables/")
 def tables(): 
-    return render_template("tables.html", purchases=purchase_functions.get_all_purchases(), customers=customer_functions.get_all_customers(), 
+    return render_template("tables.html", orders=order_functions.get_all_orders(), customers=customer_functions.get_all_customers(), 
         courses=course_functions.get_all_courses())
 
 # API routes
-@app.route("/statistics/purchases/")
-def purchases():
-    return "/statistics/purchases/"
+@app.route("/statistics/orders/")
+def orders():
+    return "/statistics/orders/"
 
-@app.route("/statistics/purchases/<int:purchase_id>/")
-def show_purchase(purchase_id):
-    purchase = purchase_functions.get_purchase(purchase_id)
-    return jsonify(purchase)
-
-@app.route("/statistics/purchases/<string:date>/")
-def show_purchases_on_date(date):
-    return jsonify(purchase_functions.get_purchases_on_date(date))
+@app.route("/statistics/orders/<int:order_id>/")
+def show_order(order_id):
+    order = order_functions.get_order(order_id)
+    return jsonify(order)
 
 @app.route("/statistics/customers/")
 def customers():
@@ -84,7 +81,9 @@ def dishes():
 def show_dishes(course_id):
     return jsonify(course_functions.get_course(course_id))
 
-
+@app.route("/statistics/purchase/<string:date>/")
+def show_purchases_on_date(date):
+    return jsonify(order_functions.get_purchases_on_date(date))
 
 # Input routes
 
