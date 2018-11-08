@@ -17,14 +17,17 @@ def input(json_content):
     "update_order_ready_time": update_order_ready_time,
     "update_delivery_finished_time": update_delivery_finished_time,
     "new_address": insert_new_address,
-    "new_restaurant": insert_restaurant}
+    "new_restaurant": insert_restaurant,
+    "update_ingredient_quantity_in_stock": update_ingredient_quantity_in_stock}
 
     if content["input_type"] not in input_type:
         return "Missing input type"
 
     return input_type[content["input_type"]](content)
 
-def insert_new_customer(content): #TODO fix readme
+#Insert functions
+
+def insert_new_customer(content):
     required_fields = [
         "customer_id",
         "first_name", 
@@ -32,7 +35,7 @@ def insert_new_customer(content): #TODO fix readme
         "email",
         "phone", 
         "birthdate", 
-        "address_id",]
+        "address_id"]
     for field in required_fields:
         if field not in content:
             return "Insert failed, Missing field: "+ field
@@ -62,7 +65,7 @@ def insert_new_customer(content): #TODO fix readme
 
     return 0
 
-def insert_new_booking(content): #TODO fix readme
+def insert_new_booking(content):
     required_fields = [
         "booking_id",
         "restaurant_id",
@@ -100,7 +103,7 @@ def insert_new_booking(content): #TODO fix readme
         cur.close()
     return 0
 
-def insert_new_employee(content): #TODO fix readme
+def insert_new_employee(content):
     required_fields = [
         "employee_id",
         "first_name", 
@@ -183,11 +186,12 @@ def insert_new_course(content):
         cur.close()  
     return 0
 
-def insert_new_ingredient(content): #TODO add quantity field to readme
+def insert_new_ingredient(content):
     required_fields = [
         "ingredient_id",
         "ingredient_name",
-        "allergene_ids_and_names"] #list of touples
+        "quantity_in_stock",
+        "allergene_ids_and_names"] #list of two value lists
     for field in required_fields:
         if field not in content:
             return "Insert failed, Missing field: "+ field
@@ -233,7 +237,7 @@ def insert_completed_purchase(content):
         "discount",
         "customer_id",
         "payment_id",
-        "course_ids_with_quantity"] #list of tuples
+        "course_ids_with_quantity"] #list of two value lists
     for field in required_fields:
         if field not in content:
             return "Insert failed, Missing field: "+ field
@@ -300,59 +304,7 @@ def insert_review(content):
     finally:
         cur.close()
     return 0
-
-def update_order_ready_time(content):
-    required_fields = [
-        "purchase_id",
-        "order_ready_time"]
-    for field in required_fields:
-        if field not in content:
-            return "Insert failed, Missing field: "+ field
-    db = app.get_db()
-    cur = db.cursor()
-    try:
-        cur.execute("START TRANSACTION;")
-
-        sql_update_purchase = "UPDATE purchase SET order_ready = %s WHERE purchase_id = %s;"
-        cur.execute(sql_update_purchase, (
-            content["order_ready_time"],
-            content["purchase_id"]))
-
-        cur.execute("COMMIT;")
-    except mysql.connector.Error as err:
-        cur.execute("ROLLBACK;")
-        print("Oops, something went wrong:", err)
-        return err
-    finally:
-        cur.close()  
-    return 0
-
-def update_delivery_finished_time(content):
-    required_fields = [
-        "purchase_id",
-        "order_delivered_time"]
-    for field in required_fields:
-        if field not in content:
-            return "Insert failed, Missing field: "+ field
-    db = app.get_db()
-    cur = db.cursor()
-    try:
-        cur.execute("START TRANSACTION;")
-
-        sql_update_purchase = "UPDATE purchase SET order_delivered = %s WHERE purchase_id = %s;"
-        cur.execute(sql_update_purchase, (
-            content["order_delivered_time"],
-            content["purchase_id"]))
-
-        cur.execute("COMMIT;")
-    except mysql.connector.Error as err:
-        cur.execute("ROLLBACK;")
-        print("Oops, something went wrong:", err)
-        return err
-    finally:
-        cur.close()  
-    return 0
-
+    
 def insert_new_address(content):
     required_fields = [
         "address_id",
@@ -415,4 +367,84 @@ def insert_restaurant(content):
         return err
     finally:
         cur.close()
+    return 0
+
+#Update functions
+
+def update_order_ready_time(content):
+    required_fields = [
+        "purchase_id",
+        "order_ready_time"]
+    for field in required_fields:
+        if field not in content:
+            return "Insert failed, Missing field: "+ field
+    db = app.get_db()
+    cur = db.cursor()
+    try:
+        cur.execute("START TRANSACTION;")
+
+        sql_update_purchase = "UPDATE purchase SET order_ready = %s WHERE purchase_id = %s;"
+        cur.execute(sql_update_purchase, (
+            content["order_ready_time"],
+            content["purchase_id"]))
+
+        cur.execute("COMMIT;")
+    except mysql.connector.Error as err:
+        cur.execute("ROLLBACK;")
+        print("Oops, something went wrong:", err)
+        return err
+    finally:
+        cur.close()  
+    return 0
+
+def update_delivery_finished_time(content):
+    required_fields = [
+        "purchase_id",
+        "order_delivered_time"]
+    for field in required_fields:
+        if field not in content:
+            return "Insert failed, Missing field: "+ field
+    db = app.get_db()
+    cur = db.cursor()
+    try:
+        cur.execute("START TRANSACTION;")
+
+        sql_update_purchase = "UPDATE purchase SET order_delivered = %s WHERE purchase_id = %s;"
+        cur.execute(sql_update_purchase, (
+            content["order_delivered_time"],
+            content["purchase_id"]))
+
+        cur.execute("COMMIT;")
+    except mysql.connector.Error as err:
+        cur.execute("ROLLBACK;")
+        print("Oops, something went wrong:", err)
+        return err
+    finally:
+        cur.close()  
+    return 0
+
+def update_ingredient_quantity_in_stock(content): #Add to readme
+    required_fields = [
+        "ingredient_id",
+        "quantity_in_stock"]
+    for field in required_fields:
+        if field not in content:
+            return "Insert failed, Missing field: "+ field
+    db = app.get_db()
+    cur = db.cursor()
+    try:
+        cur.execute("START TRANSACTION;")
+
+        sql_update_ingredient = "UPDATE ingredient SET quantity_in_stock = %s WHERE ingredient_id = %s;"
+        cur.execute(sql_update_ingredient, (
+            content["quantity_in_stock"],
+            content["ingredient_id"]))
+
+        cur.execute("COMMIT;")
+    except mysql.connector.Error as err:
+        cur.execute("ROLLBACK;")
+        print("Oops, something went wrong:", err)
+        return err
+    finally:
+        cur.close()  
     return 0

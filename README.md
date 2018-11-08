@@ -42,17 +42,18 @@ See the current list in the following table (subject to change)(fields are requi
 
 | "input_type" |Required fields|Notes|
 |---|---|---|
-|"new_customer"|"city", "postcode", "street_name", "street_number", "apartment_number", "first_name", "last_name", "email", "phone", "birthdate", "address_id"||
-|"new_booking"|"first_name", "last_name", "restaurant_name", "table_id", "booking_date", "booking_length", "no_of_seats"|
-|"new_employee"|"restaurant_name", "city", "postcode", "street_name", "street_number", "apartment_number", "first_name", "last_name", "email", "phone", "birthdate", "salary", "start_date"|
+|"new_customer"|"customer_id", "first_name", "last_name", "email", "phone", "birthdate", "address_id"|Address must already exist in address table|
+|"new_booking"|"booking_id", "restaurant_id", "table_id", "booking_date", "booking_length", "no_of_seats", "customer_id"|Customer must be in customer table|
+|"new_employee"|"employee_id", "first_name", "last_name", "email", "phone", "birthdate", "address_id", "restaurant_id", "salary", "start_date"|Address and restaurant must exist in their own table|
 |"new_course"|"course_id", "course_name", "price", "category", "information", "ingredient_ids"|"ingredient_ids" expects a *list* of ids|
-|"new_completed_purchase"|"purchase_id", "purchase_time", "price", "delivery_method", "address_id", "amount", "tips", "discount", "customer_id", "payment_id" "course_ids_with_quantity"| "price" refers to stock price the customer would normally be expected to pay, while "amount" is the total amount payed after discounts and including tips. "course_ids_with_quantity" expects a *list* of *touples*|
+|"new_completed_purchase"|"purchase_id", "purchase_time", "price", "delivery_method", "address_id", "amount", "tips", "discount", "customer_id", "payment_id" "course_ids_with_quantity"| "price" refers to stock price the customer would normally be expected to pay, while "amount" is the total amount payed after discounts and including tips. "course_ids_with_quantity" expects a *list* of *lists*|
 |"new_review"|"review_id", "course_id", "review_text", "score"
-|"new_ingredient"|"ingredient_id", "ingredient_name", "allergene_ids_and_names"| "allergene_ids_and_names" expects a *list* of *touples*|
-|"update_order_ready_time"|"purchase_id", "order_ready_time"|When was the preperation of the order finished|  
-|"update_delivery_finished_time"|"purchase_id", "order_delivered_time"|When was the delivery of the order finished|
+|"new_ingredient"|"ingredient_id", "ingredient_name", "quantity_in_stock", "allergene_ids_and_names"| "allergene_ids_and_names" expects a *list* of *lists*|
 |"new_address"| "city", "postcode", "street_name", "street_number", "apartment_number"|
 |"new_restaurant"|"restaurant_id", "restaurant_name", "phone", "address_id"|
+|"update_order_ready_time"|"purchase_id", "order_ready_time"|When was the preperation of the order finished|  
+|"update_delivery_finished_time"|"purchase_id", "order_delivered_time"|When was the delivery of the order finished|
+|"update_ingredient_quantity_in_stock"|"ingredient_id", "quantity_in_stock"|Updates table value to correct amount in stock|
 
 
 
