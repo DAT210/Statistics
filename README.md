@@ -35,6 +35,7 @@ MySQL
 
 
 ## How the server handles incoming input to be put in the database:
+### Input
 All information we collect must be sent to the server via a POST request that includes a json object to the route "/statistics/input".
 In this json object, there must be a field with the name "input_type" that expresses what kind of input it is, as the server will
 execute a different set of queries based on this field. Depending on this field, other fields must also be specified.
@@ -55,39 +56,41 @@ See the current list in the following table (subject to change)(fields are requi
 |"update_delivery_finished_time"|"purchase_id", "order_delivered_time"|When was the delivery of the order finished|
 |"update_ingredient_quantity_in_stock"|"ingredient_id", "quantity_in_stock"|Updates table value to correct amount in stock|
 
+### Get
+It is also possible to request information from the statictics db. How to and what to specify is documented in the OpenApi swagger file.
 
-
-
-
-
-### Setting up Dev ##TODO
+## Setting up dev
 
 Here's a brief intro about what a developer must do in order to start developing
-the project further:
+the project further, assuming you have Python3 already installed. If not, easiest way to get Python3 is by installing the Anaconda distribution (https://www.anaconda.com/download). You also need to hav MySQL installed on your computer. Look at MySQL's official website for guide on how to install (https://dev.mysql.com/doc/refman/8.0/en/installing.html).
 
+Next step is to run these commands in cmd or terminal to clone git repo and install needed Python packages.
 ```shell
-mkdir MyProjectFolder
-cd MyProjectFolder
 git clone https://github.com/DAT210/Statistics.git
 python -m pip install Flask
 python -m pip install mysql-connector-python
+python -m pip install Faker
 ```
 
-And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
-
-### Building ##TODO
-
-If your project needs some additional steps for the developer to build the
-project after some code changes, state them here. for example:
-
+After everything is install and ready you need to create and populate the database.
 ```shell
-./configure
-make
-make install
+mysql -u [username] -p 
+source [git repo path]/Statistics/src/db/db_init.sql
+exit
+python [git repo path]/Statistics/src/db/db_filler.py
 ```
+These command will:
+- Log into MySQL environment
+- Create database
+- Fill database with dummy data
 
-Here again you should state what actually happens when the code above gets
-executed.
+## Running
+
+After setting up dev environment you can run the app.py file form the src folder.
+```shell
+python app.py
+```
+This will run the server and you will be able to use the services as intended.
 
 ### Deploying / Publishing ##TODO
 give instructions on how to build and release a new version
