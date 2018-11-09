@@ -20,7 +20,7 @@ def get_booking(booking_id):
                 "booking_id": booking_id,
                 "restaurant_id": booking[1],
                 "table_id": booking[2],
-                "booking_date": booking[3],
+                "booking_date": booking[3].isoformat(),
                 "booking_length": booking[4],
                 "no_of_seats": booking[5],
                 "customer_id": booking[6]

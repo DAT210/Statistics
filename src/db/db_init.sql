@@ -1,5 +1,4 @@
 # Statistics DB init 
-# Tables for discounts and internal systems not yet implemented!
 
 DROP DATABASE IF EXISTS dat210_statistics;
 CREATE DATABASE dat210_statistics CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;	#Setting db charset to UTF-8	
