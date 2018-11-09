@@ -9,7 +9,9 @@ import mysql.connector
 import json
 import collections
 from statistics_functions import purchase_functions, course_functions, customer_functions, input_functions, booking_functions
+import os
 
+host = os.getenv('ADDRESS', '127.0.0.1') # When running the docker image, add "-e ADDRESS='0.0.0.0'"
 
 app = Flask(__name__)
 app.debug = True  # only for development!
@@ -104,4 +106,4 @@ def bad_request500(error):
     return render_template("500.html"), 500
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host=host)
