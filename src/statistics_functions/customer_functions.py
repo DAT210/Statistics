@@ -22,7 +22,7 @@ def get_customer(customer_id):
                 "last_name": customer[2],
                 "email": customer[3],
                 "phone": customer[4],
-                "birthdate": customer[5],
+                "birthdate": customer[5].isoformat(),
                 "address_id": customer[6]
             }
 
@@ -47,7 +47,7 @@ def get_all_customers():
                 "last_name": customer[2],
                 "email": customer[3],
                 "phone": customer[4],
-                "birthdate": customer[5],
+                "birthdate": customer[5].isoformat(),
                 "address_id": customer[6]
             } 
             customers.append(new)
