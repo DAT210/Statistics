@@ -10,7 +10,7 @@ def get_customer(customer_id):
     cur = db.cursor()
     try:
         sql = "SELECT * FROM customer WHERE customer_id = %s;"
-        cur.execute(sql, (customer_id))
+        cur.execute(sql, (customer_id,))
         customer = cur.fetchone()
 
         if customer == None:
