@@ -10,7 +10,7 @@ def get_booking(booking_id):
     cur = db.cursor()
     try:
         sql = "SELECT * FROM booking WHERE booking_id = %s;"
-        cur.execute(sql, (booking_id))
+        cur.execute(sql, (booking_id,))
         booking = cur.fetchone()
 
         if booking == None:
