@@ -72,28 +72,25 @@ python -m pip install mysql-connector-python
 python -m pip install Faker
 ```
 
-After everything is install and ready you need to create and populate the database.
+After everything is installed and ready you need to log in to MySQL environment, create and populate the database.
 ```shell
 mysql -u [username] -p 
 source [git repo path]/Statistics/src/db/db_init.sql
 exit
 python [git repo path]/Statistics/src/db/db_filler.py
 ```
-These command will:
-- Log into MySQL environment
-- Create database
-- Fill database with dummy data
 
 ## Running
 
 After setting up dev environment you can run the app.py file form the src folder.
+REMARK: You need to change database configuration in app.py file to your local database config before running.
 ```shell
 python app.py
 ```
 This will run the server and you will be able to use the services as intended.
 
 ### Deploying / Publishing ##TODO
-give instructions on how to build and release a new version
+Give instructions on how to build and release a new version
 In case there's some step you have to take that publishes this project to a
 server, this is the right time to state it.
 
@@ -109,14 +106,10 @@ We can maybe use [SemVer](http://semver.org/) for versioning. For the versions a
 
 
 ## Configuration ##TODO
-
 Here you should write what are all of the configurations a user can enter when
 using the project.
 
-In app.py file change database configs to your local database config.
-
 ## Tests ##TODO
-
 Describe and show how to run the tests with code examples.
 Explain what these tests test and why.
 
@@ -125,11 +118,9 @@ Give an example
 ```
 
 ## Style guide ##TODO
-
 Explain your code style and show how to check it.
 
 ## Api Reference ##TODO
-
 If the api is external, link to api documentation. If not describe your api including authentication methods as well as explaining all the endpoints with their required parameters.
 
 
