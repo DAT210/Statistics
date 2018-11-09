@@ -55,15 +55,15 @@ def tables():
     return render_template("tables.html", purchases=purchase_functions.get_all_purchases(), customers=customer_functions.get_all_customers(), 
         courses=course_functions.get_all_courses())
 
-# API routes
+# API
+# Get routes
 @app.route("/statistics/purchases/")
 def purchases():
-    return "/statistics/purchases/"
+    return jsonify(purchase_functions.get_all_purchases())
 
 @app.route("/statistics/purchases/<int:purchase_id>/")
 def show_purchase(purchase_id):
-    purchase = purchase_functions.get_purchase(purchase_id)
-    return jsonify(purchase)
+    return jsonify(purchase_functions.get_purchase(purchase_id))
 
 @app.route("/statistics/purchases/<string:date>/")
 def show_purchases_on_date(date):
@@ -71,17 +71,17 @@ def show_purchases_on_date(date):
 
 @app.route("/statistics/customers/")
 def customers():
-    return "/statistics/customers/"
+    return jsonify(customer_functions.get_all_customers())
 
 @app.route("/statistics/customers/<int:customer_id>/")
 def show_customer(customer_id):
     return jsonify(customer_functions.get_customer(customer_id))
 
-@app.route("/statistics/dish/")
+@app.route("/statistics/courses/")
 def dishes():
-    return "/statistics/dish/"
+    return jsonify(course_functions.get_all_courses())
 
-@app.route("/statistics/dish/<int:course_id>/")
+@app.route("/statistics/courses/<int:course_id>/")
 def show_dishes(course_id):
     return jsonify(course_functions.get_course(course_id))
 
