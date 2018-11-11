@@ -13,11 +13,11 @@ A quick introduction of the minimal setup you need to get our web app running.
 
 ```shell
 python -m pip install Flask
-python -m pip install mysql-connector-python
+python -m pip install mysql-connector
 python app.py
 ```
 
-Installs required packages and starts the web app local server on http://localhost:5000/  
+Installs required modules and starts the web app local server on http://localhost:5000/  
 Current routes starts on http://localhost:5000/statistics/  
 You will need to have Python installed. In the app.py file you will also need to adjust the database configs according to your local database settings e.g. change the password and database name.
 
@@ -50,7 +50,7 @@ See the current list in the following table (subject to change)(fields are requi
 |"new_completed_purchase"|"purchase_id", "purchase_time", "price", "delivery_method", "address_id", "amount", "tips", "discount", "customer_id", "payment_id" "course_ids_with_quantity"| "price" refers to stock price the customer would normally be expected to pay, while "amount" is the total amount payed after discounts and including tips. "course_ids_with_quantity" expects a *list* of *lists*|
 |"new_review"|"review_id", "course_id", "review_text", "score"
 |"new_ingredient"|"ingredient_id", "ingredient_name", "quantity_in_stock", "allergene_ids_and_names"| "allergene_ids_and_names" expects a *list* of *lists*|
-|"new_address"| "city", "postcode", "street_name", "street_number", "apartment_number"|
+|"new_address"| "address_id", "city", "postcode", "street_name", "street_number", "apartment_number"|
 |"new_restaurant"|"restaurant_id", "restaurant_name", "phone", "address_id"|
 |"update_order_ready_time"|"purchase_id", "order_ready_time"|When was the preperation of the order finished|  
 |"update_delivery_finished_time"|"purchase_id", "order_delivered_time"|When was the delivery of the order finished|
@@ -68,7 +68,7 @@ Next step is to run these commands in cmd or terminal to clone git repo and inst
 ```shell
 git clone https://github.com/DAT210/Statistics.git
 python -m pip install Flask
-python -m pip install mysql-connector-python
+python -m pip install mysql-connector
 python -m pip install Faker
 ```
 
@@ -110,11 +110,17 @@ Here you should write what are all of the configurations a user can enter when
 using the project.
 
 ## Tests ##TODO
-Describe and show how to run the tests with code examples.
-Explain what these tests test and why.
+Run these commands on a shell/terminal to run the postman tests which tests the GET and POST functions of our API to see if the routes works as it should.  
+You need to have the local web server running.  
+If you don't have Node.js another alternative is to install Postman from https://www.getpostman.com/apps and export the json file and run the collection there.
 
 ```shell
-Give an example
+cd Statistics/src/
+python app.py
+newman run RestaurantFunctionsTest.json
+
+If you don't have newman installed, the easiest way to install it is with npm which comes with Node.js:
+npm install -g newman
 ```
 
 ## Style guide ##TODO
