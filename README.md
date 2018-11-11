@@ -17,7 +17,7 @@ python -m pip install mysql-connector
 python app.py
 ```
 
-Installs required modules and starts the web app local server on http://localhost:5000/  
+Installs required packages and starts the web app local server on http://localhost:5000/  
 Current routes starts on http://localhost:5000/statistics/  
 You will need to have Python installed. In the app.py file you will also need to adjust the database configs according to your local database settings e.g. change the password and database name.
 
