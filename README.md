@@ -129,9 +129,7 @@ Explain your code style and show how to check it.
 ## Api Reference ##TODO
 If the api is external, link to api documentation. If not describe your api including authentication methods as well as explaining all the endpoints with their required parameters.
 
-
 ## Database design
-MySQL(5.7)
 ![Database design](https://i.imgur.com/KKPJ0SU.png)
 
 ## Licensing ##TODO
