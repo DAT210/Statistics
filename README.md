@@ -57,7 +57,8 @@ See the current list in the following table (subject to change)(fields are requi
 |"update_ingredient_quantity_in_stock"|"ingredient_id", "quantity_in_stock"|Updates table value to correct amount in stock|
 
 ### Get:
-Unlike input functions, all get functions have their own path. Specify statistics/ and then append appropriate "get_function" from table above, e.g. statistics/purchases/99.
+Unlike input functions, all get functions have their own route. Start with "statistics/" and append appropriate "get_function" from table above, e.g. "statistics/purchases/99".
+Output will be a JSON object containing data from db corresponding to your request.
 
 | "get_function" |Notes|
 |---|---|
@@ -93,7 +94,6 @@ python [git repo path]/Statistics/src/db/db_filler.py
 ```
 
 ## Running
-
 After setting up dev environment you can run the app.py file form the src folder.
 REMARK: You need to change database configuration in app.py file to your local database config before running.
 ```shell
