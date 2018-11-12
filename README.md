@@ -34,7 +34,7 @@ MySQL
 [MySQL](https://www.mysql.com/)
 
 
-## How the server handles incoming input to be put in the database:
+## API:
 ### Input
 All information we collect must be sent to the server via a POST request that includes a json object to the route "/statistics/input".
 In this json object, there must be a field with the name "input_type" that expresses what kind of input it is, as the server will
@@ -56,8 +56,11 @@ See the current list in the following table (subject to change)(fields are requi
 |"update_delivery_finished_time"|"purchase_id", "order_delivered_time"|When was the delivery of the order finished|
 |"update_ingredient_quantity_in_stock"|"ingredient_id", "quantity_in_stock"|Updates table value to correct amount in stock|
 
-### Get
+### Output:
 It is also possible to request information from the statictics db. How to and what to specify is documented in the OpenApi swagger file.
+
+### OpenAPI documentation
+https://github.com/DAT210/Statistics/blob/dev/src/openapi.yaml
 
 ## Setting up dev
 
