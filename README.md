@@ -120,7 +120,7 @@ If you don't have Node.js another alternative is to install Postman from https:/
 ```shell
 cd Statistics/src/
 python app.py
-newman run RestaurantFunctionsTest.json
+newman run RestaurantFunctionsTests.postman_collection.json
 
 If you don't have newman installed, the easiest way to install it is with npm which comes with Node.js:
 npm install -g newman
