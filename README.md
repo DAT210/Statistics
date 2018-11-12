@@ -7,7 +7,7 @@
 
 Statistics service that will store and serve statisitcs for the restaurant business.
 
-## Installing / Getting started ##TODO
+## Getting started
 
 A quick introduction of the minimal setup you need to get our web app running.
 
@@ -19,23 +19,21 @@ python app.py
 
 Installs required packages and starts the web app local server on http://localhost:5000/  
 Current routes starts on http://localhost:5000/statistics/  
-You will need to have Python installed. In the app.py file you will also need to adjust the database configs according to your local database settings e.g. change the password and database name.
+You will need to have Python and MySQL installed with a created database.
+In the app.py file you will also need to adjust the database configs according to your local database settings e.g. change the password and database name.
 
 ## Developing
 
 ### Built With
-Python/Flask
-MySQL
 
-### Prerequisites
 [Docker](https://www.docker.com/get-started)  
-[Python](https://www.python.org/)  
-[Flask](http://flask.pocoo.org/)  
-[MySQL](https://www.mysql.com/)
+[Python](https://www.python.org/), version 3.7
+[Flask](http://flask.pocoo.org/), version 1.0.2
+[MySQL](https://www.mysql.com/), version 5.7
 
 
-## API:
-### Input
+### API reference
+#### Input
 All information we collect must be sent to the server via a POST request that includes a json object to the route "/statistics/input".
 In this json object, there must be a field with the name "input_type" that expresses what kind of input it is, as the server will
 execute a different set of queries based on this field. Depending on this field, other fields must also be specified.
@@ -56,7 +54,7 @@ See the current list in the following table (subject to change)(fields are requi
 |"update_delivery_finished_time"|"purchase_id", "order_delivered_time"|When was the delivery of the order finished|
 |"update_ingredient_quantity_in_stock"|"ingredient_id", "quantity_in_stock"|Updates table value to correct amount in stock|
 
-### Get:
+#### Get:
 Unlike input functions, all get functions have their own route. Start with "statistics/" and append appropriate "get_function" from table above, e.g. "statistics/purchases/99".
 Output will be a JSON object containing data from db corresponding to your request.
 
@@ -70,12 +68,11 @@ Output will be a JSON object containing data from db corresponding to your reque
 |courses|Get all courses|
 |courses/<int:course_id>|Get the course with the specified coures_id|
 
-### OpenAPI documentation
+#### OpenAPI documentation
 https://github.com/DAT210/Statistics/blob/dev/src/openapi.yaml
 
-## Setting up dev
-Here's a brief intro about what a developer must do in order to start developing
-the project further, assuming you have Python3 already installed. If not, easiest way to get Python3 is by installing the Anaconda distribution (https://www.anaconda.com/download). You also need to hav MySQL installed on your computer. Look at MySQL's official website for guide on how to install (https://dev.mysql.com/doc/refman/8.0/en/installing.html).
+### Setting up dev
+If you want to develop this project further, you need to have Python3 and MySQL installed on your machine (as stated in the wuick start guide). If you do not have Python3, easiest way to get it is by installing the Anaconda distribution (https://www.anaconda.com/download). Look at MySQL's official website for guide on how to install if you don't have this either(https://dev.mysql.com/doc/refman/8.0/en/installing.html).
 
 Next step is to run these commands in cmd or terminal to clone git repo and install needed Python packages.
 ```shell
@@ -93,13 +90,13 @@ exit
 python [git repo path]/Statistics/src/db/db_filler.py
 ```
 
-## Running
+### Running
 After setting up dev environment you can run the app.py file form the src folder.
 REMARK: You need to change database configuration in app.py file to your local database config before running.
 ```shell
 python app.py
 ```
-This will run the server as a localhost at the default port number, 5000 ("localhost:5000").
+This will run the server as a localhost at the default port number, 5000.
 
 
 ### Deploying / Publishing ##TODO
@@ -113,7 +110,7 @@ packagemanager deploy your-project -s server.com -u username -p password
 
 And again you'd need to tell what the previous code actually does.
 
-## Tests ##TODO
+### Tests ##TODO
 Run these commands on a shell/terminal to run the postman tests which tests the GET and POST functions of our API to see if the routes works as it should.  
 You need to have the local web server running.  
 If you don't have Node.js another alternative is to install Postman from https://www.getpostman.com/apps and export the json file and run the collection there.
@@ -127,7 +124,5 @@ If you don't have newman installed, the easiest way to install it is with npm wh
 npm install -g newman
 ```
 
-
-## Database design
+### Database design
 ![Database design](https://i.imgur.com/KKPJ0SU.png)
-
