@@ -9,7 +9,7 @@ servers:
 paths:
   /statistics/input:
     post:
-      description: Auto generated using Swagger Inspector
+      description: Expects an "input_type" followed by required fields for that input type, check examples for how to send specific json objects
       requestBody:
         content:
           application/json:
@@ -138,7 +138,7 @@ paths:
                   }
       responses:
         200:
-          description: Auto generated using Swagger Inspector
+          description: OK response
           content:
             text/html; charset=utf-8:
               schema:
@@ -146,10 +146,10 @@ paths:
               examples: {}
   /statistics/courses/3/:
     get:
-      description: Auto generated using Swagger Inspector
+      description: Gets all information of a specific course from our database
       responses:
         200:
-          description: Auto generated using Swagger Inspector
+          description: OK response
           content:
             application/json:
               schema:
@@ -159,9 +159,15 @@ paths:
                   value: "{\n  \"category\": 103.0, \n  \"course_id\": 3, \n  \"course_name\"\
                     : 3, \n  \"information\": \"Pasta\", \n  \"price\": \"Pasta Bolognese\"\
                     \n}\n"
+  /statistics/courses/:
+    get:
+      description: Gets all information of all courses in our database
+      responses:
+        200:
+          description: OK response
   /statistics/customers/33/:
     get:
-      description: Auto generated using Swagger Inspector
+      description: Gets all information of a specific customer from our database
       responses:
         200:
           description: Auto generated using Swagger Inspector
@@ -175,12 +181,18 @@ paths:
                     , \n  \"customer_id\": 33, \n  \"email\": \"marianneandresen@gmail.com\"\
                     , \n  \"first_name\": \"Simen\", \n  \"last_name\": \"Rasmussen\"\
                     , \n  \"phone\": \"99740982\"\n}\n"
-  /statistics/purchases/18-08-01/:
+  /statistics/customers/:
     get:
-      description: Auto generated using Swagger Inspector
+      description: Gets all information from all customers in our database
       responses:
         200:
-          description: Auto generated using Swagger Inspector
+          description: OK response
+  /statistics/purchases/18-08-01/:
+    get:
+      description: Gets amount of purchases on a specific date
+      responses:
+        200:
+          description: OK response
           content:
             application/json:
               schema:
@@ -193,10 +205,10 @@ paths:
                     }
   /statistics/purchases/67/:
     get:
-      description: Auto generated using Swagger Inspector
+      description: Gets all information of a specific completed purchase from our database
       responses:
         200:
-          description: Auto generated using Swagger Inspector
+          description: OK response
           content:
             application/json:
               schema:
@@ -210,6 +222,12 @@ paths:
                     : 422.0, \n  \"purchase_id\": 67, \n  \"time_of_purchase\": \"\
                     2018-01-18 14:01:55\", \n  \"tips\": 93.0, \n  \"total_amount_payed\"\
                     : 457.11868204156366\n}\n"
+  /statistics/purchases/:
+    get:
+      description: Gets all information of all purchases in our database
+      responses:
+        200:
+          description: Auto generated using Swagger Inspector
 components:
   schemas:
     inline_response_200_1:
