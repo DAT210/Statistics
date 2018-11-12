@@ -99,7 +99,8 @@ REMARK: You need to change database configuration in app.py file to your local d
 ```shell
 python app.py
 ```
-This will run the server and you will be able to use the services as intended.
+This will run the server as a localhost at the default port number, 5000 ("localhost:5000").
+
 
 ### Deploying / Publishing ##TODO
 Give instructions on how to build and release a new version
@@ -111,14 +112,6 @@ packagemanager deploy your-project -s server.com -u username -p password
 ```
 
 And again you'd need to tell what the previous code actually does.
-
-## Versioning ##TODO
-We can maybe use [SemVer](http://semver.org/) for versioning. For the versions available, see the [link to tags on this repository](/tags).
-
-
-## Configuration ##TODO
-Here you should write what are all of the configurations a user can enter when
-using the project.
 
 ## Tests ##TODO
 Run these commands on a shell/terminal to run the postman tests which tests the GET and POST functions of our API to see if the routes works as it should.  
@@ -134,11 +127,7 @@ If you don't have newman installed, the easiest way to install it is with npm wh
 npm install -g newman
 ```
 
-## Style guide ##TODO
-Explain your code style and show how to check it.
 
 ## Database design
 ![Database design](https://i.imgur.com/KKPJ0SU.png)
 
-## Licensing ##TODO
-State what the license is and how to find the text version of the license.
