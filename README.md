@@ -59,8 +59,8 @@ See the current list in the following table (subject to change)(fields are requi
 ### Get:
 Unlike input functions, all get functions have their own path. Specify statistics/ and then append appropriate "get_function" from table above, e.g. statistics/purchases/99.
 
-| "get_function"|Notes|
-|---|---|---|
+| "get_function" |Notes|
+|---|---|
 |purchases|Get all purchases|
 |purchases/<int:purchase_id>|Get the purchase with the specified purchase_id|
 |purchases/<string:date>|Get the purchase with the specified purchase_id|
