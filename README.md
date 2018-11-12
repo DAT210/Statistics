@@ -132,7 +132,7 @@ If the api is external, link to api documentation. If not describe your api incl
 
 ## Database design
 MySQL(5.7)
-![Database design](https://imgur.com/a/XufydOs)
+![Database design](https://i.imgur.com/KKPJ0SU.png)
 
 ## Licensing ##TODO
 
