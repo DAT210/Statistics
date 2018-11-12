@@ -56,14 +56,23 @@ See the current list in the following table (subject to change)(fields are requi
 |"update_delivery_finished_time"|"purchase_id", "order_delivered_time"|When was the delivery of the order finished|
 |"update_ingredient_quantity_in_stock"|"ingredient_id", "quantity_in_stock"|Updates table value to correct amount in stock|
 
-### Output:
-It is also possible to request information from the statictics db. How to and what to specify is documented in the OpenApi swagger file.
+### Get:
+Unlike input functions, all get functions have their own path. Specify statistics/ and then append appropriate "get_function" from table above, e.g. statistics/purchases/99.
+
+| "get_function"|Notes|
+|---|---|---|
+|purchases|Get all purchases|
+|purchases/<int:purchase_id>|Get the purchase with the specified purchase_id|
+|purchases/<string:date>|Get the purchase with the specified purchase_id|
+|customers|Get all customers|
+|customers/<int:customer_id>|Get the purchase with the specified customer_id|
+|courses|Get all courses|
+|courses/<int:course_id>|Get the course with the specified coures_id|
 
 ### OpenAPI documentation
 https://github.com/DAT210/Statistics/blob/dev/src/openapi.yaml
 
 ## Setting up dev
-
 Here's a brief intro about what a developer must do in order to start developing
 the project further, assuming you have Python3 already installed. If not, easiest way to get Python3 is by installing the Anaconda distribution (https://www.anaconda.com/download). You also need to hav MySQL installed on your computer. Look at MySQL's official website for guide on how to install (https://dev.mysql.com/doc/refman/8.0/en/installing.html).
 
@@ -104,7 +113,6 @@ packagemanager deploy your-project -s server.com -u username -p password
 And again you'd need to tell what the previous code actually does.
 
 ## Versioning ##TODO
-
 We can maybe use [SemVer](http://semver.org/) for versioning. For the versions available, see the [link to tags on this repository](/tags).
 
 
@@ -129,12 +137,8 @@ npm install -g newman
 ## Style guide ##TODO
 Explain your code style and show how to check it.
 
-## Api Reference ##TODO
-If the api is external, link to api documentation. If not describe your api including authentication methods as well as explaining all the endpoints with their required parameters.
-
 ## Database design
 ![Database design](https://i.imgur.com/KKPJ0SU.png)
 
 ## Licensing ##TODO
-
 State what the license is and how to find the text version of the license.
