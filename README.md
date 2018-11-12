@@ -3,9 +3,8 @@
 ![Logo of the project](https://kit8.net/images/thumbnails/700/525/detailed/1/Graph.png)
 
 # Statistics &middot; [![Build Status](https://img.shields.io/travis/npm/npm/latest.svg?style=flat-square)](https://travis-ci.org/npm/npm) [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/npm) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
-> Statistics service for restaurant project
 
-Statistics service that will store and serve statisitcs for the restaurant business.
+> Statistics service for restaurant project
 
 ## Getting started
 
@@ -27,8 +26,11 @@ In the app.py file you will also need to adjust the database configs according t
 ### Built With
 
 [Docker](https://www.docker.com/get-started)  
+
 [Python](https://www.python.org/), version 3.7
+
 [Flask](http://flask.pocoo.org/), version 1.0.2
+
 [MySQL](https://www.mysql.com/), version 5.7
 
 
