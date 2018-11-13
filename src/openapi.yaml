@@ -1,0 +1,408 @@
+---
+openapi: 3.0.1
+info:
+  title: defaultTitle
+  description: defaultDescription
+  version: "0.1"
+servers:
+- url: http://localhost:5000
+paths:
+  /statistics/input:
+    post:
+      description: Expects an "input_type" followed by required fields for that input type, check examples for how to send specific json objects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/body'
+            examples:
+              0:
+                value: "{\n\t\"input_type\": \"new_review\",\n\t\"review_id\": \"\
+                  999\",\n\t\"course_id\": \"10\",\n\t\"review_text\": \"new_review\
+                  \ 999\",\n\t\"score\": \"10\"\n}"
+              1:
+                value: |-
+                  {
+                      "input_type": "new_course",
+                      "course_id": "999",
+                      "course_name": "example_course_name",
+                      "price": "123",
+                      "category": "example_category",
+                      "information": "example_info",
+                      "ingredient_ids": ["1", "2", "3"]
+                  }
+              2:
+                value: |-
+                  {
+                      "input_type": "new_customer",
+                      "customer_id": "999",
+                      "first_name": "f_name",
+                      "last_name": "l_name",
+                      "email": "example@mail.com",
+                      "phone": "12345678",
+                      "birthdate": "2000-01-01",
+                      "address_id": "10"
+                  }
+              3:
+                value: |-
+                  {
+                      "input_type": "new_booking",
+                      "booking_id": "999",
+                      "restaurant_id": "1",
+                      "table_id": "1",
+                      "booking_date": "2019-01-01",
+                      "booking_length": "2",
+                      "no_of_seats": "2",
+                      "customer_id": "1"
+                  }
+              4:
+                value: |-
+                  {
+                      "input_type": "new_employee",
+                      "employee_id": "999",
+                      "first_name": "first_name",
+                      "last_name": "last_name",
+                      "email": "example@mail.com",
+                      "phone": "12345678",
+                      "birthdate": "1990-01-01",
+                      "address_id": "1",
+                      "restaurant_id": "1",
+                      "salary": "166.6",
+                      "start_date": "2019-01-01"
+                  }
+              5:
+                value: |-
+                  {
+                      "input_type": "new_completed_purchase",
+                      "purchase_id": "999",
+                      "purchase_time": "2019-01-01 00:00:00",
+                      "price": "1234",
+                      "delivery_method": "bicycle",
+                      "address_id": "1",
+                      "amount": "1324",
+                      "tips": "50",
+                      "discount": "90",
+                      "customer_id": "1",
+                      "payment_id" : "1",
+                      "course_ids_with_quantity": [["10","50"],["11","50"]]
+                  }
+              6:
+                value: |-
+                  {
+                      "input_type": "new_ingredient",
+                      "ingredient_id": "999",
+                      "ingredient_name": "salt",
+                      "quantity_in_stock": "50",
+                      "allergene_ids_and_names": [["998","gluten"],["999", "milk"]]
+                  }
+              7:
+                value: |-
+                  {
+                      "input_type": "update_order_ready_time",
+                      "purchase_id": "999",
+                      "order_ready_time": "2019-01-01 00:00:00"
+                  }
+              8:
+                value: |-
+                  {
+                      "input_type": "update_delivery_finished_time",
+                      "purchase_id": "999",
+                      "order_delivered_time": "2019-01-01 00:30:00"
+                  }
+              9:
+                value: |-
+                  {
+                      "input_type": "new_address",
+                      "address_id": "999",
+                      "city": "example_city",
+                      "postcode": "1234",
+                      "street_name": "example_street",
+                      "street_number": "10",
+                      "apartment_number": "10"
+                  }
+              10:
+                value: |-
+                  {
+                      "input_type": "new_restaurant",
+                      "restaurant_id": "999",
+                      "restaurant_name": "example_restaurant_name",
+                      "phone": "12345678",
+                      "address_id": "1"
+                  }
+              11:
+                value: |-
+                  {
+                      "input_type": "update_ingredient_quantity_in_stock",
+                      "ingredient_id": "999",
+                      "quantity_in_stock": "99"
+                  }
+      responses:
+        200:
+          description: OK response
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+  /statistics/courses/3/:
+    get:
+      description: Gets all information of a specific course from our database
+      responses:
+        200:
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+              examples:
+                0:
+                  value: "{\n  \"category\": 103.0, \n  \"course_id\": 3, \n  \"course_name\"\
+                    : 3, \n  \"information\": \"Pasta\", \n  \"price\": \"Pasta Bolognese\"\
+                    \n}\n"
+  /statistics/courses/:
+    get:
+      description: Gets all information of all courses in our database
+      responses:
+        200:
+          description: OK response
+  /statistics/customers/33/:
+    get:
+      description: Gets all information of a specific customer from our database
+      responses:
+        200:
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+              examples:
+                0:
+                  value: "{\n  \"address_id\": 97, \n  \"birthdate\": \"1997-11-20\"\
+                    , \n  \"customer_id\": 33, \n  \"email\": \"marianneandresen@gmail.com\"\
+                    , \n  \"first_name\": \"Simen\", \n  \"last_name\": \"Rasmussen\"\
+                    , \n  \"phone\": \"99740982\"\n}\n"
+  /statistics/customers/:
+    get:
+      description: Gets all information from all customers in our database
+      responses:
+        200:
+          description: OK response
+  /statistics/purchases/18-08-01/:
+    get:
+      description: Gets amount of purchases on a specific date
+      responses:
+        200:
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+              examples:
+                0:
+                  value: |
+                    {
+                      "amount_of_purchases": 5
+                    }
+  /statistics/purchases/67/:
+    get:
+      description: Gets all information of a specific completed purchase from our database
+      responses:
+        200:
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+              examples:
+                0:
+                  value: "{\n  \"address_id\": 21, \n  \"customer_id\": 194, \n  \"\
+                    delivery_method\": \"Pickup\", \n  \"discount\": 0.11239090865715795,\
+                    \ \n  \"order_delivered\": \"2018-07-18T10:40:12\", \n  \"order_ready\"\
+                    : \"2018-10-17T05:40:15\", \n  \"payment_id\": 74, \n  \"price\"\
+                    : 422.0, \n  \"purchase_id\": 67, \n  \"time_of_purchase\": \"\
+                    2018-01-18 14:01:55\", \n  \"tips\": 93.0, \n  \"total_amount_payed\"\
+                    : 457.11868204156366\n}\n"
+  /statistics/purchases/:
+    get:
+      description: Gets all information of all purchases in our database
+      responses:
+        200:
+          description: Auto generated using Swagger Inspector
+components:
+  schemas:
+    inline_response_200_1:
+      type: object
+      properties:
+        birthdate:
+          type: string
+        phone:
+          type: string
+        address_id:
+          type: integer
+          format: int32
+        last_name:
+          type: string
+        customer_id:
+          type: integer
+          format: int32
+        first_name:
+          type: string
+        email:
+          type: string
+    inline_response_200:
+      type: object
+      properties:
+        course_id:
+          type: integer
+          format: int32
+        course_name:
+          type: integer
+          format: int32
+        price:
+          type: string
+        information:
+          type: string
+        category:
+          type: number
+    inline_response_200_2:
+      type: object
+      properties:
+        amount_of_purchases:
+          type: integer
+          format: int32
+    inline_response_200_3:
+      type: object
+      properties:
+        order_delivered:
+          type: string
+        payment_id:
+          type: integer
+          format: int32
+        price:
+          type: number
+        delivery_method:
+          type: string
+        purchase_id:
+          type: integer
+          format: int32
+        address_id:
+          type: integer
+          format: int32
+        discount:
+          type: number
+        time_of_purchase:
+          type: string
+        order_ready:
+          type: string
+        customer_id:
+          type: integer
+          format: int32
+        tips:
+          type: number
+        total_amount_payed:
+          type: number
+    body:
+      type: object
+      properties:
+        review_id:
+          type: string
+        apartment_number:
+          type: string
+        birthdate:
+          type: string
+        ingredient_id:
+          type: string
+        city:
+          type: string
+        restaurant_id:
+          type: string
+        booking_date:
+          type: string
+        ingredient_name:
+          type: string
+        discount:
+          type: string
+        table_id:
+          type: string
+        salary:
+          type: string
+        course_ids_with_quantity:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+        quantity_in_stock:
+          type: string
+        tips:
+          type: string
+        street_name:
+          type: string
+        booking_id:
+          type: string
+        score:
+          type: string
+        price:
+          type: string
+        payment_id:
+          type: string
+        delivery_method:
+          type: string
+        order_ready_time:
+          type: string
+        purchase_time:
+          type: string
+        first_name:
+          type: string
+        email:
+          type: string
+        start_date:
+          type: string
+        course_id:
+          type: string
+        amount:
+          type: string
+        no_of_seats:
+          type: string
+        course_name:
+          type: string
+        purchase_id:
+          type: string
+        input_type:
+          type: string
+        address_id:
+          type: string
+        postcode:
+          type: string
+        last_name:
+          type: string
+        restaurant_name:
+          type: string
+        allergene_ids_and_names:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+        order_delivered_time:
+          type: string
+        ingredient_ids:
+          type: array
+          items:
+            type: string
+        phone:
+          type: string
+        employee_id:
+          type: string
+        street_number:
+          type: string
+        review_text:
+          type: string
+        information:
+          type: string
+        category:
+          type: string
+        customer_id:
+          type: string
+        booking_length:
+          type: string

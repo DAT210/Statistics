@@ -98,7 +98,7 @@ def get_purchase(purchase_id):
         else:
             purchase_info = {
                 "purchase_id": purchase[0],
-                "time_of_purchase": purchase[1],
+                "time_of_purchase": str(purchase[1]),
                 "price": purchase[2],
                 "order_ready": purchase[3].isoformat(),
                 "order_delivered": purchase[4].isoformat(),
@@ -115,7 +115,7 @@ def get_purchase(purchase_id):
         print("Oops, something went wrong:", err)
     finally:
         cur.close()
-    return json.dumps(purchase_info)
+    return purchase_info
 
 def purchases_per_day():
     db = app.get_db()
@@ -155,7 +155,7 @@ def get_purchases_on_date(date):
             raise NameError("No purchases on this date")
         else:
             purchases_on_date = {
-                "amount_of_purchases_on_"+date: count[0]
+                "amount_of_purchases": count[0]
             }
 
     except mysql.connector.Error as err:
