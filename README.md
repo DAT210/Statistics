@@ -115,7 +115,7 @@ And again you'd need to tell what the previous code actually does.
 ### Tests ##TODO
 Run these commands on your shell/terminal to run the postman tests which tests the GET and POST functions of our API to see if the routes works as it should.  
 You need to have the local web server running. 
-To run the tests on your CLI you will need Newman, which is a command line Collection Runner for Postman. Newman is built on Node.js, so make sure your have [Node.js](https://nodejs.org/en/download/) installed as well. Check out this [link](https://www.getpostman.com/docs/v6/postman/collection_runs/command_line_integration_with_newman#options) for some more info on how to run the collection.  
+To run the tests on your CLI you will need Newman, which is a command line Collection Runner for Postman. Newman is built on Node.js, so make sure your have [Node.js](https://nodejs.org/en/download/) installed as well. Check out this [link](https://www.getpostman.com/docs/v6/postman/collection_runs/command_line_integration_with_newman#options) for some more details on how to run the collection with flags.  
 If you don't have Newman another alternative is to download the [Postman](https://www.getpostman.com/apps) client, export the "collection.json" file and run the collection there.
 
 ```shell
