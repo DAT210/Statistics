@@ -115,7 +115,7 @@ And again you'd need to tell what the previous code actually does.
 ### Tests ##TODO
 Run these commands on a shell/terminal to run the postman tests which tests the GET and POST functions of our API to see if the routes works as it should.  
 You need to have the local web server running.  
-If you don't have Node.js another alternative is to install Postman from https://www.getpostman.com/apps and export the json file and run the collection there.
+If you don't have Node.js another alternative is to download the [Postman](https://www.getpostman.com/apps) client, export the json file and run the collection there.
 
 ```shell
 cd Statistics/src/
@@ -124,6 +124,55 @@ newman run RestaurantFunctionsTests.postman_collection.json
 
 If you don't have newman installed, the easiest way to install it is with npm which comes with Node.js:
 npm install -g newman
+
+When running the tests on your shell, your output should be like this:
+$ newman run RestaurantFunctionsTests.postman_collection.json
+newman
+
+Restaurant Functions Tests
+
+□ get_all
+└ get_all_customers
+  GET localhost:5000/statistics/customers/ [200 OK, 42.19KB, 624ms]
+  √  Status code is 200
+  √  Response time is acceptable: 624ms
+  √  Content-Type header is set as application/json
+  √  Customers ID is present
+  √  Customers first name is present
+  √  Customers last name is present
+  √  Customers email is present
+  √  Customers phone is present
+  √  Customers birthdate is present
+  √  Customers address is present
+
+└ get_all_courses
+  GET localhost:5000/statistics/courses/ [200 OK, 2.75KB, 509ms]
+  √  Status code is 200
+  √  Response time is acceptable: 509ms
+  √  Content-Type header is set as application/json
+  √  Course ID is present
+  √  Course name is present
+  √  Course price is present
+  √  Course category is present
+  √  Course information is present
+
+└ get_all_purchases
+  GET localhost:5000/statistics/purchases/ [200 OK, 198.55KB, 571ms]
+  √  Status code is 200
+  √  Response time is acceptable: 571ms
+  √  Content-Type header is set as application/json
+  √  Purchase ID is present
+  √  Time of purchase is present
+  √  Purchase price is present
+  √  Purchase order ready is present
+  √  Purchase order delivered is present
+  √  Purchase delivery method is present
+  √  Purchase address ID is present
+  √  Purchase total price is present
+  √  Purchase tips is present
+  √  Purchase discount is present
+  √  Purchase customer ID is present
+  √  Purchase payment ID is present
 ```
 
 ### Database design
