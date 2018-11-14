@@ -7,6 +7,158 @@
 	},
 	"item": [
 		{
+			"name": "get_all",
+			"item": [
+				{
+					"name": "get_all_customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "71f6ce44-5b52-4613-a1e6-05a61c1e2480",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 700;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Customers ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Customers first name is present\"] = responseBody.has(\"first_name\");",
+									"tests[\"Customers last name is present\"] = responseBody.has(\"last_name\");",
+									"tests[\"Customers email is present\"] = responseBody.has(\"email\");",
+									"tests[\"Customers phone is present\"] = responseBody.has(\"phone\");",
+									"tests[\"Customers birthdate is present\"] = responseBody.has(\"birthdate\");",
+									"tests[\"Customers address is present\"] = responseBody.has(\"address_id\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/customers/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"customers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_all_courses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b92f347-d685-405e-b932-f8ecaa445630",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Course ID is present\"] = responseBody.has(\"course_id\");",
+									"tests[\"Course name is present\"] = responseBody.has(\"course_name\");",
+									"tests[\"Course price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Course category is present\"] = responseBody.has(\"category\");",
+									"tests[\"Course information is present\"] = responseBody.has(\"information\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/courses/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"courses",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_all_purchases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5fcc0543-766e-44ea-9224-fd654b35d192",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Purchase ID is present\"] = responseBody.has(\"purchase_id\");",
+									"tests[\"Time of purchase is present\"] = responseBody.has(\"time_of_purchase\");",
+									"tests[\"Purchase price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Purchase order ready is present\"] = responseBody.has(\"order_ready\");",
+									"tests[\"Purchase order delivered is present\"] = responseBody.has(\"order_delivered\");",
+									"tests[\"Purchase delivery method is present\"] = responseBody.has(\"delivery_method\");",
+									"tests[\"Purchase address ID is present\"] = responseBody.has(\"address_id\");",
+									"tests[\"Purchase total price is present\"] = responseBody.has(\"total_amount_payed\");",
+									"tests[\"Purchase tips is present\"] = responseBody.has(\"tips\");",
+									"tests[\"Purchase discount is present\"] = responseBody.has(\"discount\");",
+									"tests[\"Purchase customer ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Purchase payment ID is present\"] = responseBody.has(\"payment_id\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/purchases/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"purchases",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "get_customer",
 			"item": [
 				{
@@ -63,7 +215,7 @@
 									"          \"type\": \"string\"",
 									"        },",
 									"        \"phone\": {",
-									"          \"type\": \"integer\"",
+									"          \"type\": \"string\"",
 									"        }",
 									"    }",
 									"};",
@@ -155,7 +307,7 @@
 									"          \"type\": \"string\"",
 									"        },",
 									"        \"phone\": {",
-									"          \"type\": \"integer\"",
+									"          \"type\": \"string\"",
 									"        }",
 									"    }",
 									"};",
@@ -246,7 +398,7 @@
 									"          \"type\": \"string\"",
 									"        },",
 									"        \"phone\": {",
-									"          \"type\": \"integer\"",
+									"          \"type\": \"string\"",
 									"        }",
 									"    }",
 									"};",
@@ -337,7 +489,7 @@
 									"          \"type\": \"string\"",
 									"        },",
 									"        \"phone\": {",
-									"          \"type\": \"integer\"",
+									"          \"type\": \"string\"",
 									"        }",
 									"    }",
 									"};",
@@ -428,7 +580,7 @@
 									"          \"type\": \"string\"",
 									"        },",
 									"        \"phone\": {",
-									"          \"type\": \"integer\"",
+									"          \"type\": \"string\"",
 									"        }",
 									"    }",
 									"};",
@@ -519,7 +671,7 @@
 									"          \"type\": \"string\"",
 									"        },",
 									"        \"phone\": {",
-									"          \"type\": \"integer\"",
+									"          \"type\": \"string\"",
 									"        }",
 									"    }",
 									"};",
@@ -612,7 +764,7 @@
 									"",
 									"// Validate schema and check if objects variables match the values they should get.",
 									"var jsonData = JSON.parse(responseBody)",
-									"tests[\"Dish schema is valid\"] = tv4.validate(jsonData, dishSchema);"
+									"tests[\"Course schema is valid\"] = tv4.validate(jsonData, dishSchema);"
 								],
 								"type": "text/javascript"
 							}
@@ -673,7 +825,7 @@
 									"  ],",
 									"  \"properties\": {",
 									"    \"category\": {",
-									"      \"type\": \"integer\",",
+									"      \"type\": \"string\",",
 									"    },",
 									"    \"course_id\": {",
 									"      \"type\": \"integer\"",
@@ -692,7 +844,7 @@
 									"",
 									"// Validate schema and check if objects variables match the values they should get.",
 									"var jsonData = JSON.parse(responseBody)",
-									"tests[\"Dish schema is valid\"] = tv4.validate(jsonData, dishSchema);"
+									"tests[\"Course schema is valid\"] = tv4.validate(jsonData, dishSchema);"
 								],
 								"type": "text/javascript"
 							}
@@ -753,7 +905,7 @@
 									"  ],",
 									"  \"properties\": {",
 									"    \"category\": {",
-									"      \"type\": \"integer\",",
+									"      \"type\": \"string\",",
 									"    },",
 									"    \"course_id\": {",
 									"      \"type\": \"integer\"",
@@ -772,7 +924,7 @@
 									"",
 									"// Validate schema and check if objects variables match the values they should get.",
 									"var jsonData = JSON.parse(responseBody)",
-									"tests[\"Dish schema is valid\"] = tv4.validate(jsonData, dishSchema);"
+									"tests[\"Course schema is valid\"] = tv4.validate(jsonData, dishSchema);"
 								],
 								"type": "text/javascript"
 							}
@@ -833,7 +985,7 @@
 									"  ],",
 									"  \"properties\": {",
 									"    \"category\": {",
-									"      \"type\": \"integer\",",
+									"      \"type\": \"string\",",
 									"    },",
 									"    \"course_id\": {",
 									"      \"type\": \"integer\"",
@@ -852,7 +1004,7 @@
 									"",
 									"// Validate schema and check if objects variables match the values they should get.",
 									"var jsonData = JSON.parse(responseBody)",
-									"tests[\"Dish schema is valid\"] = tv4.validate(jsonData, dishSchema);"
+									"tests[\"Course schema is valid\"] = tv4.validate(jsonData, dishSchema);"
 								],
 								"type": "text/javascript"
 							}
@@ -942,7 +1094,7 @@
 									"      \"type\": \"string\"",
 									"    },",
 									"    \"discount\": {",
-									"      \"type\": \"double\"",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"order_delivered\": {",
 									"      \"type\": \"string\"",
@@ -954,7 +1106,7 @@
 									"      \"type\": \"integer\"",
 									"    },",
 									"    \"price\": {",
-									"      \"type\": \"integer\"",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"purchase_id\": {",
 									"      \"type\": \"integer\"",
@@ -966,14 +1118,14 @@
 									"      \"type\": \"integer\"",
 									"    },",
 									"    \"total_amount_payed\": {",
-									"      \"type\": \"integer\"",
+									"      \"type\": \"number\"",
 									"    }",
 									"  }",
 									"};",
 									"",
 									"// Validate schema and check if objects variables match the values they should get.",
 									"var jsonData = JSON.parse(responseBody)",
-									"tests[\"Order schema is valid\"] = tv4.validate(jsonData, orderSchema);"
+									"tests[\"Purchase schema is valid\"] = tv4.validate(jsonData, orderSchema);"
 								],
 								"type": "text/javascript"
 							}
@@ -1058,7 +1210,7 @@
 									"      \"type\": \"string\"",
 									"    },",
 									"    \"discount\": {",
-									"      \"type\": \"double\"",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"order_delivered\": {",
 									"      \"type\": \"string\"",
@@ -1070,7 +1222,7 @@
 									"      \"type\": \"integer\"",
 									"    },",
 									"    \"price\": {",
-									"      \"type\": \"integer\"",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"purchase_id\": {",
 									"      \"type\": \"integer\"",
@@ -1082,14 +1234,14 @@
 									"      \"type\": \"integer\"",
 									"    },",
 									"    \"total_amount_payed\": {",
-									"      \"type\": \"integer\"",
+									"      \"type\": \"number\"",
 									"    }",
 									"  }",
 									"};",
 									"",
 									"// Validate schema and check if objects variables match the values they should get.",
 									"var jsonData = JSON.parse(responseBody)",
-									"tests[\"Order schema is valid\"] = tv4.validate(jsonData, orderSchema);"
+									"tests[\"Purchase schema is valid\"] = tv4.validate(jsonData, orderSchema);"
 								],
 								"type": "text/javascript"
 							}
@@ -1174,7 +1326,7 @@
 									"      \"type\": \"string\"",
 									"    },",
 									"    \"discount\": {",
-									"      \"type\": \"double\"",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"order_delivered\": {",
 									"      \"type\": \"string\"",
@@ -1186,7 +1338,7 @@
 									"      \"type\": \"integer\"",
 									"    },",
 									"    \"price\": {",
-									"      \"type\": \"integer\"",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"purchase_id\": {",
 									"      \"type\": \"integer\"",
@@ -1198,14 +1350,14 @@
 									"      \"type\": \"integer\"",
 									"    },",
 									"    \"total_amount_payed\": {",
-									"      \"type\": \"integer\"",
+									"      \"type\": \"number\"",
 									"    }",
 									"  }",
 									"};",
 									"",
 									"// Validate schema and check if objects variables match the values they should get.",
 									"var jsonData = JSON.parse(responseBody)",
-									"tests[\"Order schema is valid\"] = tv4.validate(jsonData, orderSchema);"
+									"tests[\"Purchase schema is valid\"] = tv4.validate(jsonData, orderSchema);"
 								],
 								"type": "text/javascript"
 							}
@@ -1290,7 +1442,7 @@
 									"      \"type\": \"string\"",
 									"    },",
 									"    \"discount\": {",
-									"      \"type\": \"double\"",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"order_delivered\": {",
 									"      \"type\": \"string\"",
@@ -1302,7 +1454,7 @@
 									"      \"type\": \"integer\"",
 									"    },",
 									"    \"price\": {",
-									"      \"type\": \"integer\"",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"purchase_id\": {",
 									"      \"type\": \"integer\"",
@@ -1314,14 +1466,14 @@
 									"      \"type\": \"integer\"",
 									"    },",
 									"    \"total_amount_payed\": {",
-									"      \"type\": \"integer\"",
+									"      \"type\": \"number\"",
 									"    }",
 									"  }",
 									"};",
 									"",
 									"// Validate schema and check if objects variables match the values they should get.",
 									"var jsonData = JSON.parse(responseBody)",
-									"tests[\"Order schema is valid\"] = tv4.validate(jsonData, orderSchema);"
+									"tests[\"Purchase schema is valid\"] = tv4.validate(jsonData, orderSchema);"
 								],
 								"type": "text/javascript"
 							}
@@ -1406,7 +1558,7 @@
 									"      \"type\": \"string\"",
 									"    },",
 									"    \"discount\": {",
-									"      \"type\": \"double\"",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"order_delivered\": {",
 									"      \"type\": \"string\"",
@@ -1418,7 +1570,7 @@
 									"      \"type\": \"integer\"",
 									"    },",
 									"    \"price\": {",
-									"      \"type\": \"integer\"",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"purchase_id\": {",
 									"      \"type\": \"integer\"",
@@ -1430,14 +1582,14 @@
 									"      \"type\": \"integer\"",
 									"    },",
 									"    \"total_amount_payed\": {",
-									"      \"type\": \"integer\"",
+									"      \"type\": \"number\"",
 									"    }",
 									"  }",
 									"};",
 									"",
 									"// Validate schema and check if objects variables match the values they should get.",
 									"var jsonData = JSON.parse(responseBody)",
-									"tests[\"Order schema is valid\"] = tv4.validate(jsonData, orderSchema);"
+									"tests[\"Purchase schema is valid\"] = tv4.validate(jsonData, orderSchema);"
 								],
 								"type": "text/javascript"
 							}
@@ -1485,7 +1637,24 @@
 									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
 									"",
 									"// Check if objects variable(s) are present.",
-									"tests[\"Amount of purchases is present\"] = responseBody.has(\"amount_of_purchases\");"
+									"tests[\"Amount of purchases is present\"] = responseBody.has(\"amount_of_purchases\");",
+									"",
+									"// Define the JSON Schema",
+									"const orderSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"amount_of_purchases\"",
+									"  ],",
+									"  \"properties\": {",
+									"      \"amount_of_purchases\": {",
+									"          \"type\": \"integer\"",
+									"      }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Order schema is valid\"] = tv4.validate(jsonData, orderSchema);"
 								],
 								"type": "text/javascript"
 							}
@@ -1528,7 +1697,24 @@
 									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
 									"",
 									"// Check if objects variable(s) are present.",
-									"tests[\"Amount of purchases is present\"] = responseBody.has(\"amount_of_purchases\");"
+									"tests[\"Amount of purchases is present\"] = responseBody.has(\"amount_of_purchases\");",
+									"",
+									"// Define the JSON Schema",
+									"const orderSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"amount_of_purchases\"",
+									"  ],",
+									"  \"properties\": {",
+									"      \"amount_of_purchases\": {",
+									"          \"type\": \"integer\"",
+									"      }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Order schema is valid\"] = tv4.validate(jsonData, orderSchema);"
 								],
 								"type": "text/javascript"
 							}

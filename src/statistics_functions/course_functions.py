@@ -43,10 +43,10 @@ def get_course(course_id):
         else:
             course_info = {
                 "course_id": course_id,
-                "course_name": course[0],
-                "price": course[1],
-                "category": course[2],
-                "information": course[3]
+                "course_name": course[1],
+                "price": course[2],
+                "category": course[3],
+                "information": course[4]
             }
 
     except mysql.connector.Error as err:
