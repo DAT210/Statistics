@@ -104,6 +104,7 @@ def page_not_found(error):
 @app.errorhandler(500)
 def bad_request500(error):
     return render_template("500.html"), 500
+    
 
 if __name__ == "__main__":
     app.run(host=host)
