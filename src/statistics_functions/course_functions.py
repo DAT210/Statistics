@@ -35,25 +35,25 @@ def get_course(course_id):
     db = app.get_db()
     cur = db.cursor()
     try:
-        sql = "SELECT course_name, price, category, information FROM course WHERE course_id=%s;"
-        cur.execute(sql, (course_id))
+        sql = "SELECT * FROM course WHERE course_id=%s;"
+        cur.execute(sql, (course_id, ))
         course = cur.fetchone()
         if course == None:
             raise NameError("This dish_id doesn\'t exist in the database")
         else:
             course_info = {
                 "course_id": course_id,
-                "course_name": course[0],
-                "price": course[1],
-                "category": course[2],
-                "information": course[3]
+                "course_name": course[1],
+                "price": course[2],
+                "category": course[3],
+                "information": course[4]
             }
 
     except mysql.connector.Error as err:
         print("Oops, something went wrong:", err)
     finally:
         cur.close()
-    return json.dumps(course_info)
+    return course_info
 
 def get_course_lookup_dict():
     db = app.get_db()

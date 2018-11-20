@@ -30,7 +30,7 @@ def get_customer(customer_id):
         print("Oops, something went wrong:", err)
     finally:
         cur.close()
-    return json.dumps(customer_info)
+    return customer_info
 
 def get_all_customers():
     db = app.get_db()

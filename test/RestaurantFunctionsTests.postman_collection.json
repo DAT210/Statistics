@@ -1,0 +1,2348 @@
+{
+	"info": {
+		"_postman_id": "ef787abd-e2fb-4855-abda-dc9883389954",
+		"name": "Restaurant Functions Tests",
+		"description": "Hello",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get_all",
+			"item": [
+				{
+					"name": "get_all_customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "71f6ce44-5b52-4613-a1e6-05a61c1e2480",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 700;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Customers ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Customers first name is present\"] = responseBody.has(\"first_name\");",
+									"tests[\"Customers last name is present\"] = responseBody.has(\"last_name\");",
+									"tests[\"Customers email is present\"] = responseBody.has(\"email\");",
+									"tests[\"Customers phone is present\"] = responseBody.has(\"phone\");",
+									"tests[\"Customers birthdate is present\"] = responseBody.has(\"birthdate\");",
+									"tests[\"Customers address is present\"] = responseBody.has(\"address_id\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/customers/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"customers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_all_courses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b92f347-d685-405e-b932-f8ecaa445630",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Course ID is present\"] = responseBody.has(\"course_id\");",
+									"tests[\"Course name is present\"] = responseBody.has(\"course_name\");",
+									"tests[\"Course price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Course category is present\"] = responseBody.has(\"category\");",
+									"tests[\"Course information is present\"] = responseBody.has(\"information\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/courses/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"courses",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_all_purchases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5fcc0543-766e-44ea-9224-fd654b35d192",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Purchase ID is present\"] = responseBody.has(\"purchase_id\");",
+									"tests[\"Time of purchase is present\"] = responseBody.has(\"time_of_purchase\");",
+									"tests[\"Purchase price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Purchase order ready is present\"] = responseBody.has(\"order_ready\");",
+									"tests[\"Purchase order delivered is present\"] = responseBody.has(\"order_delivered\");",
+									"tests[\"Purchase delivery method is present\"] = responseBody.has(\"delivery_method\");",
+									"tests[\"Purchase address ID is present\"] = responseBody.has(\"address_id\");",
+									"tests[\"Purchase total price is present\"] = responseBody.has(\"total_amount_payed\");",
+									"tests[\"Purchase tips is present\"] = responseBody.has(\"tips\");",
+									"tests[\"Purchase discount is present\"] = responseBody.has(\"discount\");",
+									"tests[\"Purchase customer ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Purchase payment ID is present\"] = responseBody.has(\"payment_id\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/purchases/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"purchases",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "get_customer",
+			"item": [
+				{
+					"name": "get_customer_33",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b62d94a5-2668-4fb6-8d79-51ca1f175ed9",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Customers ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Customers first name is present\"] = responseBody.has(\"first_name\");",
+									"tests[\"Customers last name is present\"] = responseBody.has(\"last_name\");",
+									"tests[\"Customers email is present\"] = responseBody.has(\"email\");",
+									"tests[\"Customers phone is present\"] = responseBody.has(\"phone\");",
+									"tests[\"Customers birthdate is present\"] = responseBody.has(\"birthdate\");",
+									"tests[\"Customers address is present\"] = responseBody.has(\"address_id\");",
+									"",
+									"// Defined JSON Schema",
+									"const customerSchema = {",
+									"    \"type\": \"object\",",
+									"    \"required\": [",
+									"        \"address_id\",",
+									"        \"birthdate\",",
+									"        \"customer_id\",",
+									"        \"email\",",
+									"        \"first_name\",",
+									"        \"last_name\",",
+									"        \"phone\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"address_id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"birthdate\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"customer_id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"email\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"first_name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"last_name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"phone\": {",
+									"          \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"// Validate schema",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Customer schema is valid\"] = tv4.validate(jsonData, customerSchema);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/customers/33/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"customers",
+								"33",
+								""
+							]
+						},
+						"description": "Getting a specific customers details"
+					},
+					"response": []
+				},
+				{
+					"name": "get_customer_45",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "58c8d53d-e5b2-4ab4-9349-14065d95e55f",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Customers ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Customers first name is present\"] = responseBody.has(\"first_name\");",
+									"tests[\"Customers last name is present\"] = responseBody.has(\"last_name\");",
+									"tests[\"Customers email is present\"] = responseBody.has(\"email\");",
+									"tests[\"Customers phone is present\"] = responseBody.has(\"phone\");",
+									"tests[\"Customers birthdate is present\"] = responseBody.has(\"birthdate\");",
+									"tests[\"Customers address is present\"] = responseBody.has(\"address_id\");",
+									"",
+									"// Defined JSON Schema",
+									"const customerSchema = {",
+									"    \"type\": \"object\",",
+									"    \"required\": [",
+									"        \"address_id\",",
+									"        \"birthdate\",",
+									"        \"customer_id\",",
+									"        \"email\",",
+									"        \"first_name\",",
+									"        \"last_name\",",
+									"        \"phone\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"address_id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"birthdate\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"customer_id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"email\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"first_name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"last_name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"phone\": {",
+									"          \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"// Validate schema",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Customer schema is valid\"] = tv4.validate(jsonData, customerSchema);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/customers/45/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"customers",
+								"45",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_customer_22",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0150eeb9-a051-41d6-93b5-ac15e517454c",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Customers ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Customers first name is present\"] = responseBody.has(\"first_name\");",
+									"tests[\"Customers last name is present\"] = responseBody.has(\"last_name\");",
+									"tests[\"Customers email is present\"] = responseBody.has(\"email\");",
+									"tests[\"Customers phone is present\"] = responseBody.has(\"phone\");",
+									"tests[\"Customers birthdate is present\"] = responseBody.has(\"birthdate\");",
+									"tests[\"Customers address is present\"] = responseBody.has(\"address_id\");",
+									"",
+									"// Defined JSON Schema",
+									"const customerSchema = {",
+									"    \"type\": \"object\",",
+									"    \"required\": [",
+									"        \"address_id\",",
+									"        \"birthdate\",",
+									"        \"customer_id\",",
+									"        \"email\",",
+									"        \"first_name\",",
+									"        \"last_name\",",
+									"        \"phone\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"address_id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"birthdate\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"customer_id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"email\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"first_name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"last_name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"phone\": {",
+									"          \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"// Validate schema",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Customer schema is valid\"] = tv4.validate(jsonData, customerSchema);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/customers/22/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"customers",
+								"22",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_customer_14",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fdec50af-4917-47d9-9e05-12b431720a34",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Customers ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Customers first name is present\"] = responseBody.has(\"first_name\");",
+									"tests[\"Customers last name is present\"] = responseBody.has(\"last_name\");",
+									"tests[\"Customers email is present\"] = responseBody.has(\"email\");",
+									"tests[\"Customers phone is present\"] = responseBody.has(\"phone\");",
+									"tests[\"Customers birthdate is present\"] = responseBody.has(\"birthdate\");",
+									"tests[\"Customers address is present\"] = responseBody.has(\"address_id\");",
+									"",
+									"// Defined JSON Schema",
+									"const customerSchema = {",
+									"    \"type\": \"object\",",
+									"    \"required\": [",
+									"        \"address_id\",",
+									"        \"birthdate\",",
+									"        \"customer_id\",",
+									"        \"email\",",
+									"        \"first_name\",",
+									"        \"last_name\",",
+									"        \"phone\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"address_id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"birthdate\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"customer_id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"email\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"first_name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"last_name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"phone\": {",
+									"          \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"// Validate schema",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Customer schema is valid\"] = tv4.validate(jsonData, customerSchema);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/customers/14/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"customers",
+								"14",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_customer_47",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8c7a511b-efe6-43c6-8286-1458f1541bf3",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Customers ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Customers first name is present\"] = responseBody.has(\"first_name\");",
+									"tests[\"Customers last name is present\"] = responseBody.has(\"last_name\");",
+									"tests[\"Customers email is present\"] = responseBody.has(\"email\");",
+									"tests[\"Customers phone is present\"] = responseBody.has(\"phone\");",
+									"tests[\"Customers birthdate is present\"] = responseBody.has(\"birthdate\");",
+									"tests[\"Customers address is present\"] = responseBody.has(\"address_id\");",
+									"",
+									"// Defined JSON Schema",
+									"const customerSchema = {",
+									"    \"type\": \"object\",",
+									"    \"required\": [",
+									"        \"address_id\",",
+									"        \"birthdate\",",
+									"        \"customer_id\",",
+									"        \"email\",",
+									"        \"first_name\",",
+									"        \"last_name\",",
+									"        \"phone\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"address_id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"birthdate\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"customer_id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"email\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"first_name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"last_name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"phone\": {",
+									"          \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"// Validate schema",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Customer schema is valid\"] = tv4.validate(jsonData, customerSchema);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/customers/47/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"customers",
+								"47",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_customer_6",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29b2820b-3f77-4453-a704-2083195d1b31",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Customers ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Customers first name is present\"] = responseBody.has(\"first_name\");",
+									"tests[\"Customers last name is present\"] = responseBody.has(\"last_name\");",
+									"tests[\"Customers email is present\"] = responseBody.has(\"email\");",
+									"tests[\"Customers phone is present\"] = responseBody.has(\"phone\");",
+									"tests[\"Customers birthdate is present\"] = responseBody.has(\"birthdate\");",
+									"tests[\"Customers address is present\"] = responseBody.has(\"address_id\");",
+									"",
+									"// Defined JSON Schema",
+									"const customerSchema = {",
+									"    \"type\": \"object\",",
+									"    \"required\": [",
+									"        \"address_id\",",
+									"        \"birthdate\",",
+									"        \"customer_id\",",
+									"        \"email\",",
+									"        \"first_name\",",
+									"        \"last_name\",",
+									"        \"phone\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"address_id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"birthdate\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"customer_id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"email\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"first_name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"last_name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"phone\": {",
+									"          \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"// Validate schema",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Customer schema is valid\"] = tv4.validate(jsonData, customerSchema);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/customers/6/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"customers",
+								"6",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "get_course",
+			"item": [
+				{
+					"name": "get_course_3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "df7727f0-330d-4069-8290-bb2e6e935694",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Course ID is present\"] = responseBody.has(\"course_id\");",
+									"tests[\"Course name is present\"] = responseBody.has(\"course_name\");",
+									"tests[\"Course price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Course category is present\"] = responseBody.has(\"category\");",
+									"tests[\"Course information is present\"] = responseBody.has(\"information\");",
+									"",
+									"// Define the JSON Schema",
+									"const dishSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"category\",",
+									"    \"course_id\",",
+									"    \"course_name\",",
+									"    \"information\",",
+									"    \"price\"",
+									"  ],",
+									"  \"properties\": {",
+									"    \"category\": {",
+									"      \"type\": \"string\",",
+									"    },",
+									"    \"course_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"course_name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"information\": {",
+									"        \"type\": \"string\"",
+									"    },",
+									"    \"price\": {",
+									"        \"type\": \"integer\"",
+									"  }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Course schema is valid\"] = tv4.validate(jsonData, dishSchema);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/courses/3/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"courses",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_course_8",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "df7727f0-330d-4069-8290-bb2e6e935694",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Course ID is present\"] = responseBody.has(\"course_id\");",
+									"tests[\"Course name is present\"] = responseBody.has(\"course_name\");",
+									"tests[\"Course price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Course category is present\"] = responseBody.has(\"category\");",
+									"tests[\"Course information is present\"] = responseBody.has(\"information\");",
+									"",
+									"// Define the JSON Schema",
+									"const dishSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"category\",",
+									"    \"course_id\",",
+									"    \"course_name\",",
+									"    \"information\",",
+									"    \"price\"",
+									"  ],",
+									"  \"properties\": {",
+									"    \"category\": {",
+									"      \"type\": \"string\",",
+									"    },",
+									"    \"course_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"course_name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"information\": {",
+									"        \"type\": \"string\"",
+									"    },",
+									"    \"price\": {",
+									"        \"type\": \"integer\"",
+									"  }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Course schema is valid\"] = tv4.validate(jsonData, dishSchema);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/courses/8/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"courses",
+								"8",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_course_5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3ccf669f-77be-4c3e-abba-7871ab0cbbd5",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Course ID is present\"] = responseBody.has(\"course_id\");",
+									"tests[\"Course name is present\"] = responseBody.has(\"course_name\");",
+									"tests[\"Course price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Course category is present\"] = responseBody.has(\"category\");",
+									"tests[\"Course information is present\"] = responseBody.has(\"information\");",
+									"",
+									"// Define the JSON Schema",
+									"const dishSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"category\",",
+									"    \"course_id\",",
+									"    \"course_name\",",
+									"    \"information\",",
+									"    \"price\"",
+									"  ],",
+									"  \"properties\": {",
+									"    \"category\": {",
+									"      \"type\": \"string\",",
+									"    },",
+									"    \"course_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"course_name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"information\": {",
+									"        \"type\": \"string\"",
+									"    },",
+									"    \"price\": {",
+									"        \"type\": \"integer\"",
+									"  }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Course schema is valid\"] = tv4.validate(jsonData, dishSchema);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/courses/5/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"courses",
+								"5",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_course_1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "033fed22-7f25-46cc-82cc-7278141a1b98",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Course ID is present\"] = responseBody.has(\"course_id\");",
+									"tests[\"Course name is present\"] = responseBody.has(\"course_name\");",
+									"tests[\"Course price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Course category is present\"] = responseBody.has(\"category\");",
+									"tests[\"Course information is present\"] = responseBody.has(\"information\");",
+									"",
+									"// Define the JSON Schema",
+									"const dishSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"category\",",
+									"    \"course_id\",",
+									"    \"course_name\",",
+									"    \"information\",",
+									"    \"price\"",
+									"  ],",
+									"  \"properties\": {",
+									"    \"category\": {",
+									"      \"type\": \"string\",",
+									"    },",
+									"    \"course_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"course_name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"information\": {",
+									"        \"type\": \"string\"",
+									"    },",
+									"    \"price\": {",
+									"        \"type\": \"integer\"",
+									"  }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Course schema is valid\"] = tv4.validate(jsonData, dishSchema);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/courses/1/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"courses",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "get_purchase",
+			"item": [
+				{
+					"name": "get_purchase_67",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e5688c60-3a19-45af-939e-0620a0fa5964",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Purchase ID is present\"] = responseBody.has(\"purchase_id\");",
+									"tests[\"Time of purchase is present\"] = responseBody.has(\"time_of_purchase\");",
+									"tests[\"Purchase price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Purchase order ready is present\"] = responseBody.has(\"order_ready\");",
+									"tests[\"Purchase order delivered is present\"] = responseBody.has(\"order_delivered\");",
+									"tests[\"Purchase delivery method is present\"] = responseBody.has(\"delivery_method\");",
+									"tests[\"Purchase address ID is present\"] = responseBody.has(\"address_id\");",
+									"tests[\"Purchase total price is present\"] = responseBody.has(\"total_amount_payed\");",
+									"tests[\"Purchase tips is present\"] = responseBody.has(\"tips\");",
+									"tests[\"Purchase discount is present\"] = responseBody.has(\"discount\");",
+									"tests[\"Purchase customer ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Purchase payment ID is present\"] = responseBody.has(\"payment_id\");",
+									"",
+									"",
+									"// Define the JSON Schema",
+									"const orderSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"address_id\",",
+									"    \"customer_id\",",
+									"    \"delivery_method\",",
+									"    \"discount\",",
+									"    \"order_delivered\",",
+									"    \"order_ready\",",
+									"    \"payment_id\",",
+									"    \"price\",",
+									"    \"purchase_id\",",
+									"    \"time_of_purchase\",",
+									"    \"tips\",",
+									"    \"total_amount_payed\"",
+									"  ],",
+									"  \"properties\": {",
+									"    \"address_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"customer_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"delivery_method\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"discount\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"order_delivered\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order_ready\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"payment_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"price\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"purchase_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"time_of_purchase\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"tips\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"total_amount_payed\": {",
+									"      \"type\": \"number\"",
+									"    }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Purchase schema is valid\"] = tv4.validate(jsonData, orderSchema);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/purchases/67/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"purchases",
+								"67",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_purchase_34",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "69058d71-9c84-4202-a2d0-997b7418c531",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Purchase ID is present\"] = responseBody.has(\"purchase_id\");",
+									"tests[\"Time of purchase is present\"] = responseBody.has(\"time_of_purchase\");",
+									"tests[\"Purchase price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Purchase order ready is present\"] = responseBody.has(\"order_ready\");",
+									"tests[\"Purchase order delivered is present\"] = responseBody.has(\"order_delivered\");",
+									"tests[\"Purchase delivery method is present\"] = responseBody.has(\"delivery_method\");",
+									"tests[\"Purchase address ID is present\"] = responseBody.has(\"address_id\");",
+									"tests[\"Purchase total price is present\"] = responseBody.has(\"total_amount_payed\");",
+									"tests[\"Purchase tips is present\"] = responseBody.has(\"tips\");",
+									"tests[\"Purchase discount is present\"] = responseBody.has(\"discount\");",
+									"tests[\"Purchase customer ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Purchase payment ID is present\"] = responseBody.has(\"payment_id\");",
+									"",
+									"",
+									"// Define the JSON Schema",
+									"const orderSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"address_id\",",
+									"    \"customer_id\",",
+									"    \"delivery_method\",",
+									"    \"discount\",",
+									"    \"order_delivered\",",
+									"    \"order_ready\",",
+									"    \"payment_id\",",
+									"    \"price\",",
+									"    \"purchase_id\",",
+									"    \"time_of_purchase\",",
+									"    \"tips\",",
+									"    \"total_amount_payed\"",
+									"  ],",
+									"  \"properties\": {",
+									"    \"address_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"customer_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"delivery_method\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"discount\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"order_delivered\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order_ready\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"payment_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"price\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"purchase_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"time_of_purchase\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"tips\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"total_amount_payed\": {",
+									"      \"type\": \"number\"",
+									"    }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Purchase schema is valid\"] = tv4.validate(jsonData, orderSchema);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/purchases/34/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"purchases",
+								"34",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_purchase_55",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d1466fc1-8a15-421f-b9c6-58f3b21d7185",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Purchase ID is present\"] = responseBody.has(\"purchase_id\");",
+									"tests[\"Time of purchase is present\"] = responseBody.has(\"time_of_purchase\");",
+									"tests[\"Purchase price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Purchase order ready is present\"] = responseBody.has(\"order_ready\");",
+									"tests[\"Purchase order delivered is present\"] = responseBody.has(\"order_delivered\");",
+									"tests[\"Purchase delivery method is present\"] = responseBody.has(\"delivery_method\");",
+									"tests[\"Purchase address ID is present\"] = responseBody.has(\"address_id\");",
+									"tests[\"Purchase total price is present\"] = responseBody.has(\"total_amount_payed\");",
+									"tests[\"Purchase tips is present\"] = responseBody.has(\"tips\");",
+									"tests[\"Purchase discount is present\"] = responseBody.has(\"discount\");",
+									"tests[\"Purchase customer ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Purchase payment ID is present\"] = responseBody.has(\"payment_id\");",
+									"",
+									"",
+									"// Define the JSON Schema",
+									"const orderSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"address_id\",",
+									"    \"customer_id\",",
+									"    \"delivery_method\",",
+									"    \"discount\",",
+									"    \"order_delivered\",",
+									"    \"order_ready\",",
+									"    \"payment_id\",",
+									"    \"price\",",
+									"    \"purchase_id\",",
+									"    \"time_of_purchase\",",
+									"    \"tips\",",
+									"    \"total_amount_payed\"",
+									"  ],",
+									"  \"properties\": {",
+									"    \"address_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"customer_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"delivery_method\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"discount\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"order_delivered\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order_ready\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"payment_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"price\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"purchase_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"time_of_purchase\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"tips\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"total_amount_payed\": {",
+									"      \"type\": \"number\"",
+									"    }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Purchase schema is valid\"] = tv4.validate(jsonData, orderSchema);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/purchases/55/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"purchases",
+								"55",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_purchase_20",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f9ca6c11-d817-4107-9f89-3e6cdc012411",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Purchase ID is present\"] = responseBody.has(\"purchase_id\");",
+									"tests[\"Time of purchase is present\"] = responseBody.has(\"time_of_purchase\");",
+									"tests[\"Purchase price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Purchase order ready is present\"] = responseBody.has(\"order_ready\");",
+									"tests[\"Purchase order delivered is present\"] = responseBody.has(\"order_delivered\");",
+									"tests[\"Purchase delivery method is present\"] = responseBody.has(\"delivery_method\");",
+									"tests[\"Purchase address ID is present\"] = responseBody.has(\"address_id\");",
+									"tests[\"Purchase total price is present\"] = responseBody.has(\"total_amount_payed\");",
+									"tests[\"Purchase tips is present\"] = responseBody.has(\"tips\");",
+									"tests[\"Purchase discount is present\"] = responseBody.has(\"discount\");",
+									"tests[\"Purchase customer ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Purchase payment ID is present\"] = responseBody.has(\"payment_id\");",
+									"",
+									"",
+									"// Define the JSON Schema",
+									"const orderSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"address_id\",",
+									"    \"customer_id\",",
+									"    \"delivery_method\",",
+									"    \"discount\",",
+									"    \"order_delivered\",",
+									"    \"order_ready\",",
+									"    \"payment_id\",",
+									"    \"price\",",
+									"    \"purchase_id\",",
+									"    \"time_of_purchase\",",
+									"    \"tips\",",
+									"    \"total_amount_payed\"",
+									"  ],",
+									"  \"properties\": {",
+									"    \"address_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"customer_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"delivery_method\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"discount\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"order_delivered\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order_ready\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"payment_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"price\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"purchase_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"time_of_purchase\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"tips\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"total_amount_payed\": {",
+									"      \"type\": \"number\"",
+									"    }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Purchase schema is valid\"] = tv4.validate(jsonData, orderSchema);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/purchases/20/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"purchases",
+								"20",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_purchase_8",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e56050ef-7eea-4c59-b6ee-1ff904ba570e",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variables are present.",
+									"tests[\"Purchase ID is present\"] = responseBody.has(\"purchase_id\");",
+									"tests[\"Time of purchase is present\"] = responseBody.has(\"time_of_purchase\");",
+									"tests[\"Purchase price is present\"] = responseBody.has(\"price\");",
+									"tests[\"Purchase order ready is present\"] = responseBody.has(\"order_ready\");",
+									"tests[\"Purchase order delivered is present\"] = responseBody.has(\"order_delivered\");",
+									"tests[\"Purchase delivery method is present\"] = responseBody.has(\"delivery_method\");",
+									"tests[\"Purchase address ID is present\"] = responseBody.has(\"address_id\");",
+									"tests[\"Purchase total price is present\"] = responseBody.has(\"total_amount_payed\");",
+									"tests[\"Purchase tips is present\"] = responseBody.has(\"tips\");",
+									"tests[\"Purchase discount is present\"] = responseBody.has(\"discount\");",
+									"tests[\"Purchase customer ID is present\"] = responseBody.has(\"customer_id\");",
+									"tests[\"Purchase payment ID is present\"] = responseBody.has(\"payment_id\");",
+									"",
+									"",
+									"// Define the JSON Schema",
+									"const orderSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"address_id\",",
+									"    \"customer_id\",",
+									"    \"delivery_method\",",
+									"    \"discount\",",
+									"    \"order_delivered\",",
+									"    \"order_ready\",",
+									"    \"payment_id\",",
+									"    \"price\",",
+									"    \"purchase_id\",",
+									"    \"time_of_purchase\",",
+									"    \"tips\",",
+									"    \"total_amount_payed\"",
+									"  ],",
+									"  \"properties\": {",
+									"    \"address_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"customer_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"delivery_method\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"discount\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"order_delivered\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"order_ready\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"payment_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"price\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"purchase_id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"time_of_purchase\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"tips\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"total_amount_payed\": {",
+									"      \"type\": \"number\"",
+									"    }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Purchase schema is valid\"] = tv4.validate(jsonData, orderSchema);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/purchases/8/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"purchases",
+								"8",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "get_purchase_on_date",
+			"item": [
+				{
+					"name": "get_purchases_on_date_180801",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "020031ad-0093-4d6a-802f-0cc24b991b21",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variable(s) are present.",
+									"tests[\"Amount of purchases is present\"] = responseBody.has(\"amount_of_purchases\");",
+									"",
+									"// Define the JSON Schema",
+									"const orderSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"amount_of_purchases\"",
+									"  ],",
+									"  \"properties\": {",
+									"      \"amount_of_purchases\": {",
+									"          \"type\": \"integer\"",
+									"      }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Order schema is valid\"] = tv4.validate(jsonData, orderSchema);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/purchases/18-08-01/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"purchases",
+								"18-08-01",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_purchase_on_date_180909",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d43d33d2-6af1-435e-ae66-95c111617adf",
+								"exec": [
+									"// Check status code, acceptable response time and if content-type is in header.",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response time is acceptable: \"+responseTime+ \"ms\"] = responseTime < 600;",
+									"tests[\"Content-Type header is set as application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+									"",
+									"// Check if objects variable(s) are present.",
+									"tests[\"Amount of purchases is present\"] = responseBody.has(\"amount_of_purchases\");",
+									"",
+									"// Define the JSON Schema",
+									"const orderSchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [",
+									"    \"amount_of_purchases\"",
+									"  ],",
+									"  \"properties\": {",
+									"      \"amount_of_purchases\": {",
+									"          \"type\": \"integer\"",
+									"      }",
+									"  }",
+									"};",
+									"",
+									"// Validate schema and check if objects variables match the values they should get.",
+									"var jsonData = JSON.parse(responseBody)",
+									"tests[\"Order schema is valid\"] = tv4.validate(jsonData, orderSchema);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/statistics/purchases/18-09-09/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"purchases",
+								"18-09-09",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "post_input",
+			"item": [
+				{
+					"name": "input new_review",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"input_type\": \"new_review\",\n\t\"review_id\": \"999\",\n\t\"course_id\": \"10\",\n\t\"review_text\": \"new_review 999\",\n\t\"score\": \"10\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_course",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_course\",\n    \"course_id\": \"999\",\n    \"course_name\": \"example_course_name\",\n    \"price\": \"123\",\n    \"category\": \"example_category\",\n    \"information\": \"example_info\",\n    \"ingredient_ids\": [\"1\", \"2\", \"3\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_customer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_customer\",\n    \"customer_id\": \"999\",\n    \"first_name\": \"f_name\",\n    \"last_name\": \"l_name\",\n    \"email\": \"example@mail.com\",\n    \"phone\": \"12345678\",\n    \"birthdate\": \"2000-01-01\",\n    \"address_id\": \"10\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_booking",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_booking\",\n    \"booking_id\": \"999\",\n    \"restaurant_id\": \"1\",\n    \"table_id\": \"1\",\n    \"booking_date\": \"2019-01-01\",\n    \"booking_length\": \"2\",\n    \"no_of_seats\": \"2\",\n    \"customer_id\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_employee",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_employee\",\n    \"employee_id\": \"999\",\n    \"first_name\": \"first_name\",\n    \"last_name\": \"last_name\",\n    \"email\": \"example@mail.com\",\n    \"phone\": \"12345678\",\n    \"birthdate\": \"1990-01-01\",\n    \"address_id\": \"1\",\n    \"restaurant_id\": \"1\",\n    \"salary\": \"166.6\",\n    \"start_date\": \"2019-01-01\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_completed_purchase",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_completed_purchase\",\n    \"purchase_id\": \"999\",\n    \"purchase_time\": \"2019-01-01 00:00:00\",\n    \"price\": \"1234\",\n    \"delivery_method\": \"bicycle\",\n    \"address_id\": \"1\",\n    \"amount\": \"1324\",\n    \"tips\": \"50\",\n    \"discount\": \"90\",\n    \"customer_id\": \"1\",\n    \"payment_id\" : \"1\",\n    \"course_ids_with_quantity\": [[\"10\",\"50\"],[\"11\",\"50\"]]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_ingredient",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_ingredient\",\n    \"ingredient_id\": \"999\",\n    \"ingredient_name\": \"salt\",\n    \"quantity_in_stock\": \"50\",\n    \"allergene_ids_and_names\": [[\"998\",\"gluten\"],[\"999\", \"milk\"]]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input update_order_ready_time",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"update_order_ready_time\",\n    \"purchase_id\": \"999\",\n    \"order_ready_time\": \"2019-01-01 00:00:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input update_delivery_finished_time",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"update_delivery_finished_time\",\n    \"purchase_id\": \"999\",\n    \"order_delivered_time\": \"2019-01-01 00:30:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_address",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_address\",\n    \"address_id\": \"999\",\n    \"city\": \"example_city\",\n    \"postcode\": \"1234\",\n    \"street_name\": \"example_street\",\n    \"street_number\": \"10\",\n    \"apartment_number\": \"10\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input new_restaurant",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de05808a-7bd1-4cee-b249-74a66dd6f5b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9abae40e-2d23-43bd-8e47-d825d4600191",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"new_restaurant\",\n    \"restaurant_id\": \"999\",\n    \"restaurant_name\": \"example_restaurant_name\",\n    \"phone\": \"12345678\",\n    \"address_id\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input update_ingredient_quantity_in_stock",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input_type\": \"update_ingredient_quantity_in_stock\",\n    \"ingredient_id\": \"999\",\n    \"quantity_in_stock\": \"99\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/statistics/input",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"statistics",
+								"input"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
