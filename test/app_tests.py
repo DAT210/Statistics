@@ -26,25 +26,25 @@ class TestAPIMethods(unittest.TestCase):
         self.assertEqual(500, info.status_code)
     
     def test_dish_path(self):        
-        info = requests.get("http://127.0.0.1:5000/statistics/dish/")
+        info = requests.get("http://127.0.0.1:5000/statistics/courses/")
         self.assertEqual(200, info.status_code)
     
     def test_dish_info_path(self):
-        info = requests.get("http://127.0.0.1:5000/statistics/dish/1")
+        info = requests.get("http://127.0.0.1:5000/statistics/courses/1")
         self.assertEqual(200, info.status_code)
 
-        info = requests.get("http://127.0.0.1:5000/statistics/dish/99999")
+        info = requests.get("http://127.0.0.1:5000/statistics/courses/99999")
         self.assertEqual(500, info.status_code)
 
     def test_order_path(self):        
-        info = requests.get("http://127.0.0.1:5000/statistics/orders/")
+        info = requests.get("http://127.0.0.1:5000/statistics/purchases/")
         self.assertEqual(200, info.status_code)
     
     def test_order_info_path(self):
-        info = requests.get("http://127.0.0.1:5000/statistics/orders/1")
+        info = requests.get("http://127.0.0.1:5000/statistics/purchases/1")
         self.assertEqual(200, info.status_code)
 
-        info = requests.get("http://127.0.0.1:5000/statistics/orders/66666")
+        info = requests.get("http://127.0.0.1:5000/statistics/purchases/66666")
         self.assertEqual(500, info.status_code)
 
 
