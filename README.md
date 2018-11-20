@@ -101,18 +101,11 @@ python app.py
 This will run the server as a localhost at the default port number, 5000.
 
 
-### Deploying / Publishing ##TODO
-Give instructions on how to build and release a new version
-In case there's some step you have to take that publishes this project to a
-server, this is the right time to state it.
+### Deploying / Publishing
+Deployment of the code will happen automatically when new versions are pushed to default branch (dev).
+An Azure pipeline will then trigger a build pipeline that will push a new image which will be deployed at https://dat210statistics.azurewebsites.net/
 
-```shell
-packagemanager deploy your-project -s server.com -u username -p password
-```
-
-And again you'd need to tell what the previous code actually does.
-
-### Tests ##TODO
+### Tests
 Run these commands on your shell/terminal to run the postman tests which tests the GET and POST functions of our API to see if the routes works as it should.  
 You need to have the local web server running. 
 To run the tests on your CLI you will need Newman, which is a command line Collection Runner for Postman. Newman is built on Node.js, so make sure your have [Node.js](https://nodejs.org/en/download/) installed as well. Check out this [link](https://www.getpostman.com/docs/v6/postman/collection_runs/command_line_integration_with_newman#options) for some more details on how to run the collection with flags.  
