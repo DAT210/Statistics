@@ -98,7 +98,7 @@ def get_purchase(purchase_id):
         else:
             purchase_info = {
                 "purchase_id": purchase[0],
-                "time_of_purchase": str(purchase[1]),
+                "time_of_purchase": purchase[1].isoformat(),
                 "price": purchase[2],
                 "order_ready": purchase[3].isoformat(),
                 "order_delivered": purchase[4].isoformat(),
