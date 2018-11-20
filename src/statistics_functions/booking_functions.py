@@ -80,8 +80,8 @@ def ingredients_per_restaurant_stock():
                 }
                 stock.append(new)
             all_stocks[restaurant_id[0]] = stock
-        if len(stock) <= 0:
-            print("No stocks in our database")
+            if len(stock) <= 0:
+                print("No stocks in our database")
     except mysql.connector.Error as err:
         print("Oops, something went wrong:", err)
     finally:
