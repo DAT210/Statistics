@@ -71,7 +71,7 @@ Output will be a JSON object containing data from db corresponding to your reque
 |courses/<int:course_id>|Get the course with the specified course_id|
 
 #### OpenAPI documentation
-OpenAPI documentation are found [here](https://github.com/DAT210/Statistics/blob/dev/src/openapi.yaml).
+[Docs](https://github.com/DAT210/Statistics/blob/dev/src/openapi.yaml).
 
 ### Setting up dev
 If you want to develop this project further, you need to have Python3 and MySQL installed on your machine (as stated in the wuick start guide). If you do not have Python3, easiest way to get it is by installing [Anaconda](https://www.anaconda.com/download). Look at [MySQL's official website](https://dev.mysql.com/doc/refman/8.0/en/installing.html) for guide on how to install if you need.
