@@ -71,10 +71,10 @@ Output will be a JSON object containing data from db corresponding to your reque
 |courses/<int:course_id>|Get the course with the specified course_id|
 
 #### OpenAPI documentation
-https://github.com/DAT210/Statistics/blob/dev/src/openapi.yaml
+OpenAPI documentation are found [here](https://github.com/DAT210/Statistics/blob/dev/src/openapi.yaml).
 
 ### Setting up dev
-If you want to develop this project further, you need to have Python3 and MySQL installed on your machine (as stated in the wuick start guide). If you do not have Python3, easiest way to get it is by installing the Anaconda distribution (https://www.anaconda.com/download). Look at MySQL's official website for guide on how to install if you don't have this either(https://dev.mysql.com/doc/refman/8.0/en/installing.html).
+If you want to develop this project further, you need to have Python3 and MySQL installed on your machine (as stated in the wuick start guide). If you do not have Python3, easiest way to get it is by installing [Anaconda](https://www.anaconda.com/download). Look at [MySQL's official website](https://dev.mysql.com/doc/refman/8.0/en/installing.html) for guide on how to install if you need.
 
 Next step is to run these commands in cmd or terminal to clone git repo and install needed Python packages.
 ```shell
@@ -103,7 +103,7 @@ This will run the server as a localhost at the default port number, 5000.
 
 ### Deploying / Publishing
 Deployment of the code will happen automatically when new versions are pushed to default branch (dev).
-An Azure pipeline will then trigger a build pipeline that will push a new image which will be deployed at https://dat210statistics.azurewebsites.net/
+An Azure pipeline will then trigger a build pipeline that will push a new image which will be deployed [here](https://dat210statistics.azurewebsites.net).
 
 ### Tests
 Run these commands on your shell/terminal to run the postman tests which tests the GET and POST functions of our API to see if the routes works as it should.  
