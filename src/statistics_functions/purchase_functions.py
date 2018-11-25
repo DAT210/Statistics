@@ -77,7 +77,6 @@ def courses_sold():
                 "amount_sold": count
             }
             total_sold.append(course)
-        print(total_sold)
     except mysql.connector.Error as err:
         print("Oops, something went wrong:", err)
     finally:

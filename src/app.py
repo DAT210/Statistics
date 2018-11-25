@@ -42,9 +42,14 @@ def teardown_db(error):
         db.close()
 
 # Front end client routes and functions
-@app.route("/statistics/")
+@app.route("/")
 def index():
-    return render_template("index.html")
+        return redirect(url_for("charts"))
+
+# Uncomment and remove app route above to include dashboard page
+# @app.route("/")
+# def index():
+#     return render_template("index.html")
 
 @app.route("/statistics/charts/")
 def charts():
@@ -88,7 +93,7 @@ def show_dishes(course_id):
     return jsonify(course_functions.get_course(course_id))
 
 # Input route
-@app.route("/statistics/input", methods=["POST"]) #After testing, set with "methods=["POST"]"
+@app.route("/statistics/input", methods=["POST"])
 def input():
 	json_content = request.get_json()
 	json_content = json.dumps(json_content)
