@@ -1,6 +1,6 @@
 ![Logo of the project](https://kit8.net/images/thumbnails/700/525/detailed/1/Graph.png)
 
-# Statistics &middot;[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
+# Statistics [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
 
 > Statistics service for restaurant project
 
